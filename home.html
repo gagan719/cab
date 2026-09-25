@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instant Cab | Fast & Fixed Fare</title>
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚕</text></svg>" />
++
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            <span>🚕</span>
+            <div>
+                <h2>Instant Cab</h2>
+                <small>Ride. Relax. Reach.</small>
+            </div>
+        </div>
+
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="fixed-prices.html">Fixed Prices</a>
+            <a href="packages.html">Packages</a>
+            <a href="local-ride.html">Local Ride</a>
+            
+        </nav>
+
+        <div>
+        <button class="header-btn" onclick="scrollToBooking()">
+            Book Now
+        </button>
+        <button class="header-btn" onclick="window.location.href='login.html'">
+            login
+        </button>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <span class="tag">🚗 SIMPLE • SAFE • FIXED PRICE</span>
+
+            <h1>
+                Your Journey,
+                <span>Our Responsibility</span>
+            </h1>
+
+            <p>
+                Book comfortable rides with transparent fixed fares,
+                package plans, local rides and parcel delivery.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="scrollToBooking()">
+                    🚕 Book a Ride
+                </button>
+
+                <button class="secondary-btn" onclick="showOffers()">
+                    🎁 View Offers
+                </button>
+            </div>
+    </section>
+
+
+    <!-- BOOKING SECTION -->
+    <section class="booking-section" id="booking">
+
+        <div class="section-title">
+            <span>BOOK YOUR RIDE</span>
+            <h2>Where do you want to go?</h2>
+            <p>Enter your trip details and get your fare instantly.</p>
+        </div>
+
+
+        <div class="booking-box">
+
+            <!-- RIDE TYPE -->
+            <div class="ride-types">
+
+                <button class="ride-option active" data-type="oneway">
+                    🚕 One Way
+                </button>
+
+                <button class="ride-option" data-type="roundtrip">
+                    🔄 Round Trip
+                </button>
+
+                <button class="ride-option" data-type="local">
+                    📍 Local > 20 KM
+                </button>
+
+            </div>
+
+
+            <!-- FORM -->
+            <div class="booking-form">
+
+                <div class="field">
+                    <label>📍 Pickup Location</label>
+                    <input
+                        type="text"
+                        id="pickup"
+                        placeholder="Enter pickup location"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>🏁 Destination</label>
+                    <input
+                        type="text"
+                        id="destination"
+                        placeholder="Enter destination"
+                    >
+                </div>
+
+                <div class="field">
+                    <label>📅 Travel Date</label>
+                    <input type="date" id="travelDate">
+                </div>
+
+                <div class="field">
+                    <label>⏰ Travel Time</label>
+                    <input type="time" id="travelTime">
+                </div>
+
+            </div>
+
+
+            <!-- RETURN DATE -->
+            <div class="return-date" id="returnDateBox">
+
+                <label>🔄 Return Date</label>
+
+                <input type="date" id="returnDate">
+
+            </div>
+
+
+            <!-- CAB SELECTION -->
+            <h3 class="sub-heading">Choose Your Cab</h3>
+
+            <div class="cab-list">
+
+                <div class="cab-card selected" data-price="899">
+
+                    <div class="cab-icon">🚗</div>
+
+                    <div>
+                        <h3>Sedan</h3>
+                        <p>4 Seats • AC</p>
+                    </div>
+
+                    <strong>₹899+</strong>
+
+                </div>
+
+
+                <div class="cab-card" data-price="1199">
+
+                    <div class="cab-icon">🚙</div>
+
+                    <div>
+                        <h3>SUV</h3>
+                        <p>6 Seats • AC</p>
+                    </div>
+
+                    <strong>₹1,199+</strong>
+
+                </div>
+
+
+                <div class="cab-card" data-price="799">
+
+                    <div class="cab-icon">🚘</div>
+
+                    <div>
+                        <h3>Hatchback</h3>
+                        <p>4 Seats • AC</p>
+                    </div>
+
+                    <strong>₹799+</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- FARE -->
+            <div class="fare-box">
+
+                <div>
+                    <span>Estimated Fare</span>
+                    <h2 id="fare">₹899</h2>
+                </div>
+
+                <button id="searchRideBtn">
+                    Search Ride →
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <span>WHY INSTANT CAB?</span>
+
+            <h2>Everything You Need in One Place</h2>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                💰
+                <h3>Fixed Fare</h3>
+                <p>Know your fare before starting your journey.</p>
+            </div>
+
+            <div class="feature-card">
+                👨‍✈️
+                <h3>Professional Drivers</h3>
+                <p>Travel with verified and professional drivers.</p>
+            </div>
+
+            <div class="feature-card">
+                ⚡
+                <h3>Quick Booking</h3>
+                <p>Book your ride in just a few simple steps.</p>
+            </div>
+
+            <div class="feature-card">
+                🛡️
+                <h3>Safe Travel</h3>
+                <p>Safety and customer satisfaction come first.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- REVIEWS -->
+    <section class="section reviews">
+
+        <div class="section-title">
+
+            <span>CUSTOMER REVIEWS</span>
+
+            <h2>What Our Customers Say</h2>
+
+        </div>
+
+
+        <div class="review-grid">
+
+            <div class="review-card">
+
+                <div>⭐⭐⭐⭐⭐</div>
+
+                <p>
+                    "The fixed price made my trip very easy.
+                    No confusion about the fare."
+                </p>
+
+                <strong>— Arun, Coimbatore</strong>
+
+            </div>
+
+
+            <div class="review-card">
+
+                <div>⭐⭐⭐⭐⭐</div>
+
+                <p>
+                    "The booking process was simple and
+                    the ride was comfortable."
+                </p>
+
+                <strong>— Priya, Tiruppur</strong>
+
+            </div>
+
+
+            <div class="review-card">
+
+                <div>⭐⭐⭐⭐⭐</div>
+
+                <p>
+                    "Package plans are useful for frequent
+                    travellers."
+                </p>
+
+                <strong>— Karthik, Salem</strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BOOKING MODAL -->
+    <div class="modal" id="bookingModal">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closeModal()">
+                ×
+            </button>
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>Ride Found!</h2>
+
+            <p id="bookingMessage">
+                Your ride details have been received.
+            </p>
+
+            <button class="primary-btn" onclick="confirmBooking()">
+                Confirm Booking
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div>
+
+            <h2>🚕 Instant Cab</h2>
+
+            <p>
+                Fast rides. Fixed fares. Better journeys.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="index.html">Home</a>
+            <a href="fixed-prices.html">Fixed Prices</a>
+            <a href="packages.html">Packages</a>
+            <a href="local-ride.html">Local Ride</a>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Instant Cab. All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script src="home.js"></script>
+
+</body>
+</html>
