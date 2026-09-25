@@ -227,26 +227,3 @@
     }
   });
 })();
-document.addEventListener("DOMContentLoaded", function () {
-
-    const googleLogin = document.getElementById("googleLogin");
-    const appleLogin = document.getElementById("appleLogin");
-    const loginForm = document.getElementById("loginForm");
-    const message = document.getElementById("message");
-
-    // Google Login
-    googleLogin.addEventListener("click", function () {
-        message.textContent = "Google Login selected.";
-
-        // Add Google OAuth authentication here
-        console.log("Google Login button clicked");
-    });
-
-    // Apple Login
-    appleLogin.addEventListener("click", function () {
-        message.textContent = "Apple Login selected.";
-
-        // Add Apple Sign-In authentication here
-        console.log("Apple Login button clicked");
-    });
-});
