@@ -196,3 +196,47 @@
 @media (max-width: 480px) {
   .auth-form { padding: 22px 18px 26px; }
 }
+.google-btn {
+    background: white;
+    color: #333;
+}
+
+.google-btn:hover {
+    background: #f1f1f1;
+}
+
+.apple-btn {
+    background: black;
+    color: white;
+}
+
+.apple-btn:hover {
+    background: #333;
+}
+
+.google-icon {
+    color: #4285f4;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.apple-icon {
+    color: white;
+    font-size: 23px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    color: #b5d8e9;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    height: 1px;
+    background: #3b3333;
+    flex: 1;
+}
