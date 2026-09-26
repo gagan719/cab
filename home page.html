@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstantCab — Book a taxi in minutes</title>
+  <meta name="description" content="Book a taxi instantly with upfront pricing, professional drivers, and a fleet you can trust. Available 24/7 in 120+ cities.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+  <style>
+    /* ============================================================
+       RESET
+    ============================================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #111827;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       FOCUS STATES
+    ============================================================ */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: #2563eb;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      padding: 8px 14px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #4b5563;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+      background: #f3f4f6;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .header-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111827;
+      background: #f3f4f6;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .header-phone:hover {
+      background: #e5e7eb;
+      color: #2563eb;
+    }
+
+    .header-phone i {
+      color: #2563eb;
+    }
+
+    .btn-text {
+      background: none;
+      padding: 8px 14px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #4b5563;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-text:hover {
+      color: #2563eb;
+      background: #f3f4f6;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      font-size: 1.25rem;
+      color: #111827;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .menu-toggle:hover {
+      background: #f3f4f6;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+      padding: 8px 0 16px;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      padding: 14px 24px;
+      font-weight: 500;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .mobile-menu a:hover {
+      background: #f9fafb;
+      color: #2563eb;
+    }
+
+    .mobile-menu .mobile-phone {
+      color: #2563eb;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: none;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      padding: 64px 0 80px;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #d5e4f8;
+      color: #2563eb;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .hero-badge .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      color: #2563eb;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: #4b5563;
+      max-width: 520px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* ---- BOOKING WIDGET ---- */
+    .booking-widget {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .booking-input {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .booking-input:focus-within {
+      background: #f9fafb;
+    }
+
+    .booking-input i {
+      color: #2563eb;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .booking-input input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #111827;
+      width: 100%;
+      font-family: inherit;
+      padding: 8px 0;
+    }
+
+    .booking-input input::placeholder {
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    .booking-divider {
+      width: 1px;
+      background: #e5e7eb;
+      margin: 8px 0;
+    }
+
+    .btn-find {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 0 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-find:hover {
+      background: #1d4ed8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .btn-large {
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s;
+    }
+
+    .btn-large.btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .btn-large.btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-large.btn-outline {
+      background: #ffffff;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-large.btn-outline:hover {
+      border-color: #9ca3af;
+      background: #f9fafb;
+    }
+
+    .hero-rating {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #4b5563;
+      font-size: 0.9rem;
+    }
+
+    .avatar-group {
+      display: flex;
+    }
+
+    .avatar-group img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ffffff;
+      margin-left: -10px;
+    }
+
+    .avatar-group img:first-child {
+      margin-left: 0;
+    }
+
+    .hero-image {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+      aspect-ratio: 1 / 1.05;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .info-card {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .info-card.top {
+      top: 20px;
+      left: 20px;
+    }
+
+    .info-card.bottom {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .info-card .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .info-card .icon.green {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .info-card .icon.blue {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    .info-card .label {
+      font-size: 0.72rem;
+      color: #6b7280;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .info-card .value {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.3;
+    }
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+    .stats-section {
+      padding: 40px 0;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 12px;
+      border-right: 1px solid #e5e7eb;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2563eb;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+
+    .stat-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       SECTIONS
+    ============================================================ */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 56px;
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111827;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       HOW IT WORKS
+    ============================================================ */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .step-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 32px 28px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .step-card:hover {
+      box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.08);
+      border-color: #d1d5db;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #eff6ff;
+      color: #2563eb;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .step-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-card p {
+      font-size: 0.95rem;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       FLEET
+    ============================================================ */
+    .fleet-section {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .fleet-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .fleet-card:hover {
+      box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.12);
+      border-color: #d1d5db;
+    }
+
+    .fleet-image {
+      position: relative;
+      aspect-ratio: 16 / 11;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    .fleet-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .fleet-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #ffffff;
+      color: #111827;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    .fleet-badge.popular {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .fleet-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .fleet-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .fleet-title-row h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    .fleet-title-row .desc {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .fleet-price {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .fleet-price .amount {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .fleet-price .unit {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .fleet-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      padding: 16px 0;
+      border-top: 1px solid #f3f4f6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .fleet-features li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    .fleet-features li i {
+      color: #9ca3af;
+      font-size: 0.8rem;
+      width: 14px;
+    }
+
+    .btn-fleet {
+      width: 100%;
+      background: #111827;
+      color: #ffffff;
+      padding: 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-fleet:hover {
+      background: #2563eb;
+    }
+
+    /* ============================================================
+       APP CTA
+    ============================================================ */
+    .app-cta {
+      background: #111827;
+      color: #ffffff;
+      padding: 64px 0;
+    }
+
+    .app-cta-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .app-cta h2 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .app-cta p {
+      color: #9ca3af;
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .app-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      color: #111827;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .store-btn:hover {
+      background: #f3f4f6;
+    }
+
+    .store-btn i {
+      font-size: 1.6rem;
+    }
+
+    .store-btn .small {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+      line-height: 1;
+      display: block;
+    }
+
+    .store-btn .big {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.2;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .qr-code {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background: #ffffff;
+      border-radius: 8px;
+      color: #111827;
+    }
+
+    .qr-code .qr-box {
+      width: 84px;
+      height: 84px;
+      background:
+        linear-gradient(#111827 0 0) 0 0/25% 25% no-repeat,
+        linear-gradient(#111827 0 0) 100% 0/25% 25% no-repeat,
+        linear-gradient(#111827 0 0) 0 100%/25% 25% no-repeat,
+        linear-gradient(#111827 0 0) 100% 100%/25% 25% no-repeat,
+        repeating-conic-gradient(#111827 0% 25%, #ffffff 0% 50%) 50% 50%/12px 12px;
+      border: 4px solid #ffffff;
+      outline: 1px solid #e5e7eb;
+      border-radius: 4px;
+    }
+
+    .qr-code .qr-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #111827;
+      letter-spacing: 0.02em;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .app-cta-image {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3.2;
+      background: #1f2937;
+    }
+
+    .app-cta-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================================
+       TESTIMONIAL
+    ============================================================ */
+    .testimonial {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .testimonial-stars {
+      color: #f59e0b;
+      font-size: 0.95rem;
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-quote {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #111827;
+      line-height: 1.55;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .testimonial-author img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .testimonial-author .name {
+      font-weight: 700;
+      color: #111827;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-author .role {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .testimonial-stat {
+      text-align: center;
+      padding: 0 24px;
+      border-left: 1px solid #e5e7eb;
+    }
+
+    .testimonial-stat .big {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .testimonial-stat .label {
+      font-size: 0.82rem;
+      color: #6b7280;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      padding: 64px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      color: #6b7280;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      max-width: 320px;
+      margin: 16px 0 20px;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .footer-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #111827;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+
+    .footer-contact a:hover {
+      color: #2563eb;
+    }
+
+    .footer-contact a i {
+      color: #2563eb;
+      width: 16px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-socials a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4b5563;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+    }
+
+    .footer-socials a:hover {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+
+    .footer-col h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 18px;
+      letter-spacing: 0.01em;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .footer-col a:hover {
+      color: #2563eb;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-legal a {
+      color: #6b7280;
+      transition: color 0.15s;
+    }
+
+    .footer-legal a:hover {
+      color: #2563eb;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1080px) {
+      .header-phone span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 48px 0 64px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-image {
+        aspect-ratio: 16 / 10;
+        max-width: 640px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .stat-item {
+        border-right: none;
+        padding: 0;
+      }
+
+      .steps-grid,
+      .fleet-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .app-cta-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .app-cta-image {
+        max-width: 520px;
+      }
+
+      .testimonial {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px;
+      }
+
+      .testimonial-stat {
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+        padding: 24px 0 0;
+        text-align: left;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav-links,
+      .nav-actions .btn-text,
+      .header-phone {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .section {
+        padding: 56px 0;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+
+      .booking-widget {
+        flex-direction: column;
+        padding: 12px;
+      }
+
+      .booking-divider {
+        display: none;
+      }
+
+      .btn-find {
+        padding: 14px 24px;
+        justify-content: center;
+      }
+
+      .steps-grid,
+      .fleet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .app-cta {
+        padding: 48px 0;
+      }
+
+      .app-cta h2 {
+        font-size: 1.75rem;
+      }
+
+      .app-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .store-btn,
+      .qr-code {
+        justify-content: center;
+      }
+
+      .qr-code {
+        flex-direction: row;
+        align-self: stretch;
+      }
+
+      .qr-code .qr-box {
+        width: 60px;
+        height: 60px;
+      }
+
+      .testimonial {
+        padding: 28px;
+      }
+
+      .testimonial-quote {
+        font-size: 1.05rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-large {
+        justify-content: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-legal {
+        flex-wrap: wrap;
+        gap: 12px 20px;
+      }
+    }
+    .nav-actions btn-text{
+      color:#1d4ed8;
+
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="#" class="logo" aria-label="InstantCab home">
+          <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+          <span>InstantCab</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="home page.html">Home</a>
+          <a href="about Us.html">About</a>
+          <a href="safety.html">Safety</a>
+          <a href="careers.html">careers</a>
+          <a href="blog.html">Blog</a>
+          <a href="press.html">press</a>
+          <a href="contact.html">contact</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="tel:+18002226669" class="header-phone" aria-label="Call us">
+            <i class="fas fa-phone"></i>
+            <span>000-363-6669</span>
+          </a>
+          <div class="nav-actions">
+  <button class="btn-text" onclick="window.location.href='login.html'">
+     <i class="fas fa-location-dot"></i>
+    Sign in
+  </button>
+</div>
+          <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="trips.html">Rides</a>
+      <a href="fleet.html">Fleet</a>
+      <a href="business.html">Business</a>
+      <a href="help.html">Help</a>
+      <a href="#" class="mobile-phone" aria-label="Call us">
+        <i class="fas fa-phone"></i> 000-363-6669
+      </a>
+      <a href="login,sign.html" style="color:#2563eb;font-weight:700;">Sign in</a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero">
+    <div class="container" style="display:inline-flex;">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <center>
+          <i class="fas fa-circle-dot" aria-hidden="true"></i>
+          <span class="status-dot"></span>
+          2,847 drivers online now
+          </center>
+        </div>
+
+        <h1>
+          <center>
+          Your taxi arrives <span class="highlight">in minutes</span>, not hours.
+          </center>
+        </h1>
+
+        <p class="hero-subtitle">
+          <center>
+          Book instantly with upfront pricing, professional drivers, and a fleet you can rely on. No hidden fees — ever.
+          </center>
+        </p>
+        <!-- BOOKING WIDGET -->
+         <center>
+        <form class="booking-widget" onsubmit="event.preventDefault(); alert('Searching for taxis near ' + (document.getElementById('pickup').value || 'your location') + '...');">
+          <label class="booking-input" for="pickup">
+            <i class="fas fa-circle-dot" aria-hidden="true"></i>
+            <input id="pickup" type="text" placeholder="Enter pickup location" autocomplete="off">
+          </label>
+          <div class="booking-divider" aria-hidden="true"></div>
+          <label class="booking-input" for="dropoff">
+            <i class="fas fa-location-dot" aria-hidden="true"></i>
+            <input id="dropoff" type="text" placeholder="Where to?" autocomplete="off">
+          </label>
+          <button type="submit" class="btn-find">
+            <i class="fas fa-search"></i> Find taxi
+          </button>
+        </form>
+         </center>
+
+        <div class="hero-actions">
+          <a href="tel:+18002226669" class="btn-large btn-outline">
+            <i class="fas fa-phone"></i> Call 000-363-6669
+          </a>
+        </div>
+
+        <div class="hero-rating">
+          <div class="avatar-group">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop" alt="Rider avatar">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop" alt="Rider avatar">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="Rider avatar">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" alt="Rider avatar">
+          </div>
+          <span><strong style="color:#111827;">2.4M+</strong> rides completed</span>
+        </div>
+      </div>
+
+       <div class="info-card top">
+          <div class="icon green"><i class="fas fa-check"></i></div>
+          <div>
+            <div class="label">Driver assigned</div>
+            <div class="value">Arriving in 3 min</div>
+          </div>
+        </div>
+    </div>
+    
+  </section>
+
+  <!-- ============================================================
+       STATS
+  ============================================================ -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div>
+            <div class="stat-number">2.4M+</div>
+            <div class="stat-label">Happy riders</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="stat-number">3 min</div>
+            <div class="stat-label">Average pickup</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-star"></i></div>
+          <div>
+            <div class="stat-number">4.96</div>
+            <div class="stat-label">Driver rating</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-globe"></i></div>
+          <div>
+            <div class="stat-number">120+</div>
+            <div class="stat-label">Cities covered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS
+  ============================================================ -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">How it works</span>
+        <h2 class="section-title">Get a taxi in three simple taps</h2>
+        <p class="section-subtitle">From request to destination — seamless, fast, and reliable, every single time.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3>Set your pickup</h3>
+          <p>Enter your location or let GPS find you in seconds. Save favorite spots for faster booking.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3>Choose your ride</h3>
+          <p>Pick from Economy, Comfort, or Premium SUV. Upfront price — no surprises at the end.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3>Meet your driver</h3>
+          <p>Track your taxi in real time, share your trip with loved ones, and ride with confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FLEET
+  ============================================================ -->
+  <section class="section fleet-section" id="fleet">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Our fleet</span>
+        <h2 class="section-title">Pick the ride that fits your day</h2>
+        <p class="section-subtitle">Well-maintained, sanitized taxis — inspected daily and driven by vetted professionals.</p>
+      </div>
+
+      <div class="fleet-grid">
+        <!-- Economy -->
+        <div class="fleet-card">
+          <div class="fleet-image">
+            <img
+              src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=900&auto=format&fit=crop"
+              alt="Economy taxi — compact sedan with taxi sign"
+              loading="lazy">
+            <span class="fleet-badge">Fast pickup</span>
+          </div>
+          <div class="fleet-body">
+            <div class="fleet-title-row">
+              <div>
+                <h3>Economy</h3>
+                <div class="desc">Compact & affordable</div>
+              </div>
+              <div class="fleet-price">
+                <div class="amount">$240</div>
+                <div class="unit">+ $9.00/mi</div>
+              </div>
+            </div>
+            <ul class="fleet-features">
+              <li><i class="fas fa-user"></i> 4 seats</li>
+              <li><i class="fas fa-suitcase"></i> 2 bags</li>
+              <li><i class="fas fa-snowflake"></i> A/C</li>
+              <li><i class="fas fa-shield-halved"></i> Insured</li>
+            </ul>
+            <a href="economy.html" class="btn-fleet">
+              <i class="fas fa-bolt"></i> Book Economy
+            </a>
+          </div>
+        </div>
+
+        <!-- Comfort -->
+        <div class="fleet-card">
+          <div class="fleet-image">
+            <img
+              src="https://images.unsplash.com/photo-1511527844068-006b95d162c2?q=80&w=900&auto=format&fit=crop"
+              alt="Comfort taxi — black cab in the city"
+              loading="lazy">
+            <span class="fleet-badge popular">Most popular</span>
+          </div>
+          <div class="fleet-body">
+            <div class="fleet-title-row">
+              <div>
+                <h3>Comfort</h3>
+                <div class="desc">Extra legroom & Wi-Fi</div>
+              </div>
+              <div class="fleet-price">
+                <div class="amount">$320</div>
+                <div class="unit">+ $11.00/mi</div>
+              </div>
+            </div>
+            <ul class="fleet-features">
+              <li><i class="fas fa-user"></i> 4 seats</li>
+              <li><i class="fas fa-suitcase"></i> 3 bags</li>
+              <li><i class="fas fa-wifi"></i> Wi-Fi</li>
+              <li><i class="fas fa-bottle-water"></i> Water</li>
+            </ul>
+            <a href="comfort.html" class="btn-fleet">
+              <i class="fas fa-bolt"></i> Book Comfort
+            </a>
+          </div>
+        </div>
+
+        <!-- Premium SUV -->
+        <div class="fleet-card">
+          <div class="fleet-image">
+            <img
+              src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=900&auto=format&fit=crop"
+              alt="Premium taxi SUV with taxi sign"
+              loading="lazy">
+            <span class="fleet-badge">Premium</span>
+          </div>
+          <div class="fleet-body">
+            <div class="fleet-title-row">
+              <div>
+                <h3>Premium SUV</h3>
+                <div class="desc">Space for groups & luggage</div>
+              </div>
+              <div class="fleet-price">
+                <div class="amount">$550</div>
+                <div class="unit">+ $18.00/mi</div>
+              </div>
+            </div>
+            <ul class="fleet-features">
+              <li><i class="fas fa-user"></i> 6 seats</li>
+              <li><i class="fas fa-suitcase"></i> 5 bags</li>
+              <li><i class="fas fa-champagne-glasses"></i> Water</li>
+              <li><i class="fas fa-child"></i> Child seat</li>
+            </ul>
+            <a href="premium-suv.html" class="btn-fleet">
+              <i class="fas fa-bolt"></i> Book Premium
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       APP CTA
+  ============================================================ -->
+  <section class="app-cta" id="business">
+    <div class="container">
+      <div class="app-cta-inner">
+        <div>
+          <h2>Everything you need, right in your pocket.</h2>
+          <p>Book rides faster, track your driver in real time, split fares with friends, and earn rewards on every trip.</p>
+          <div class="app-buttons">
+            <a href="https://apps.apple.com/us/app/instantcab/id1444444444" class="store-btn" aria-label="Download on the App Store">
+              <i class="fab fa-apple"></i>
+              <span>
+                <span class="small">Download on the</span>
+                <span class="big">App Store</span>
+              </span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.instantcab" class="store-btn" aria-label="Get it on Google Play">
+              <i class="fab fa-google-play"></i>
+              <span>
+                <span class="small">Get it on</span>
+                <span class="big">Google Play</span>
+              </span>
+            </a>
+            <div class="qr-code" aria-label="Scan to download">
+              <div class="qr-box" aria-hidden="true"></div>
+              <div class="qr-label">Scan to<br>download</div>
+            </div>
+          </div>
+        </div>
+        <div class="app-cta-image">
+          <img
+            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=900&auto=format&fit=crop"
+            alt="Person using the InstantCab ride-hailing app on a smartphone"
+            loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIAL
+  ============================================================ -->
+  <section class="section" id="help">
+    <div class="container">
+      <div class="testimonial">
+        <div>
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "I take InstantCab every Tuesday at 5 AM to catch my flight out of SFO. The driver is always outside before I finish my coffee, and the fare is locked in before I step out the door. Last month my flight got delayed till 1 AM and I still had a cab waiting in under five minutes."
+          </p>
+          <div class="testimonial-author">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
+              alt="Portrait of Maya Rodriguez"
+              loading="lazy">
+            <div>
+              <div class="name">Maya Rodriguez</div>
+              <div class="role">Weekly commuter · San Francisco</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-stat">
+          <div class="big">496</div>
+          <div class="label">Average<br>rider rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+            <span>InstantCab</span>
+          </a>
+          <p>Reliable, affordable taxi rides at your fingertips. Available in 120+ cities worldwide.</p>
+          <div class="footer-contact">
+            <a href="tel:+18002226669"><i class="fas fa-phone"></i>000-000-0000</a>
+            <a href="mailto:hello@instantcab.com"><i class="fas fa-envelope"></i> hello@instantcab.com</a>
+          </div>
+          <div class="footer-socials">
+            <a href="https://twitter.com/instantcab" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com/instantcab" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com/instantcab" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://linkedin.com/company/instantcab" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about us.html">About us</a>
+          <a href="careers.html">Careers</a>
+          <a href="newsroom.html">Newsroom</a>
+          <a href="blog.html">Blog</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Rides</h4>
+          <a href="economy.html">Economy</a>
+          <a href="comfort.html">Comfort</a>
+          <a href="premium-suv.html">Premium SUV</a>
+          <a href="airport-transfer.html">Airport transfer</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="help center.html">Help center</a>
+          <a href="safety.html">Safety</a>
+          <a href="contact us.html">Contact us</a>
+          <a href="cancellation.html">Cancellation</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 InstantCab Technologies Inc. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="legal terms.html">Terms</a>
+          <a href="privacy policy.html">Privacy</a>
+          <a href="cookies policy.html">Cookies</a>
+          <a href="licenses.html">Licenses</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPT
+  ============================================================ -->
+  <script>
+    (function () {
+      var toggle = document.getElementById('menuToggle');
+      var menu = document.getElementById('mobileMenu');
+
+      if (toggle && menu) {
+        toggle.addEventListener('click', function () {
+          var isOpen = menu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+          var icon = toggle.querySelector('i');
+          if (icon) {
+            icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+          }
+        });
+
+        menu.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            menu.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+            var icon = toggle.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars';
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

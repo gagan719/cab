@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — InstantCab</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Let's get you back on the road.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      display: flex; flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    /* Main */
+    .main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      gap: 60px;
+      width: 100%;
+    }
+    .not-found-content { max-width: 520px; }
+    .error-code {
+      font-size: 7rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: #2563eb;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .error-code i {
+      font-size: 3.5rem;
+      color: #111827;
+      opacity: 0.15;
+    }
+    .not-found-content h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #111827;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .not-found-content p {
+      font-size: 1.05rem;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .not-found-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 26px;
+      background: #2563eb; color: #fff;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 26px;
+      background: #fff; color: #111827;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem; font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover { background: #f9fafb; border-color: #9ca3af; }
+    .btn-secondary i { color: #2563eb; }
+
+    /* Quick links */
+    .quick-links h3 {
+      font-size: 0.82rem; font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+    .quick-links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .quick-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600; color: #111827;
+      transition: all 0.15s;
+    }
+    .quick-link:hover { background: #eff6ff; border-color: #2563eb; color: #2563eb; }
+    .quick-link i { color: #2563eb; font-size: 0.9rem; width: 16px; text-align: center; }
+    .quick-link:hover i { color: #2563eb; }
+
+    /* Visual */
+    .not-found-visual {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3.4;
+      background: #f3f4f6;
+      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
+    }
+    .not-found-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .not-found-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(37,99,235,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+      padding: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; gap: 40px; padding: 40px 20px; }
+      .error-code { font-size: 5rem; }
+      .error-code i { font-size: 2.5rem; }
+      .not-found-content h1 { font-size: 1.7rem; }
+      .not-found-visual { aspect-ratio: 16/10; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <a href="index.html" class="header-cta">
+        <i class="fas fa-house" style="font-size: 0.8rem; margin-right: 4px;"></i>
+        Go home
+      </a>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="not-found-content">
+      <div class="error-code">
+        4 <i class="fas fa-taxi"></i> 4
+      </div>
+      <h1>Looks like this stop doesn't exist.</h1>
+      <p>The page you're looking for was moved, renamed, or is out of service. Let's get you back on the road.</p>
+
+      <div class="not-found-actions">
+        <a href="index.html" class="btn-primary">
+          <i class="fas fa-house" style="font-size: 0.85rem;"></i>
+          Back to home
+        </a>
+        <a href="help.html" class="btn-secondary">
+          <i class="fas fa-life-ring"></i>
+          Get help
+        </a>
+      </div>
+
+      <div class="quick-links">
+        <h3>Popular pages</h3>
+        <div class="quick-links-grid">
+          <a href="dashboard.html" class="quick-link">
+            <i class="fas fa-gauge"></i>
+            Dashboard
+          </a>
+          <a href="trips.html" class="quick-link">
+            <i class="fas fa-route"></i>
+            My trips
+          </a>
+          <a href="payment-methods.html" class="quick-link">
+            <i class="fas fa-wallet"></i>
+            Wallet
+          </a>
+          <a href="profile.html" class="quick-link">
+            <i class="fas fa-user"></i>
+            Profile
+          </a>
+          <a href="help.html" class="quick-link">
+            <i class="fas fa-circle-question"></i>
+            Help center
+          </a>
+          <a href="driver-signup.html" class="quick-link">
+            <i class="fas fa-car"></i>
+            Drive with us
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="not-found-visual">
+      <!-- Real photo: empty city street at dusk, from Unsplash -->
+      <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=1200&auto=format&fit=crop" alt="Empty city street at dusk">
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    © 2025 InstantCab Technologies Inc. — All rights reserved.
+  </footer>
+
+</body>
+</html>

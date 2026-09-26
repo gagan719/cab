@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ride in Progress — InstantCab</title>
+  <meta name="description" content="Track your InstantCab ride in real time.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #f9fafb;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header */
+    .app-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.15rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 32px; height: 32px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .header-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      background: #f0fdf4;
+      color: #16a34a;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .header-status .pulse {
+      width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #4b5563; font-size: 1rem; transition: all 0.15s; }
+    .icon-btn:hover { background: #f3f4f6; color: #2563eb; }
+
+    /* Main */
+    .main { padding-top: 64px; height: 100vh; display: grid; grid-template-columns: 1fr 400px; }
+
+    /* Map */
+    .map-container {
+      position: relative;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+    .map-image {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: contrast(1.05) saturate(0.9);
+    }
+    .map-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(37,99,235,0));
+      pointer-events: none;
+    }
+
+    /* Map markers */
+    .map-marker {
+      position: absolute;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 16px -4px rgba(0,0,0,0.3);
+      border: 3px solid #fff;
+      z-index: 5;
+    }
+    .map-marker.pickup { top: 22%; left: 30%; background: #2563eb; }
+    .map-marker.dropoff { top: 62%; right: 22%; background: #ef4444; }
+    .map-marker.driver {
+      top: 42%; left: 48%;
+      background: #111827;
+      width: 48px; height: 48px;
+      font-size: 1.1rem;
+      animation: driverPulse 2s infinite;
+      z-index: 10;
+    }
+    @keyframes driverPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(17,24,39,0.5), 0 6px 16px -4px rgba(0,0,0,0.3); }
+      50% { box-shadow: 0 0 0 14px rgba(17,24,39,0), 0 6px 16px -4px rgba(0,0,0,0.3); }
+    }
+
+    /* Map route line */
+    .route-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    /* ETA card on map */
+    .eta-badge {
+      position: absolute;
+      top: 24px; left: 24px;
+      background: #fff;
+      padding: 14px 18px;
+      border-radius: 14px;
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.15);
+      display: flex; align-items: center; gap: 14px;
+      z-index: 20;
+    }
+    .eta-badge .eta-icon {
+      width: 44px; height: 44px;
+      background: #eff6ff;
+      color: #2563eb;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .eta-badge .eta-label { font-size: 0.72rem; color: #6b7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .eta-badge .eta-value { font-size: 1.35rem; font-weight: 800; color: #111827; letter-spacing: -0.02em; line-height: 1.1; }
+
+    /* Map controls */
+    .map-controls {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+      z-index: 20;
+    }
+    .map-control {
+      width: 44px; height: 44px;
+      background: #fff;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #4b5563;
+      font-size: 0.95rem;
+      box-shadow: 0 6px 16px -4px rgba(0,0,0,0.12);
+      transition: all 0.15s;
+    }
+    .map-control:hover { color: #2563eb; background: #f8fbff; }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: #fff;
+      border-left: 1px solid #e5e7eb;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Driver card */
+    .driver-card {
+      padding: 24px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .driver-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .driver-photo {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #eff6ff;
+      flex-shrink: 0;
+    }
+    .driver-info { flex: 1; min-width: 0; }
+    .driver-info .name { font-size: 1.1rem; font-weight: 700; color: #111827; margin-bottom: 3px; }
+    .driver-info .rating { font-size: 0.85rem; color: #6b7280; display: flex; align-items: center; gap: 6px; }
+    .driver-info .rating i { color: #f59e0b; font-size: 0.8rem; }
+    .driver-info .rating strong { color: #111827; }
+
+    .driver-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .driver-action {
+      padding: 12px 8px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      transition: all 0.15s;
+      font-size: 0.78rem; font-weight: 600; color: #4b5563;
+    }
+    .driver-action:hover { background: #fff; border-color: #2563eb; color: #2563eb; transform: translateY(-1px); }
+    .driver-action i { font-size: 1rem; }
+
+    /* Vehicle */
+    .vehicle-card {
+      padding: 24px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .section-title {
+      font-size: 0.72rem; font-weight: 700; color: #6b7280;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+    .vehicle-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    .vehicle-image {
+      width: 72px; height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #e5e7eb;
+    }
+    .vehicle-info { flex: 1; min-width: 0; }
+    .vehicle-info .model { font-size: 0.92rem; font-weight: 700; color: #111827; margin-bottom: 3px; }
+    .vehicle-info .plate {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700; color: #111827;
+      padding: 2px 8px; border-radius: 4px; background: #fff;
+      border: 1px solid #d1d5db; letter-spacing: 0.05em;
+    }
+    .vehicle-info .color { font-size: 0.78rem; color: #6b7280; margin-top: 4px; }
+
+    /* Trip route */
+    .trip-card {
+      padding: 24px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .route-item { display: flex; gap: 12px; position: relative; padding-bottom: 24px; }
+    .route-item:last-child { padding-bottom: 0; }
+    .route-item:last-child::before { display: none; }
+    .route-item::before {
+      content: '';
+      position: absolute;
+      left: 11px; top: 26px;
+      width: 2px; height: calc(100% - 24px);
+      background: repeating-linear-gradient(to bottom, #d1d5db 0 4px, transparent 4px 8px);
+    }
+    .route-dot {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: #fff;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+    .route-dot.pickup { background: #2563eb; }
+    .route-dot.dropoff { background: #ef4444; }
+    .route-info { flex: 1; min-width: 0; padding-top: 1px; }
+    .route-info .label { font-size: 0.7rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+    .route-info .address { font-size: 0.9rem; font-weight: 600; color: #111827; line-height: 1.35; }
+    .route-info .time { font-size: 0.78rem; color: #6b7280; margin-top: 3px; }
+
+    /* Fare */
+    .fare-card {
+      padding: 24px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .fare-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 0.9rem; }
+    .fare-row.total { border-top: 1px dashed #e5e7eb; margin-top: 8px; padding-top: 14px; font-size: 1.05rem; font-weight: 700; color: #111827; }
+    .fare-row .label { color: #6b7280; }
+    .fare-row .value { color: #111827; font-weight: 600; }
+    .fare-row.total .value { color: #2563eb; font-size: 1.25rem; }
+
+    /* Bottom actions */
+    .sidebar-actions {
+      padding: 20px 24px;
+      border-top: 1px solid #e5e7eb;
+      display: flex; flex-direction: column; gap: 10px;
+      position: sticky; bottom: 0; background: #fff;
+    }
+    .btn-primary {
+      width: 100%; padding: 14px;
+      background: #2563eb; color: #fff;
+      font-size: 0.95rem; font-weight: 600; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-danger {
+      width: 100%; padding: 13px;
+      background: #fff; color: #ef4444;
+      border: 1px solid #fecaca;
+      font-size: 0.92rem; font-weight: 600; border-radius: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; transition: all 0.15s;
+    }
+    .btn-danger:hover { background: #fef2f2; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; height: auto; }
+      .map-container { height: 45vh; }
+      .sidebar { border-left: none; border-top: 1px solid #e5e7eb; }
+      body { overflow: auto; }
+    }
+    @media (max-width: 720px) {
+      .header-status span:not(.pulse) { display: none; }
+      .header-status { padding: 8px; }
+    }
+  .header-nav {
+    display: flex;
+    gap: 28px;
+    color: #4b5563;
+    font-size: 0.9rem;
+    font-weight: 600; 
+    
+  }
+
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <div class="header-status">
+        <span class="pulse"></span>
+        <span>Driver on the way</span>
+      </div>
+      <div>
+        <nav class="header-nav">
+         <b> <a href="home page.html">Home</a></b>
+          <b><a href="dashboard.html">Dashboard</a></b>
+          <b><a href="profile.html">Profile</a></b>
+          <b><a href="settings.html">Settings</a></b>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="main">
+
+    <!-- MAP -->
+    <div class="map-container">
+      <!-- Real map-style photo from Unsplash (aerial city view) -->
+      <img class="map-image" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2000&auto=format&fit=crop" alt="Map view of the city">
+      <div class="map-overlay"></div>
+
+      <!-- SVG route -->
+      <svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M 30 22 Q 45 30 48 42 Q 55 55 78 62" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="2 1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+
+      <!-- Markers -->
+      <div class="map-marker pickup"><i class="fas fa-circle-dot"></i></div>
+      <div class="map-marker dropoff"><i class="fas fa-location-dot"></i></div>
+      <div class="map-marker driver"><i class="fas fa-taxi"></i></div>
+
+      <!-- ETA badge -->
+      <div class="eta-badge">
+        <div class="eta-icon"><i class="fas fa-clock"></i></div>
+        <div>
+          <div class="eta-label">Arrives in</div>
+          <div class="eta-value">3 min</div>
+        </div>
+      </div>
+
+      <!-- Map controls -->
+      <div class="map-controls">
+        <button class="map-control" aria-label="Recenter map" onclick="alert('Recentering map…');">
+          <i class="fas fa-crosshairs"></i>
+        </button>
+        <button class="map-control" aria-label="Zoom in" onclick="alert('Zoom in');">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button class="map-control" aria-label="Zoom out" onclick="alert('Zoom out');">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- Driver -->
+      <div class="driver-card">
+        <div class="driver-row">
+          <img class="driver-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Carlos M., your driver">
+          <div class="driver-info">
+            <div class="name">Carlos M.</div>
+            <div class="rating">
+              <i class="fas fa-star"></i>
+              <strong>4.97</strong>
+              <span>· 2,318 rides</span>
+            </div>
+          </div>
+        </div>
+        <div class="driver-actions">
+          <button class="driver-action" onclick="alert('Calling Carlos…');">
+            <i class="fas fa-phone"></i>
+            Call
+          </button>
+          <button class="driver-action" onclick="alert('Opening chat with Carlos…');">
+            <i class="fas fa-comment"></i>
+            Chat
+          </button>
+          <button class="driver-action" onclick="alert('Trip link copied to clipboard.');">
+            <i class="fas fa-share"></i>
+            Share
+          </button>
+        </div>
+      </div>
+
+      <!-- Vehicle -->
+      <div class="vehicle-card">
+        <div class="section-title">Your vehicle</div>
+        <div class="vehicle-row">
+          <img class="vehicle-image" src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=400&auto=format&fit=crop" alt="Toyota Prius taxi">
+          <div class="vehicle-info">
+            <div class="model">Toyota Prius</div>
+            <span class="plate">ABC 1234</span>
+            <div class="color">Silver · Comfort class</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Route -->
+      <div class="trip-card">
+        <div class="section-title">Your route</div>
+
+        <div class="route-item">
+          <div class="route-dot pickup"><i class="fas fa-circle"></i></div>
+          <div class="route-info">
+            <div class="label">Pickup</div>
+            <div class="address">1247 Mission Street, San Francisco, CA</div>
+            <div class="time">Picked up at 9:14 AM</div>
+          </div>
+        </div>
+
+        <div class="route-item">
+          <div class="route-dot dropoff"><i class="fas fa-location-dot"></i></div>
+          <div class="route-info">
+            <div class="label">Drop-off</div>
+            <div class="address">Ferry Building, 1 Ferry Building, San Francisco, CA</div>
+            <div class="time">Estimated 9:26 AM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fare -->
+      <div class="fare-card">
+        <div class="section-title">Fare breakdown</div>
+        <div class="fare-row">
+          <span class="label">Base fare</span>
+          <span class="value">$3.50</span>
+        </div>
+        <div class="fare-row">
+          <span class="label">Distance (3.2 mi)</span>
+          <span class="value">$6.40</span>
+        </div>
+        <div class="fare-row">
+          <span class="label">Time (12 min)</span>
+          <span class="value">$2.40</span>
+        </div>
+        <div class="fare-row">
+          <span class="label">Booking fee</span>
+          <span class="value">$0.50</span>
+        </div>
+        <div class="fare-row total">
+          <span class="label">Total (fixed)</span>
+          <span class="value">$12.80</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="sidebar-actions">
+        <button class="btn-primary" onclick="alert('Opening payment options…');">
+          <i class="fas fa-credit-card" style="font-size: 0.85rem;"></i>
+          Change payment method
+        </button>
+        <button class="btn-danger" onclick="if(confirm('Are you sure you want to cancel this ride? A fee may apply.')) alert('Ride cancelled. A driver is on the way — no fee charged.');">
+          <i class="fas fa-xmark" style="font-size: 0.85rem;"></i>
+          Cancel ride
+        </button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const etaValue = document.querySelector('.eta-value');
+      const statusLabel = document.querySelector('.header-status span:last-child');
+      const driverActionButtons = document.querySelectorAll('.driver-action');
+      const mapControls = document.querySelectorAll('.map-control');
+      const paymentBtn = document.querySelector('.btn-primary');
+      const cancelBtn = document.querySelector('.btn-danger');
+      const mapImage = document.querySelector('.map-image');
+      const driverMarker = document.querySelector('.map-marker.driver');
+
+      let etaMinutes = 3;
+
+      function updateEta() {
+        if (!etaValue) return;
+        etaValue.textContent = etaMinutes === 0 ? 'Arriving now' : etaMinutes + ' min';
+      }
+
+      function startEtaCountdown() {
+        updateEta();
+        setInterval(() => {
+          if (etaMinutes > 0) {
+            etaMinutes -= 1;
+            updateEta();
+          }
+
+          if (etaMinutes === 0 && statusLabel) {
+            statusLabel.textContent = 'Driver arriving';
+          }
+        }, 60000);
+      }
+
+      driverActionButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const label = button.textContent.trim();
+          if (label === 'Call') alert('Calling Carlos…');
+          if (label === 'Chat') alert('Opening chat with Carlos…');
+          if (label === 'Share') {
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText('Trip link: https://instantcab.app/trip/12345')
+                .then(() => alert('Trip link copied to clipboard.'))
+                .catch(() => alert('Trip link ready to share.'));
+            } else {
+              alert('Trip link copied to clipboard.');
+            }
+          }
+        });
+      });
+
+      mapControls.forEach((button) => {
+        button.addEventListener('click', () => {
+          const icon = button.querySelector('i');
+          if (!icon) return;
+
+          if (icon.classList.contains('fa-crosshairs')) {
+            alert('Recentering map…');
+          } else if (icon.classList.contains('fa-plus')) {
+            mapImage.style.transform = 'scale(1.08)';
+            setTimeout(() => mapImage.style.transform = 'scale(1)', 250);
+          } else if (icon.classList.contains('fa-minus')) {
+            mapImage.style.transform = 'scale(0.92)';
+            setTimeout(() => mapImage.style.transform = 'scale(1)', 250);
+          }
+        });
+      });
+
+      paymentBtn?.addEventListener('click', () => {
+        alert('Opening payment options…');
+      });
+
+      cancelBtn?.addEventListener('click', () => {
+        const confirmCancel = confirm('Are you sure you want to cancel this ride? A fee may apply.');
+        if (confirmCancel) {
+          if (statusLabel) statusLabel.textContent = 'Ride cancelled';
+          alert('Ride cancelled. A driver is on the way — no fee charged.');
+        }
+      });
+      if (driverMarker) {
+        driverMarker.animate(
+          [
+            { transform: 'translateY(0px)' },
+            { transform: 'translateY(-6px)' },
+            { transform: 'translateY(0px)' }
+          ],
+          { duration: 1800, iterations: Infinity, easing: 'ease-in-out' }
+        );
+      }
+
+      startEtaCountdown();
+    });
+  </script>
+
+</body>
+</html>

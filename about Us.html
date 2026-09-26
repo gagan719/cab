@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — InstantCab</title>
+  <meta name="description" content="InstantCab is on a mission to make urban mobility safe, affordable, and sustainable. Learn about our story, values, and leadership team.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    /* Hero */
+    .hero {
+      padding: 80px 24px 64px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -10%;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #eff6ff; color: #2563eb;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 100px;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 3.4rem; font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: #2563eb; }
+    .hero p {
+      font-size: 1.2rem; color: #6b7280;
+      line-height: 1.65;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* Section */
+    .section { padding: 72px 24px; }
+    .section-alt { background: #f9fafb; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+    .section-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2563eb; margin-bottom: 12px; }
+    .section-header h2 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.025em; color: #111827; line-height: 1.15; margin-bottom: 14px; }
+    .section-header p { font-size: 1.05rem; color: #6b7280; line-height: 1.6; }
+
+    /* Mission */
+    .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .mission-content h2 {
+      font-size: 2rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #111827;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .mission-content p {
+      font-size: 1.05rem; color: #4b5563;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .mission-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .mission-stat .num {
+      font-size: 1.75rem; font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    .mission-stat .label {
+      font-size: 0.82rem; color: #6b7280;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .mission-image {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/3.5;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.25);
+    }
+    .mission-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Story */
+    .story-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+    .story-image {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.2);
+    }
+    .story-image img { width: 100%; height: 100%; object-fit: cover; }
+    .story-content h2 {
+      font-size: 2rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #111827;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .story-content p {
+      font-size: 1.02rem; color: #4b5563;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .story-timeline { margin-top: 32px; }
+    .story-timeline-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .story-timeline-item:last-child { border-bottom: none; }
+    .story-timeline-item .year {
+      font-size: 1rem; font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -0.01em;
+    }
+    .story-timeline-item .event {
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.6;
+    }
+
+    /* Values */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .value-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+    .value-card:hover { border-color: #2563eb; transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(37,99,235,0.18); }
+    .value-icon {
+      width: 52px; height: 52px;
+      background: #eff6ff; color: #2563eb;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .value-card h3 { font-size: 1.1rem; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .value-card p { font-size: 0.92rem; color: #6b7280; line-height: 1.65; }
+
+    /* Team */
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .team-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .team-card:hover { border-color: #2563eb; transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(37,99,235,0.15); }
+    .team-photo {
+      aspect-ratio: 1/1.1;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .team-card:hover .team-photo img { transform: scale(1.04); }
+    .team-info { padding: 20px; }
+    .team-info h3 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 3px; letter-spacing: -0.01em; }
+    .team-info .role { font-size: 0.85rem; color: #6b7280; font-weight: 500; margin-bottom: 10px; }
+    .team-info .bio { font-size: 0.82rem; color: #6b7280; line-height: 1.55; margin-bottom: 12px; }
+    .team-socials { display: flex; gap: 8px; }
+    .team-socials a {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: #6b7280;
+      transition: all 0.15s;
+    }
+    .team-socials a:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+    /* Numbers */
+    .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .number-card {
+      text-align: center;
+      padding: 32px 20px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.2s;
+    }
+    .number-card:hover { border-color: #2563eb; transform: translateY(-3px); }
+    .number-card .num {
+      font-size: 2.5rem; font-weight: 800;
+      color: #2563eb;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .number-card .label {
+      font-size: 0.9rem; font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .number-card .sub {
+      font-size: 0.82rem; color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* Offices */
+    .offices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .office-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .office-card:hover { border-color: #2563eb; transform: translateY(-3px); box-shadow: 0 20px 40px -20px rgba(37,99,235,0.15); }
+    .office-image {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+    .office-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .office-card:hover .office-image img { transform: scale(1.04); }
+    .office-info { padding: 24px; }
+    .office-info .flag { font-size: 1.2rem; margin-bottom: 8px; display: block; }
+    .office-info h3 { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .office-info .address { font-size: 0.88rem; color: #6b7280; line-height: 1.55; margin-bottom: 12px; }
+    .office-info .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 4px 10px;
+      background: #eff6ff;
+      color: #2563eb;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* CTA */
+    .cta-banner {
+      background: linear-gradient(120deg, #111827 0%, #1e3a8a 60%, #2563eb 100%);
+      color: #fff;
+      padding: 56px 48px;
+      border-radius: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -60%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+      border-radius: 50%;
+    }
+    .cta-banner h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 12px; position: relative; z-index: 2; }
+    .cta-banner p { color: #bfdbfe; font-size: 1.05rem; max-width: 520px; margin: 0 auto 28px; line-height: 1.6; position: relative; z-index: 2; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 2; }
+    .cta-banner .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      background: #fff; color: #111827;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .cta-banner .btn-primary:hover { background: #f3f4f6; transform: translateY(-1px); }
+    .cta-banner .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .cta-banner .btn-secondary:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+    /* Footer */
+    .site-footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 48px 24px 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand p { color: #6b7280; font-size: 0.9rem; line-height: 1.6; max-width: 300px; margin-top: 14px; }
+    .footer-col h4 { font-size: 0.9rem; font-weight: 700; color: #111827; margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 0.9rem; color: #6b7280; margin-bottom: 10px; transition: color 0.15s; }
+    .footer-col a:hover { color: #2563eb; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: #6b7280; }
+    .footer-legal { display: flex; gap: 22px; }
+    .footer-legal a { color: #6b7280; }
+    .footer-legal a:hover { color: #2563eb; }
+
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 2.4rem; }
+      .mission-grid, .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .mission-image { aspect-ratio: 16/10; max-width: 600px; }
+      .story-image { aspect-ratio: 16/10; max-width: 600px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .offices-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .section { padding: 48px 20px; }
+      .section-header h2 { font-size: 1.65rem; }
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 2rem; }
+      .mission-content h2, .story-content h2 { font-size: 1.5rem; }
+      .mission-stats { grid-template-columns: 1fr; gap: 16px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .numbers-grid { grid-template-columns: 1fr; }
+      .cta-banner { padding: 40px 24px; border-radius: 20px; }
+      .cta-banner h2 { font-size: 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="home page.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="careers.html">Careers</a>
+        <a href="press.html">Press</a>
+        <a href="blog.html">Blog</a>
+        <a href="cities.html">Cities</a>
+      </nav>
+      <a href="signup.html" class="header-cta">Get started</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <i class="fas fa-circle-info"></i>
+        About InstantCab
+      </div>
+      <h1>We're making cities <span class="accent">move better</span>.</h1>
+      <p>
+        InstantCab is on a mission to make urban mobility safe, affordable, and sustainable — for riders, drivers, and the cities we serve.
+      </p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="mission-grid">
+        <div class="mission-content">
+          <span class="section-eyebrow">Our mission</span>
+          <h2>Faster rides. Fairer pay. A cleaner planet.</h2>
+          <p>
+            Since 2022, InstantCab has been connecting millions of riders with professional drivers across 120+ cities. We built our platform on a simple idea: <strong>treat drivers like partners, not contractors</strong> — and everyone wins.
+          </p>
+          <p>
+            By giving drivers 80% of every fare and investing in an all-electric fleet by 2030, we're proving that profit and purpose can coexist. That's what better urban mobility looks like.
+          </p>
+
+          <div class="mission-stats">
+            <div class="mission-stat">
+              <div class="num">120+</div>
+              <div class="label">Cities worldwide</div>
+            </div>
+            <div class="mission-stat">
+              <div class="num">450K+</div>
+              <div class="label">Active drivers</div>
+            </div>
+            <div class="mission-stat">
+              <div class="num">3M+</div>
+              <div class="label">Monthly riders</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mission-image">
+          <!-- Real photo: urban mobility — city street with taxi -->
+          <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200&auto=format&fit=crop" alt="Modern taxi on a city street">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="story-grid">
+        <div class="story-image">
+          <!-- Real photo: founders working late -->
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="Founders collaborating in early InstantCab office">
+        </div>
+
+        <div class="story-content">
+          <span class="section-eyebrow">Our story</span>
+          <h2>From a garage in San Francisco to 18 countries.</h2>
+          <p>
+            InstantCab started in 2022 when two former rideshare engineers got tired of watching drivers struggle. They spent a weekend building a prototype that paid drivers 80% of every fare. The first ride happened a week later.
+          </p>
+          <p>
+            Three years on, we operate in 18 countries, employ 400+ people across three continents, and continue to be the only major platform that lets drivers keep the majority of their earnings.
+          </p>
+
+          <div class="story-timeline">
+            <div class="story-timeline-item">
+              <div class="year">2022</div>
+              <div class="event">Founded in San Francisco by Maya Rodriguez and Alex Chen</div>
+            </div>
+            <div class="story-timeline-item">
+              <div class="year">2023</div>
+              <div class="event">Expanded to 25 U.S. cities; launched driver-first 80/20 payout model</div>
+            </div>
+            <div class="story-timeline-item">
+              <div class="year">2024</div>
+              <div class="event">International launch: London, Paris, Berlin; Series B funding of $180M</div>
+            </div>
+            <div class="story-timeline-item">
+              <div class="year">2025</div>
+              <div class="event">120+ cities, 3M+ monthly riders, all-electric fleet pledge for 2030</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">What we believe</span>
+        <h2>Our values</h2>
+        <p>Five principles that guide every decision — from product to policy to people.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-users"></i></div>
+          <h3>Riders first</h3>
+          <p>Every feature, every policy, every decision starts with the question: does this make the ride better for the person in the back seat?</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-handshake"></i></div>
+          <h3>Fair to drivers</h3>
+          <p>We pay our drivers more than the industry average and give them real flexibility. A great ride requires a great driver.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-leaf"></i></div>
+          <h3>Better cities</h3>
+          <p>Fewer empty cars, more shared rides, and an all-electric fleet by 2030. Profit and planet aren't opposites.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>Safety without compromise</h3>
+          <p>Real-time tracking, background-checked drivers, and a 24/7 safety team. Never ship a feature that trades safety for speed.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-code"></i></div>
+          <h3>Small teams, big impact</h3>
+          <p>We organize in small autonomous pods that ship weekly. No bloated teams, no endless meetings.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-globe"></i></div>
+          <h3>Global by default</h3>
+          <p>Every product decision considers our 120+ cities. Localization isn't an afterthought — it's the starting point.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">By the numbers</span>
+        <h2>Our impact so far</h2>
+      </div>
+
+      <div class="numbers-grid">
+        <div class="number-card">
+          <div class="num">2.4M+</div>
+          <div class="label">Rides completed</div>
+          <div class="sub">Since our first trip in 2022</div>
+        </div>
+        <div class="number-card">
+          <div class="num">$340M</div>
+          <div class="label">Paid to drivers</div>
+          <div class="sub">80% of every fare, always</div>
+        </div>
+        <div class="number-card">
+          <div class="num">18</div>
+          <div class="label">Countries</div>
+          <div class="sub">Across North America, Europe, LatAm & APAC</div>
+        </div>
+        <div class="number-card">
+          <div class="num">4.96</div>
+          <div class="label">Average rider rating</div>
+          <div class="sub">Across all markets</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Leadership</span>
+        <h2>Meet the team</h2>
+        <p>Operators, engineers, and designers who've built at scale — now focused on making urban mobility work for everyone.</p>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="team-card">
+          <div class="team-photo">
+            <!-- Real photo: female executive headshot -->
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" alt="Maya Rodriguez, Co-founder and CEO" loading="lazy">
+          </div>
+          <div class="team-info">
+            <h3>Maya Rodriguez</h3>
+            <div class="role">Co-founder & CEO</div>
+            <p class="bio">Former Head of Product at Lyft. Led the teams behind Express Pool and Pink rides. Started InstantCab to fix what she saw broken.</p>
+            <div class="team-socials">
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo">
+            <!-- Real photo: male executive headshot -->
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" alt="Alex Chen, Co-founder and CTO" loading="lazy">
+          </div>
+          <div class="team-info">
+            <h3>Alex Chen</h3>
+            <div class="role">Co-founder & CTO</div>
+            <p class="bio">Spent 8 years building real-time matching systems at Uber and Didi. Believes great infrastructure is invisible.</p>
+            <div class="team-socials">
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo">
+            <!-- Real photo: female executive headshot -->
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop" alt="Priya Sharma, COO" loading="lazy">
+          </div>
+          <div class="team-info">
+            <h3>Priya Sharma</h3>
+            <div class="role">Chief Operating Officer</div>
+            <p class="bio">14 years of marketplace operations at Lyft and DoorDash. Runs global expansion, city launches, and driver support.</p>
+            <div class="team-socials">
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo">
+            <!-- Real photo: male executive headshot -->
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" alt="Carlos Mendez, Chief Safety Officer" loading="lazy">
+          </div>
+          <div class="team-info">
+            <h3>Carlos Mendez</h3>
+            <div class="role">Chief Safety Officer</div>
+            <p class="bio">Former NYPD detective turned safety executive. Built trust & safety programs at two Fortune 500 companies.</p>
+            <div class="team-socials">
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFICES -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Where we are</span>
+        <h2>Our offices</h2>
+        <p>Three global hubs, one remote-first team across 18 countries.</p>
+      </div>
+
+      <div class="offices-grid">
+
+        <div class="office-card">
+          <div class="office-image">
+            <!-- Real photo: San Francisco -->
+            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=900&auto=format&fit=crop" alt="San Francisco skyline" loading="lazy">
+          </div>
+          <div class="office-info">
+            <span class="flag">🇺🇸</span>
+            <h3>San Francisco</h3>
+            <div class="address">
+              1247 Mission Street<br>
+              San Francisco, CA 94103
+            </div>
+            <span class="tag"><i class="fas fa-star"></i> Global HQ</span>
+          </div>
+        </div>
+
+        <div class="office-card">
+          <div class="office-image">
+            <!-- Real photo: New York -->
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=900&auto=format&fit=crop" alt="New York City skyline" loading="lazy">
+          </div>
+          <div class="office-info">
+            <span class="flag">🇺🇸</span>
+            <h3>New York</h3>
+            <div class="address">
+              88 Pine Street, Floor 12<br>
+              New York, NY 10005
+            </div>
+            <span class="tag"><i class="fas fa-users"></i> East Coast hub</span>
+          </div>
+        </div>
+
+        <div class="office-card">
+          <div class="office-image">
+            <!-- Real photo: Berlin -->
+            <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?q=80&w=900&auto=format&fit=crop" alt="Berlin cityscape" loading="lazy">
+          </div>
+          <div class="office-info">
+            <span class="flag">🇩🇪</span>
+            <h3>Berlin</h3>
+            <div class="address">
+              Torstraße 142<br>
+              10119 Berlin, Germany
+            </div>
+            <span class="tag"><i class="fas fa-globe-europe"></i> Europe hub</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="cta-banner">
+        <h2>Join us on the road ahead</h2>
+        <p>Whether you're looking to ride, drive, or build — there's a place for you at InstantCab.</p>
+        <div class="cta-actions">
+          <a href="careers.html" class="btn-primary">
+            <i class="fas fa-briefcase" style="font-size: 0.85rem;"></i>
+            See open roles
+          </a>
+          <a href="contact.html" class="btn-secondary">
+            <i class="fas fa-envelope" style="font-size: 0.85rem;"></i>
+            Contact us
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+            <span>InstantCab</span>
+          </a>
+          <p>Reliable, affordable taxi rides at your fingertips. Available in 120+ cities worldwide.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="careers.html">Careers</a>
+          <a href="press.html">Press</a>
+          <a href="blog.html">Blog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="airport.html">Airport transfers</a>
+          <a href="business.html">Business accounts</a>
+          <a href="gift-cards.html">Gift cards</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="help.html">Help center</a>
+          <a href="safety.html">Safety</a>
+          <a href="accessibility.html">Accessibility</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 InstantCab Technologies Inc. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="legal/terms.html">Terms</a>
+          <a href="legal/privacy.html">Privacy</a>
+          <a href="legal/cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

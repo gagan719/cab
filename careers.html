@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers — InstantCab</title>
+  <meta name="description" content="Join InstantCab. We're hiring across engineering, design, operations, and growth.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    /* Hero */
+    .hero {
+      padding: 72px 24px 64px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 64px; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #eff6ff; color: #2563eb;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 100px;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .hero-badge i { font-size: 0.75rem; }
+    .hero h1 {
+      font-size: 3.2rem; font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: #2563eb; }
+    .hero-sub {
+      font-size: 1.15rem; color: #4b5563;
+      line-height: 1.6;
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: #2563eb; color: #fff;
+      font-size: 1rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .hero-cta:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .hero-cta i { font-size: 0.85rem; }
+
+    .hero-image {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 5 / 4;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.25);
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Values */
+    .section { padding: 72px 24px; }
+    .section-alt { background: #f9fafb; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: 2.25rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #111827; line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .section-header p { font-size: 1.05rem; color: #6b7280; line-height: 1.6; }
+
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .value-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+    .value-card:hover {
+      border-color: #2563eb;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px -20px rgba(37,99,235,0.18);
+    }
+    .value-icon {
+      width: 48px; height: 48px;
+      background: #eff6ff; color: #2563eb;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+    }
+    .value-card h3 { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .value-card p { font-size: 0.92rem; color: #6b7280; line-height: 1.6; }
+
+    /* Perks */
+    .perks-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .perk-card {
+      display: flex; gap: 20px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.15s;
+    }
+    .perk-card:hover { border-color: #2563eb; }
+    .perk-icon {
+      width: 52px; height: 52px;
+      background: #eff6ff; color: #2563eb;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .perk-info h3 { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 6px; }
+    .perk-info p { font-size: 0.9rem; color: #6b7280; line-height: 1.6; }
+
+    /* Jobs */
+    .jobs-list { display: flex; flex-direction: column; gap: 12px; max-width: 900px; margin: 0 auto; }
+    .job-card {
+      display: grid; grid-template-columns: 1fr auto auto;
+      gap: 20px; align-items: center;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 22px 26px;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .job-card:hover {
+      border-color: #2563eb;
+      box-shadow: 0 12px 24px -12px rgba(37,99,235,0.15);
+      transform: translateY(-2px);
+    }
+    .job-title { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .job-meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.82rem; color: #6b7280; font-weight: 500; }
+    .job-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .job-meta i { color: #2563eb; font-size: 0.78rem; }
+    .job-dept {
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .job-dept.eng { background: #eff6ff; color: #2563eb; }
+    .job-dept.design { background: #fdf4ff; color: #a21caf; }
+    .job-dept.ops { background: #f0fdf4; color: #16a34a; }
+    .job-dept.growth { background: #fff7ed; color: #ea580c; }
+    .job-dept.data { background: #fef2f2; color: #dc2626; }
+    .job-arrow { color: #9ca3af; font-size: 0.9rem; }
+
+    /* CTA banner */
+    .cta-banner {
+      background: linear-gradient(120deg, #111827 0%, #1e3a8a 60%, #2563eb 100%);
+      color: #fff;
+      padding: 64px 48px;
+      border-radius: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -60%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+      border-radius: 50%;
+    }
+    .cta-banner h2 {
+      font-size: 2rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+      position: relative; z-index: 2;
+    }
+    .cta-banner p {
+      color: #bfdbfe;
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+      position: relative; z-index: 2;
+    }
+    .cta-banner .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      background: #fff; color: #111827;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+      position: relative; z-index: 2;
+    }
+    .cta-banner .btn:hover { background: #f3f4f6; transform: translateY(-1px); }
+
+    /* Footer */
+    .site-footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 48px 24px 28px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-brand p { color: #6b7280; font-size: 0.9rem; line-height: 1.6; max-width: 300px; margin-top: 14px; }
+    .footer-col h4 { font-size: 0.9rem; font-weight: 700; color: #111827; margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 0.9rem; color: #6b7280; margin-bottom: 10px; transition: color 0.15s; }
+    .footer-col a:hover { color: #2563eb; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; flex-wrap: wrap;
+      font-size: 0.85rem; color: #6b7280;
+    }
+    .footer-bottom a { color: #6b7280; }
+    .footer-bottom a:hover { color: #2563eb; }
+    .footer-legal { display: flex; gap: 22px; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero h1 { font-size: 2.4rem; }
+      .hero-image { aspect-ratio: 16/10; max-width: 600px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .perks-grid { grid-template-columns: 1fr; }
+      .job-card { grid-template-columns: 1fr auto; }
+      .job-dept { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .section { padding: 56px 20px; }
+      .section-header h2 { font-size: 1.75rem; }
+      .hero { padding: 48px 20px; }
+      .hero h1 { font-size: 2rem; }
+      .values-grid { grid-template-columns: 1fr; }
+      .cta-banner { padding: 40px 24px; border-radius: 20px; }
+      .cta-banner h2 { font-size: 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="careers.html" class="active">Careers</a>
+        <a href="press.html">Press</a>
+        <a href="blog.html">Blog</a>
+        <a href="cities.html">Cities</a>
+      </nav>
+      <a href="#jobs" class="header-cta">View openings</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <i class="fas fa-rocket"></i>
+          We're hiring · 42 open roles
+        </div>
+        <h1>Build the future of <span class="accent">urban mobility</span>.</h1>
+        <p class="hero-sub">
+          Join a team that's rethinking how millions of people move through their cities. Remote-friendly, deeply mission-driven, and growing fast.
+        </p>
+        <a href="#jobs" class="hero-cta">
+          <i class="fas fa-arrow-down"></i>
+          See open roles
+        </a>
+      </div>
+      <div class="hero-image">
+        <!-- Real photo: modern office team collaboration, from Unsplash -->
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="InstantCab team collaborating in the office">
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Our values</span>
+        <h2>What we believe</h2>
+        <p>Four principles guide every decision we make — from product to people.</p>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-users"></i></div>
+          <h3>Riders first</h3>
+          <p>Every feature, every policy, every decision starts with the question: does this make the ride better for the person in the back seat?</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-handshake"></i></div>
+          <h3>Fair to drivers</h3>
+          <p>We pay our drivers more than the industry average and give them real flexibility. A great ride requires a great driver.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-leaf"></i></div>
+          <h3>Better cities</h3>
+          <p>Fewer empty cars, more shared rides, and an all-electric fleet by 2030. Profit and planet aren't opposites.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>Safety without compromise</h3>
+          <p>Real-time tracking, background-checked drivers, and a 24/7 safety team. Never ship a feature that trades safety for speed.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-code"></i></div>
+          <h3>Small teams, big impact</h3>
+          <p>We organize in small autonomous pods that ship weekly. No bloated teams, no endless meetings.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-globe"></i></div>
+          <h3>Global by default</h3>
+          <p>Every product decision considers our 120+ cities. Localization isn't an afterthought — it's the starting point.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERKS -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Benefits</span>
+        <h2>What we offer</h2>
+        <p>Compensation and perks designed to help you do your best work — and have a life outside of it.</p>
+      </div>
+
+      <div class="perks-grid">
+        <div class="perk-card">
+          <div class="perk-icon"><i class="fas fa-house-laptop"></i></div>
+          <div class="perk-info">
+            <h3>Remote-first culture</h3>
+            <p>Work from anywhere in the US, Canada, or EU. We have offices in SF, NYC, and Berlin for those who prefer them.</p>
+          </div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon"><i class="fas fa-heart-pulse"></i></div>
+          <div class="perk-info">
+            <h3>Top-tier health coverage</h3>
+            <p>100% covered medical, dental, and vision for you and your dependents. Including mental health support.</p>
+          </div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="perk-info">
+            <h3>Equity for everyone</h3>
+            <p>Every full-time employee gets stock options from day one. When we win, you win.</p>
+          </div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon"><i class="fas fa-umbrella-beach"></i></div>
+          <div class="perk-info">
+            <h3>Unlimited PTO (with a minimum)</h3>
+            <p>Take what you need — but we require at least 15 days off per year, so no one burns out.</p>
+          </div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon"><i class="fas fa-baby"></i></div>
+          <div class="perk-info">
+            <h3>16 weeks parental leave</h3>
+            <p>Fully paid, for all parents, from day one. Plus a phased return-to-work program.</p>
+          </div>
+        </div>
+        <div class="perk-card">
+          <div class="perk-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="perk-info">
+            <h3>$2,500 learning budget</h3>
+            <p>Annual budget for courses, conferences, books, or anything that helps you grow.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOBS -->
+  <section class="section section-alt" id="jobs">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Open positions</span>
+        <h2>Current openings</h2>
+        <p>All roles are remote-friendly unless otherwise noted. We review every application within 5 business days.</p>
+      </div>
+
+      <div class="jobs-list">
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Senior Backend Engineer role detail…');">
+          <div>
+            <div class="job-title">Senior Backend Engineer</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> Remote (US/EU)</span>
+              <span><i class="fas fa-briefcase"></i> 5+ years</span>
+              <span><i class="fas fa-code-branch"></i> Go, PostgreSQL, Kubernetes</span>
+            </div>
+          </div>
+          <span class="job-dept eng">Engineering</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Product Designer role detail…');">
+          <div>
+            <div class="job-title">Senior Product Designer</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> San Francisco, CA</span>
+              <span><i class="fas fa-briefcase"></i> 4+ years</span>
+              <span><i class="fas fa-pen-fancy"></i> Figma, prototyping, design systems</span>
+            </div>
+          </div>
+          <span class="job-dept design">Design</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: City Operations Manager role detail…');">
+          <div>
+            <div class="job-title">City Operations Manager</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> New York, NY</span>
+              <span><i class="fas fa-briefcase"></i> 3+ years</span>
+              <span><i class="fas fa-city"></i> Marketplace operations</span>
+            </div>
+          </div>
+          <span class="job-dept ops">Operations</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Growth Marketing Manager role detail…');">
+          <div>
+            <div class="job-title">Growth Marketing Manager</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> Remote (US)</span>
+              <span><i class="fas fa-briefcase"></i> 4+ years</span>
+              <span><i class="fas fa-chart-pie"></i> Paid acquisition, lifecycle</span>
+            </div>
+          </div>
+          <span class="job-dept growth">Growth</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Data Scientist role detail…');">
+          <div>
+            <div class="job-title">Data Scientist, Marketplace</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> Remote (US/EU)</span>
+              <span><i class="fas fa-briefcase"></i> 3+ years</span>
+              <span><i class="fas fa-chart-bar"></i> Python, SQL, ML</span>
+            </div>
+          </div>
+          <span class="job-dept data">Data</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Senior iOS Engineer role detail…');">
+          <div>
+            <div class="job-title">Senior iOS Engineer</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> Remote (US/EU)</span>
+              <span><i class="fas fa-briefcase"></i> 5+ years</span>
+              <span><i class="fas fa-mobile-screen"></i> Swift, SwiftUI, CoreLocation</span>
+            </div>
+          </div>
+          <span class="job-dept eng">Engineering</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Trust & Safety Lead role detail…');">
+          <div>
+            <div class="job-title">Trust & Safety Lead</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> San Francisco, CA</span>
+              <span><i class="fas fa-briefcase"></i> 6+ years</span>
+              <span><i class="fas fa-shield-halved"></i> Policy, investigations</span>
+            </div>
+          </div>
+          <span class="job-dept ops">Operations</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+        <a href="#" class="job-card" onclick="event.preventDefault(); alert('Opening: Driver Experience Manager role detail…');">
+          <div>
+            <div class="job-title">Driver Experience Manager</div>
+            <div class="job-meta">
+              <span><i class="fas fa-location-dot"></i> Remote (US)</span>
+              <span><i class="fas fa-briefcase"></i> 3+ years</span>
+              <span><i class="fas fa-car"></i> Support, community, training</span>
+            </div>
+          </div>
+          <span class="job-dept ops">Operations</span>
+          <i class="fas fa-arrow-right job-arrow"></i>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="cta-banner">
+        <h2>Don't see the right role?</h2>
+        <p>We're always looking for exceptional people. Send us your résumé and tell us how you'd make InstantCab better.</p>
+        <a href="mailto:careers@instantcab.com" class="btn">
+          <i class="fas fa-envelope" style="font-size: 0.9rem;"></i>
+          careers@instantcab.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+            <span>InstantCab</span>
+          </a>
+          <p>Reliable, affordable taxi rides at your fingertips. Available in 120+ cities worldwide.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="careers.html">Careers</a>
+          <a href="press.html">Press</a>
+          <a href="blog.html">Blog</a>
+          <a href="cities.html">Cities</a>
+        </div>
+        <div class="footer-col">
+          <h4>Riders</h4>
+          <a href="signup.html">Sign up</a>
+          <a href="login.html">Sign in</a>
+          <a href="help.html">Help center</a>
+        </div>
+        <div class="footer-col">
+          <h4>Drivers</h4>
+          <a href="driver-signup.html">Apply to drive</a>
+          <a href="help.html">Driver support</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 InstantCab Technologies Inc. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="legal/terms.html">Terms</a>
+          <a href="legal/privacy.html">Privacy</a>
+          <a href="legal/cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

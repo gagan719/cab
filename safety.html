@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safety — InstantCab</title>
+  <meta name="description" content="Safety is built into every InstantCab ride. Real-time tracking, background-checked drivers, emergency features, and 24/7 support.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-cta {
+      padding: 10px 20px;
+      background: #ef4444; color: #fff;
+      font-size: 0.9rem; font-weight: 600;
+      border-radius: 10px;
+      transition: background 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .header-cta:hover { background: #dc2626; }
+
+    /* Hero */
+    .hero {
+      padding: 72px 24px 64px;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -10%;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 64px; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #f0fdf4; color: #16a34a;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 100px;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 3.2rem; font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: #2563eb; }
+    .hero-sub {
+      font-size: 1.15rem; color: #4b5563;
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: #2563eb; color: #fff;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-emergency {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: #ef4444; color: #fff;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .btn-emergency:hover { background: #dc2626; transform: translateY(-1px); }
+
+    .hero-image {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 5/4.5;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.25);
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Section */
+    .section { padding: 72px 24px; }
+    .section-alt { background: #f9fafb; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+    .section-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #2563eb; margin-bottom: 12px; }
+    .section-header h2 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.025em; color: #111827; line-height: 1.15; margin-bottom: 14px; }
+    .section-header p { font-size: 1.05rem; color: #6b7280; line-height: 1.6; }
+
+    /* Features */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feature-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+    .feature-card:hover { border-color: #2563eb; transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(37,99,235,0.18); }
+    .feature-icon {
+      width: 52px; height: 52px;
+      background: #eff6ff; color: #2563eb;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .feature-icon.green { background: #f0fdf4; color: #16a34a; }
+    .feature-icon.red { background: #fef2f2; color: #dc2626; }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.92rem; color: #6b7280; line-height: 1.65; }
+
+    /* Emergency card */
+    .emergency-card {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .emergency-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .emergency-content { position: relative; z-index: 2; }
+    .emergency-content h2 {
+      font-size: 2rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .emergency-content p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      max-width: 460px;
+    }
+    .emergency-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: #fff; color: #dc2626;
+      font-size: 1rem; font-weight: 800;
+      border-radius: 12px;
+      transition: all 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .emergency-btn:hover { background: #fef2f2; transform: translateY(-1px); }
+    .emergency-image {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+      z-index: 2;
+      border: 4px solid rgba(255,255,255,0.15);
+    }
+    .emergency-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Detailed list */
+    .detailed-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .detailed-item {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex; gap: 18px;
+    }
+    .detailed-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      background: #eff6ff; color: #2563eb;
+    }
+    .detailed-icon.green { background: #f0fdf4; color: #16a34a; }
+    .detailed-icon.red { background: #fef2f2; color: #dc2626; }
+    .detailed-icon.amber { background: #fffbeb; color: #d97706; }
+    .detailed-info h4 {
+      font-size: 1rem; font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+    .detailed-info p {
+      font-size: 0.9rem; color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* Steps */
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .step {
+      text-align: center;
+      padding: 24px 16px;
+    }
+    .step-number {
+      width: 48px; height: 48px;
+      background: #2563eb; color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; font-weight: 800;
+      margin: 0 auto 16px;
+      border: 5px solid #eff6ff;
+    }
+    .step h3 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .step p { font-size: 0.85rem; color: #6b7280; line-height: 1.6; }
+
+    /* Resources */
+    .resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .resource-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .resource-card:hover { border-color: #2563eb; transform: translateY(-3px); box-shadow: 0 20px 40px -20px rgba(37,99,235,0.15); }
+    .resource-card .icon {
+      width: 48px; height: 48px;
+      background: #eff6ff; color: #2563eb;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+    }
+    .resource-card h3 { font-size: 1.05rem; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .resource-card p { font-size: 0.9rem; color: #6b7280; line-height: 1.6; margin-bottom: 16px; }
+    .resource-card .link {
+      font-size: 0.87rem; font-weight: 600;
+      color: #2563eb;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .resource-card:hover .link { text-decoration: underline; }
+
+    /* Contact banner */
+    .contact-banner {
+      background: linear-gradient(120deg, #111827 0%, #1e3a8a 60%, #2563eb 100%);
+      color: #fff;
+      padding: 56px 48px;
+      border-radius: 24px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .contact-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+      border-radius: 50%;
+    }
+    .contact-banner-content { position: relative; z-index: 2; }
+    .contact-banner h2 { font-size: 2rem; font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 12px; }
+    .contact-banner p { color: #bfdbfe; font-size: 1.05rem; max-width: 520px; line-height: 1.6; margin-bottom: 24px; }
+    .contact-methods { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 2; }
+    .contact-method {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .contact-method:hover { background: rgba(255,255,255,0.2); }
+    .contact-method i { font-size: 1rem; }
+
+    /* Footer */
+    .site-footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 48px 24px 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand p { color: #6b7280; font-size: 0.9rem; line-height: 1.6; max-width: 300px; margin-top: 14px; }
+    .footer-col h4 { font-size: 0.9rem; font-weight: 700; color: #111827; margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 0.9rem; color: #6b7280; margin-bottom: 10px; transition: color 0.15s; }
+    .footer-col a:hover { color: #2563eb; }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.85rem; color: #6b7280; }
+    .footer-legal { display: flex; gap: 22px; }
+    .footer-legal a { color: #6b7280; }
+    .footer-legal a:hover { color: #2563eb; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero h1 { font-size: 2.4rem; }
+      .hero-image { aspect-ratio: 16/10; max-width: 600px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .emergency-card { grid-template-columns: 1fr; padding: 32px; }
+      .detailed-list { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .resources-grid { grid-template-columns: 1fr 1fr; }
+      .contact-banner { grid-template-columns: 1fr; padding: 40px 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .section { padding: 48px 20px; }
+      .section-header h2 { font-size: 1.65rem; }
+      .hero { padding: 48px 20px; }
+      .hero h1 { font-size: 2rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .emergency-card { padding: 32px 24px; border-radius: 20px; }
+      .emergency-content h2 { font-size: 1.5rem; }
+      .contact-banner { padding: 32px 24px; border-radius: 20px; }
+      .contact-banner h2 { font-size: 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="home page.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="airport.html">Airport</a>
+        <a href="business.html">Business</a>
+        <a href="gift-cards.html">Gift cards</a>
+        <a href="safety.html" class="active">Safety</a>
+      </nav>
+      <a href="tel:911" class="header-cta">
+        <i class="fas fa-triangle-exclamation"></i>
+        Emergency
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <i class="fas fa-shield-halved"></i>
+          Safety first, always
+        </div>
+        <h1>Every ride, <span class="accent">backed by safety</span>.</h1>
+        <p class="hero-sub">
+          From background-checked drivers to real-time tracking and 24/7 emergency support — safety isn't a feature at InstantCab. It's the foundation.
+        </p>
+        <div class="hero-ctas">
+          <a href="#features" class="btn-primary">
+            <i class="fas fa-shield-halved" style="font-size: 0.85rem;"></i>
+            Explore safety features
+          </a>
+          <a href="tel:911" class="btn-emergency">
+            <i class="fas fa-phone"></i>
+            Emergency: call 911
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <!-- Real photo: professional driver at the wheel -->
+        <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1200&auto=format&fit=crop" alt="Professional driver at the wheel of a taxi">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section section-alt" id="features">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Core safety features</span>
+        <h2>Protection at every step</h2>
+        <p>Six layers of safety, built into every ride — whether you're going two blocks or 20 miles.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon green"><i class="fas fa-user-shield"></i></div>
+          <h3>Background-checked drivers</h3>
+          <p>Every driver passes a comprehensive background check — criminal history, driving record, and identity verification. Re-checked annually.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-location-crosshairs"></i></div>
+          <h3>Real-time GPS tracking</h3>
+          <p>See your driver's exact location, vehicle details, and ETA from the moment they accept your ride. Trip data is logged securely.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-share-nodes"></i></div>
+          <h3>Share my trip</h3>
+          <p>Send a live tracking link to a friend or family member with one tap. They'll see your route and ETA in real time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon red"><i class="fas fa-tower-broadcast"></i></div>
+          <h3>In-app emergency button</h3>
+          <p>Direct 911 access from the app, with your live location and trip details sent to dispatchers automatically.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-hashtag"></i></div>
+          <h3>Ride PIN verification</h3>
+          <p>Confirm your driver with a 4-digit PIN before entering the vehicle. Prevents wrong-car pickups at busy locations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green"><i class="fas fa-headset"></i></div>
+          <h3>24/7 safety team</h3>
+          <p>A dedicated safety response team is available around the clock in every market, with 2-minute average response time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMERGENCY -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="emergency-card">
+        <div class="emergency-content">
+          <h2>In an emergency, we're right there with you.</h2>
+          <p>
+            Our in-app emergency button connects you directly to local authorities and our safety team simultaneously — with your live location, driver info, and vehicle details transmitted instantly.
+          </p>
+          <a href="tel:911" class="emergency-btn">
+            <i class="fas fa-phone"></i>
+            Call 911 immediately
+          </a>
+        </div>
+        <div class="emergency-image">
+          <!-- Real photo: emergency response vehicle with lights -->
+          <img src="https://images.unsplash.com/photo-1587560699334-cc4ff634909a?q=80&w=900&auto=format&fit=crop" alt="Emergency response vehicle">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILED LIST -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Additional protections</span>
+        <h2>Every detail, covered</h2>
+      </div>
+
+      <div class="detailed-list">
+        <div class="detailed-item">
+          <div class="detailed-icon green"><i class="fas fa-clipboard-check"></i></div>
+          <div class="detailed-info">
+            <h4>Vehicle inspections</h4>
+            <p>All vehicles must pass an annual safety inspection covering brakes, tires, lights, and airbags. Failed inspections mean no driving.</p>
+          </div>
+        </div>
+
+        <div class="detailed-item">
+          <div class="detailed-icon"><i class="fas fa-user-check"></i></div>
+          <div class="detailed-info">
+            <h4>Two-way ratings</h4>
+            <p>Riders rate drivers and drivers rate riders. Low ratings trigger review, and consistently low-rated accounts are removed.</p>
+          </div>
+        </div>
+
+        <div class="detailed-item">
+          <div class="detailed-icon amber"><i class="fas fa-shield-halved"></i></div>
+          <div class="detailed-info">
+            <h4>Insurance on every ride</h4>
+            <p>Commercial liability insurance covers every trip from pickup to drop-off — up to $1M per incident.</p>
+          </div>
+        </div>
+
+        <div class="detailed-item">
+          <div class="detailed-icon red"><i class="fas fa-user-slash"></i></div>
+          <div class="detailed-info">
+            <h4>Block & report</h4>
+            <p>Block any driver or rider from being matched with you again. Reports are investigated within 24 hours.</p>
+          </div>
+        </div>
+
+        <div class="detailed-item">
+          <div class="detailed-icon"><i class="fas fa-eye"></i></div>
+          <div class="detailed-info">
+            <h4>Anonymized phone numbers</h4>
+            <p>Calls and texts between riders and drivers use masked numbers. Neither party sees the other's real phone number.</p>
+          </div>
+        </div>
+
+        <div class="detailed-item">
+          <div class="detailed-icon green"><i class="fas fa-graduation-cap"></i></div>
+          <div class="detailed-info">
+            <h4>Driver training program</h4>
+            <p>Every driver completes our safety training on defensive driving, de-escalation, and emergency procedures before their first ride.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Your safety routine</span>
+        <h2>Four steps to a safer ride</h2>
+        <p>Small habits that make a big difference — every time you ride.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Match the details</h3>
+          <p>Before you get in, verify the license plate, car model, and driver photo in the app match the vehicle in front of you.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Share your trip</h3>
+          <p>Tap "Share trip" and send the live link to a trusted contact. Takes two seconds.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Confirm with PIN</h3>
+          <p>Enter your 4-digit ride PIN when prompted. Your driver will only start the trip after verification.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Rate and report</h3>
+          <p>Rate your ride honestly. Report any safety concern — it goes directly to our safety team, not to the driver.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-eyebrow">Resources</span>
+        <h2>More about safety</h2>
+      </div>
+
+      <div class="resources-grid">
+        <div class="resource-card" onclick="alert('Opening Safety Center…');">
+          <div class="icon"><i class="fas fa-book"></i></div>
+          <h3>Safety Center</h3>
+          <p>A complete guide to safety features, best practices, and emergency procedures.</p>
+          <span class="link">Read the guide <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i></span>
+        </div>
+
+        <div class="resource-card" onclick="alert('Opening Community Guidelines…');">
+          <div class="icon"><i class="fas fa-users"></i></div>
+          <h3>Community Guidelines</h3>
+          <p>What we expect from riders and drivers to keep our community safe and respectful.</p>
+          <span class="link">View guidelines <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i></span>
+        </div>
+
+        <div class="resource-card" onclick="alert('Opening Report an Incident form…');">
+          <div class="icon"><i class="fas fa-flag"></i></div>
+          <h3>Report an incident</h3>
+          <p>If something didn't feel right, tell us. Reports are confidential and reviewed within 24 hours.</p>
+          <span class="link">Submit a report <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="contact-banner">
+        <div class="contact-banner-content">
+          <h2>Safety is a shared responsibility</h2>
+          <p>Help us keep every ride safe. Report concerns, follow guidelines, and look out for each other — whether you're a rider or a driver.</p>
+        </div>
+        <div class="contact-methods">
+          <a href="tel:+18002226669" class="contact-method">
+            <i class="fas fa-phone"></i>
+            1-800-CAB-NOW · 24/7
+          </a>
+          <a href="mailto:safety@instantcab.com" class="contact-method">
+            <i class="fas fa-envelope"></i>
+            safety@instantcab.com
+          </a>
+          <a href="help.html" class="contact-method">
+            <i class="fas fa-comment-dots"></i>
+            Live chat support
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+            <span>InstantCab</span>
+          </a>
+          <p>Reliable, affordable taxi rides at your fingertips. Available in 120+ cities worldwide.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="careers.html">Careers</a>
+          <a href="press.html">Press</a>
+          <a href="blog.html">Blog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="airport.html">Airport transfers</a>
+          <a href="business.html">Business accounts</a>
+          <a href="gift-cards.html">Gift cards</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="help.html">Help center</a>
+          <a href="safety.html">Safety</a>
+          <a href="accessibility.html">Accessibility</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 InstantCab Technologies Inc. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="legal/terms.html">Terms</a>
+          <a href="legal/privacy.html">Privacy</a>
+          <a href="legal/cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

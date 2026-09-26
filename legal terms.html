@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — InstantCab</title>
+  <meta name="description" content="InstantCab Terms of Service — the rules that govern your use of our platform.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    /* Hero */
+    .legal-hero {
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .legal-hero-inner { max-width: 800px; margin: 0 auto; }
+    .legal-hero .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .legal-hero h1 {
+      font-size: 2.6rem; font-weight: 800;
+      letter-spacing: -0.03em; color: #111827;
+      line-height: 1.15; margin-bottom: 14px;
+    }
+    .legal-hero p {
+      font-size: 1.05rem; color: #6b7280;
+      max-width: 560px; margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+    .legal-meta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      font-weight: 500;
+    }
+    .legal-meta i { color: #2563eb; font-size: 0.8rem; }
+
+    /* Content */
+    .legal-content {
+      max-width: 1100px; margin: 0 auto;
+      padding: 56px 24px 80px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* TOC */
+    .toc { position: sticky; top: 92px; }
+    .toc h3 {
+      font-size: 0.75rem; font-weight: 700;
+      color: #6b7280; text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      padding-left: 12px;
+    }
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #4b5563;
+      border-radius: 8px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .toc a:hover { color: #2563eb; background: #eff6ff; }
+    .toc a.active { color: #2563eb; border-left-color: #2563eb; background: #eff6ff; font-weight: 600; }
+
+    /* Article */
+    .legal-article { max-width: 720px; }
+    .legal-article section { margin-bottom: 48px; scroll-margin-top: 100px; }
+    .legal-article h2 {
+      font-size: 1.5rem; font-weight: 800;
+      color: #111827; letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .legal-article h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: #eff6ff;
+      color: #2563eb;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .legal-article h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: #111827; letter-spacing: -0.01em;
+      margin-top: 28px; margin-bottom: 12px;
+    }
+    .legal-article p {
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.75; margin-bottom: 16px;
+    }
+    .legal-article ul {
+      margin: 12px 0 20px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .legal-article ul li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.75; margin-bottom: 10px;
+    }
+    .legal-article ul li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0; top: 2px;
+      color: #2563eb;
+      font-size: 0.8rem;
+    }
+    .legal-article a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: rgba(37,99,235,0.3);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.15s;
+    }
+    .legal-article a:hover { text-decoration-color: #2563eb; }
+    .legal-article .info-box {
+      background: #f9fafb;
+      border-left: 3px solid #2563eb;
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #374151;
+      line-height: 1.7;
+      margin: 16px 0;
+    }
+    .legal-article .info-box strong { color: #111827; }
+
+    /* Contact card */
+    .legal-contact {
+      background: #111827;
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+    }
+    .legal-contact h3 { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .legal-contact p { color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; }
+    .legal-contact .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .legal-contact a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.88rem; font-weight: 600;
+      transition: all 0.15s;
+    }
+    .legal-contact a:hover { background: rgba(255,255,255,0.2); }
+
+    /* Footer */
+    .site-footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    .site-footer a { color: #2563eb; font-weight: 600; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .legal-content { grid-template-columns: 1fr; gap: 32px; }
+      .toc { position: static; display: flex; overflow-x: auto; gap: 8px; padding-bottom: 8px; }
+      .toc h3 { display: none; }
+      .toc a { flex-shrink: 0; padding: 8px 14px; border-left: none; border-radius: 100px; background: #f9fafb; }
+      .toc a.active { background: #eff6ff; }
+      .legal-hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html">Home</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="cookies.html">Cookies</a>
+      </nav>
+      <a href="../signup.html" class="header-cta">Get started</a>
+    </div>
+  </header>
+
+  <section class="legal-hero">
+    <div class="legal-hero-inner">
+      <span class="eyebrow">Legal</span>
+      <h1>Terms of Service</h1>
+      <p>The rules that govern your use of InstantCab's apps, websites, and services.</p>
+      <div class="legal-meta">
+        <i class="fas fa-calendar"></i>
+        Last updated: March 15, 2025
+      </div>
+    </div>
+  </section>
+
+  <div class="legal-content">
+
+    <!-- TOC -->
+    <aside class="toc">
+      <h3>Contents</h3>
+      <a href="#acceptance" class="active">1. Acceptance</a>
+      <a href="#services">2. Services</a>
+      <a href="#account">3. Your account</a>
+      <a href="#payment">4. Payments</a>
+      <a href="#conduct">5. User conduct</a>
+      <a href="#driver">6. Driver terms</a>
+      <a href="#liability">7. Liability</a>
+      <a href="#termination">8. Termination</a>
+      <a href="#changes">9. Changes</a>
+      <a href="#contact">10. Contact</a>
+    </aside>
+
+    <!-- Article -->
+    <article class="legal-article">
+
+      <section id="acceptance">
+        <h2><span class="num">1</span> Acceptance of terms</h2>
+        <p>By creating an InstantCab account, downloading our mobile app, or booking a ride through our platform, you agree to be bound by these Terms of Service ("Terms"). If you do not agree with any part of these Terms, please do not use our services.</p>
+        <p>These Terms apply to all users of InstantCab, including riders, drivers, and visitors to our website. Your use of our services is also governed by our <a href="privacy.html">Privacy Policy</a> and <a href="cookies.html">Cookie Policy</a>.</p>
+        <div class="info-box">
+          <strong>In short:</strong> By using InstantCab, you agree to these rules. Read them carefully — they explain your rights and responsibilities.
+        </div>
+      </section>
+
+      <section id="services">
+        <h2><span class="num">2</span> Our services</h2>
+        <p>InstantCab operates a technology platform that connects riders with independent, licensed taxi and private-hire drivers. We do not provide transportation services ourselves — we provide the technology that enables riders and drivers to find each other.</p>
+
+        <h3>2.1 What we provide</h3>
+        <ul>
+          <li>A mobile app and website to book rides</li>
+          <li>Real-time GPS tracking and trip coordination</li>
+          <li>Payment processing and digital receipts</li>
+          <li>24/7 customer support</li>
+          <li>Safety features such as trip sharing and emergency calling</li>
+        </ul>
+
+        <h3>2.2 What we don't provide</h3>
+        <ul>
+          <li>We are not a transportation carrier</li>
+          <li>We do not employ drivers directly</li>
+          <li>We do not own or maintain the vehicles</li>
+          <li>We are not responsible for traffic, weather, or route conditions</li>
+        </ul>
+      </section>
+
+      <section id="account">
+        <h2><span class="num">3</span> Your account</h2>
+        <p>To use most features of InstantCab, you must create an account. You agree to:</p>
+        <ul>
+          <li>Be at least 18 years old (21 for drivers)</li>
+          <li>Provide accurate, current, and complete information</li>
+          <li>Keep your password secure and confidential</li>
+          <li>Notify us immediately of any unauthorized access</li>
+          <li>Accept responsibility for all activity on your account</li>
+        </ul>
+        <p>You may not create more than one personal account, share your account with others, or transfer your account to another person without our written permission.</p>
+      </section>
+
+      <section id="payment">
+        <h2><span class="num">4</span> Payments and pricing</h2>
+
+        <h3>4.1 Fare calculation</h3>
+        <p>Fares are calculated based on base rate, distance, time, and current demand. When you book a ride, you will see an upfront fixed price before confirming. This is the amount you will be charged unless the trip changes significantly (extra stops, route changes requested by you, etc.).</p>
+
+        <h3>4.2 Payment methods</h3>
+        <p>We accept major credit and debit cards, as well as our in-app wallet. By adding a payment method, you authorize us to charge it for rides, tips, cancellation fees, and any other amounts you owe.</p>
+
+        <h3>4.3 Tips</h3>
+        <p>100% of tips go directly to the driver. Tips are optional and can be added before or after a trip.</p>
+
+        <h3>4.4 Cancellation fees</h3>
+        <p>You can cancel free of charge within 2 minutes of booking. After that, a small fee may apply to compensate the driver for their time and fuel.</p>
+
+        <h3>4.5 Refunds</h3>
+        <p>If something goes wrong on a ride — incorrect fare, driver issue, or unexpected charge — you can request a refund within 30 days from <a href="../trips.html">My Trips</a>. Most refund requests are reviewed within 24 hours.</p>
+      </section>
+
+      <section id="conduct">
+        <h2><span class="num">5</span> User conduct</h2>
+        <p>You agree to treat drivers, other riders, and InstantCab staff with respect. You may not:</p>
+        <ul>
+          <li>Harass, threaten, or discriminate against anyone</li>
+          <li>Damage the vehicle or driver's property</li>
+          <li>Consume alcohol or illegal substances in the vehicle</li>
+          <li>Smoke or vape inside the vehicle</li>
+          <li>Bring weapons, hazardous materials, or illegal items</li>
+          <li>Exceed the vehicle's passenger limit</li>
+          <li>Use the platform for any unlawful purpose</li>
+        </ul>
+        <p>Violations may result in immediate account suspension or termination, and in serious cases, we may report incidents to law enforcement.</p>
+      </section>
+
+      <section id="driver">
+        <h2><span class="num">6</span> Driver terms</h2>
+        <p>If you sign up as a driver, additional terms apply:</p>
+
+        <h3>6.1 Independent contractor</h3>
+        <p>Drivers are independent contractors, not employees of InstantCab. You control when and how often you drive, and you are responsible for your own taxes, insurance, and vehicle maintenance.</p>
+
+        <h3>6.2 Requirements</h3>
+        <p>Drivers must maintain a valid driver's license, appropriate insurance, a clean background check, and a vehicle that meets our safety standards. You must notify us immediately if any of these change.</p>
+
+        <h3>6.3 Earnings and payouts</h3>
+        <p>Drivers keep 80% of every fare. Payouts are processed weekly on Tuesdays, with optional instant cash-out available for a small fee.</p>
+
+        <h3>6.4 Service standards</h3>
+        <p>Drivers agree to maintain a minimum rating of 4.6 stars, accept rides in good faith, and provide safe, professional service at all times.</p>
+      </section>
+
+      <section id="liability">
+        <h2><span class="num">7</span> Limitation of liability</h2>
+        <p>To the maximum extent permitted by law, InstantCab is not liable for:</p>
+        <ul>
+          <li>Indirect, incidental, or consequential damages</li>
+          <li>Lost profits, data, or opportunities</li>
+          <li>Damages caused by drivers, riders, or third parties</li>
+          <li>Service interruptions, delays, or technical issues</li>
+        </ul>
+        <p>Our total liability for any claim related to your use of InstantCab is limited to the greater of (a) the amount you paid us in the 6 months before the claim, or (b) $100 USD.</p>
+        <div class="info-box">
+          <strong>Important:</strong> Some jurisdictions do not allow certain limitations of liability. If you live in one of these jurisdictions, some of the above may not apply to you.
+        </div>
+      </section>
+
+      <section id="termination">
+        <h2><span class="num">8</span> Termination</h2>
+        <p>You may close your account at any time from <a href="../settings.html">Settings</a> → Delete account. We may suspend or terminate your account if you violate these Terms, engage in fraud, or pose a safety risk to other users.</p>
+        <p>When your account is terminated:</p>
+        <ul>
+          <li>Your access to the app will end immediately</li>
+          <li>Any outstanding payments remain due</li>
+          <li>Your ride history will be deleted after 30 days</li>
+          <li>Some data may be retained for legal or tax purposes</li>
+        </ul>
+      </section>
+
+      <section id="changes">
+        <h2><span class="num">9</span> Changes to these terms</h2>
+        <p>We may update these Terms from time to time to reflect changes in our services, legal requirements, or business practices. When we make material changes, we'll notify you by email or through the app at least 14 days before the changes take effect.</p>
+        <p>Your continued use of InstantCab after the changes take effect means you accept the updated Terms. If you do not agree, you may close your account at any time.</p>
+      </section>
+
+      <section id="contact">
+        <h2><span class="num">10</span> Contact us</h2>
+        <p>If you have questions about these Terms, please contact our legal team.</p>
+
+        <div class="legal-contact">
+          <h3>Questions about our Terms?</h3>
+          <p>Our support team is available 24/7. For legal matters, reach out to legal@instantcab.com.</p>
+          <div class="contact-links">
+            <a href="mailto:legal@instantcab.com">
+              <i class="fas fa-envelope"></i>
+              legal@instantcab.com
+            </a>
+            <a href="../help.html">
+              <i class="fas fa-life-ring"></i>
+              Help center
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    © 2025 InstantCab Technologies Inc. — Questions? <a href="mailto:legal@instantcab.com">legal@instantcab.com</a>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var tocLinks = document.querySelectorAll('.toc a');
+      var sections = document.querySelectorAll('.legal-article section');
+
+      tocLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          tocLinks.forEach(function (l) { l.classList.remove('active'); });
+          link.classList.add('active');
+        });
+      });
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.id;
+              tocLinks.forEach(function (l) {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+              });
+            }
+          });
+        }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+        sections.forEach(function (s) { observer.observe(s); });
+      }
+    })();
+  </script>
+</body>
+</html>

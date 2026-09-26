@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — InstantCab</title>
+  <meta name="description" content="InstantCab Privacy Policy — how we collect, use, and protect your personal information.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    /* Hero */
+    .legal-hero {
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .legal-hero-inner { max-width: 800px; margin: 0 auto; }
+    .legal-hero .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .legal-hero h1 {
+      font-size: 2.6rem; font-weight: 800;
+      letter-spacing: -0.03em; color: #111827;
+      line-height: 1.15; margin-bottom: 14px;
+    }
+    .legal-hero p {
+      font-size: 1.05rem; color: #6b7280;
+      max-width: 560px; margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+    .legal-meta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      font-weight: 500;
+    }
+    .legal-meta i { color: #2563eb; font-size: 0.8rem; }
+
+    /* Content */
+    .legal-content {
+      max-width: 1100px; margin: 0 auto;
+      padding: 56px 24px 80px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .toc { position: sticky; top: 92px; }
+    .toc h3 {
+      font-size: 0.75rem; font-weight: 700;
+      color: #6b7280; text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      padding-left: 12px;
+    }
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #4b5563;
+      border-radius: 8px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .toc a:hover { color: #2563eb; background: #eff6ff; }
+    .toc a.active { color: #2563eb; border-left-color: #2563eb; background: #eff6ff; font-weight: 600; }
+
+    .legal-article { max-width: 720px; }
+    .legal-article section { margin-bottom: 48px; scroll-margin-top: 100px; }
+    .legal-article h2 {
+      font-size: 1.5rem; font-weight: 800;
+      color: #111827; letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .legal-article h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: #eff6ff;
+      color: #2563eb;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .legal-article h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: #111827; letter-spacing: -0.01em;
+      margin-top: 28px; margin-bottom: 12px;
+    }
+    .legal-article p {
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.75; margin-bottom: 16px;
+    }
+    .legal-article ul {
+      margin: 12px 0 20px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .legal-article ul li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.75; margin-bottom: 10px;
+    }
+    .legal-article ul li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0; top: 2px;
+      color: #2563eb;
+      font-size: 0.8rem;
+    }
+    .legal-article a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: rgba(37,99,235,0.3);
+      text-underline-offset: 3px;
+    }
+    .legal-article a:hover { text-decoration-color: #2563eb; }
+
+    /* Data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.88rem;
+    }
+    .data-table th {
+      background: #f9fafb;
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: #111827;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .data-table td {
+      padding: 12px 16px;
+      color: #4b5563;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .info-box {
+      background: #f9fafb;
+      border-left: 3px solid #2563eb;
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #374151;
+      line-height: 1.7;
+      margin: 16px 0;
+    }
+    .info-box strong { color: #111827; }
+
+    .legal-contact {
+      background: #111827;
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+    }
+    .legal-contact h3 { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .legal-contact p { color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; }
+    .legal-contact .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .legal-contact a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.88rem; font-weight: 600;
+      transition: all 0.15s;
+    }
+    .legal-contact a:hover { background: rgba(255,255,255,0.2); }
+
+    .site-footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    .site-footer a { color: #2563eb; font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .legal-content { grid-template-columns: 1fr; gap: 32px; }
+      .toc { position: static; display: flex; overflow-x: auto; gap: 8px; padding-bottom: 8px; }
+      .toc h3 { display: none; }
+      .toc a { flex-shrink: 0; padding: 8px 14px; border-left: none; border-radius: 100px; background: #f9fafb; }
+      .toc a.active { background: #eff6ff; }
+      .legal-hero h1 { font-size: 2rem; }
+      .data-table { font-size: 0.82rem; }
+      .data-table th, .data-table td { padding: 10px 12px; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="../index.html">Home</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="cookies.html">Cookies</a>
+      </nav>
+      <a href="../signup.html" class="header-cta">Get started</a>
+    </div>
+  </header>
+
+  <section class="legal-hero">
+    <div class="legal-hero-inner">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p>How InstantCab collects, uses, and protects your personal information.</p>
+      <div class="legal-meta">
+        <i class="fas fa-calendar"></i>
+        Last updated: March 15, 2025
+      </div>
+    </div>
+  </section>
+
+  <div class="legal-content">
+
+    <aside class="toc">
+      <h3>Contents</h3>
+      <a href="#overview" class="active">1. Overview</a>
+      <a href="#collect">2. What we collect</a>
+      <a href="#use">3. How we use it</a>
+      <a href="#share">4. Who we share with</a>
+      <a href="#rights">5. Your rights</a>
+      <a href="#security">6. Security</a>
+      <a href="#retention">7. Data retention</a>
+      <a href="#children">8. Children</a>
+      <a href="#changes">9. Changes</a>
+      <a href="#contact">10. Contact</a>
+    </aside>
+
+    <article class="legal-article">
+
+      <section id="overview">
+        <h2><span class="num">1</span> Overview</h2>
+        <p>InstantCab Technologies Inc. ("InstantCab", "we", "us") respects your privacy. This Privacy Policy explains what personal information we collect, how we use it, who we share it with, and the choices you have.</p>
+        <p>This policy applies to our mobile apps, website, and any other services we offer. It applies to both riders and drivers.</p>
+        <div class="info-box">
+          <strong>Our commitment:</strong> We collect only what we need to operate the service. We never sell your personal data. We give you control over what we collect and how it's used.
+        </div>
+      </section>
+
+      <section id="collect">
+        <h2><span class="num">2</span> What we collect</h2>
+        <p>We collect information you give us, information we get automatically, and information from third parties.</p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Examples</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Account info</strong></td>
+              <td>Name, email, phone, profile photo</td>
+              <td>To create and manage your account</td>
+            </tr>
+            <tr>
+              <td><strong>Location data</strong></td>
+              <td>Pickup and drop-off, real-time GPS</td>
+              <td>To match you with a driver and track trips</td>
+            </tr>
+            <tr>
+              <td><strong>Payment info</strong></td>
+              <td>Card details (via Stripe), transaction history</td>
+              <td>To process payments and issue receipts</td>
+            </tr>
+            <tr>
+              <td><strong>Trip details</strong></td>
+              <td>Routes, times, distances, driver & rider ratings</td>
+              <td>To improve routes, resolve disputes, and provide support</td>
+            </tr>
+            <tr>
+              <td><strong>Device info</strong></td>
+              <td>Device model, OS, unique identifiers, IP address</td>
+              <td>To ensure app security and prevent fraud</td>
+            </tr>
+            <tr>
+              <td><strong>Communications</strong></td>
+              <td>Chats with drivers, support tickets, emails</td>
+              <td>To provide support and resolve issues</td>
+            </tr>
+            <tr>
+              <td><strong>Usage data</strong></td>
+              <td>Features you use, pages you visit, session duration</td>
+              <td>To improve the app and diagnose issues</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2.1 Information you provide</h3>
+        <ul>
+          <li>Registration details (name, email, phone, password)</li>
+          <li>Payment methods and billing address</li>
+          <li>Profile photo and preferences</li>
+          <li>Feedback, ratings, and support requests</li>
+          <li>Driver documents (license, insurance, registration)</li>
+        </ul>
+
+        <h3>2.2 Information collected automatically</h3>
+        <ul>
+          <li>Precise location (with your permission)</li>
+          <li>Device identifiers and IP address</li>
+          <li>App usage patterns and crash reports</li>
+          <li>Referral source and marketing campaigns</li>
+        </ul>
+      </section>
+
+      <section id="use">
+        <h2><span class="num">3</span> How we use your information</h2>
+        <p>We use your personal information to:</p>
+        <ul>
+          <li>Provide, maintain, and improve our services</li>
+          <li>Match riders with drivers and calculate fares</li>
+          <li>Process payments and send receipts</li>
+          <li>Enable communication between riders and drivers</li>
+          <li>Provide customer support and resolve disputes</li>
+          <li>Ensure safety and prevent fraud</li>
+          <li>Send you important service updates</li>
+          <li>Send marketing (only with your consent — you can opt out anytime)</li>
+          <li>Comply with legal and regulatory requirements</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Marketing:</strong> You control whether we send you promotional content. You can turn off marketing messages at any time in <a href="../settings.html">Settings → Notifications</a>.
+        </div>
+      </section>
+
+      <section id="share">
+        <h2><span class="num">4</span> Who we share with</h2>
+        <p>We never sell your personal data. We share it only as described below:</p>
+
+        <h3>4.1 With drivers and riders</h3>
+        <p>When you book a ride, your driver sees your first name, profile photo, pickup location, and any notes you've added. You see the driver's name, photo, vehicle, and rating. Phone numbers are masked through the app — neither party sees the other's real number.</p>
+
+        <h3>4.2 With service providers</h3>
+        <ul>
+          <li><strong>Payment processors</strong> (Stripe) — to charge your card</li>
+          <li><strong>Cloud hosting</strong> (AWS) — to run our infrastructure</li>
+          <li><strong>Analytics</strong> (Mixpanel) — to understand app usage</li>
+          <li><strong>Communications</strong> (Twilio) — for SMS and voice calls</li>
+          <li><strong>Support tools</strong> (Zendesk) — to answer your requests</li>
+        </ul>
+        <p>All service providers are contractually required to protect your data and use it only for the services they provide to us.</p>
+
+        <h3>4.3 With law enforcement</h3>
+        <p>We may disclose information when legally required — for example, in response to a subpoena or court order — or when necessary to protect the safety of our users or the public.</p>
+
+        <h3>4.4 In business transfers</h3>
+        <p>If InstantCab is acquired or merges with another company, your information may be transferred. We'll notify you before that happens, and the new owner will remain bound by this Privacy Policy.</p>
+      </section>
+
+      <section id="rights">
+        <h2><span class="num">5</span> Your rights</h2>
+        <p>Depending on where you live, you may have the following rights:</p>
+        <ul>
+          <li><strong>Access</strong> — request a copy of your personal data</li>
+          <li><strong>Correction</strong> — fix inaccurate information</li>
+          <li><strong>Deletion</strong> — ask us to delete your account and data</li>
+          <li><strong>Portability</strong> — receive your data in a portable format</li>
+          <li><strong>Restriction</strong> — limit how we use your data</li>
+          <li><strong>Objection</strong> — opt out of marketing or certain processing</li>
+          <li><strong>Withdraw consent</strong> — at any time, without penalty</li>
+        </ul>
+        <p>To exercise any of these rights, email <a href="mailto:privacy@instantcab.com">privacy@instantcab.com</a> or use the controls in <a href="../settings.html">Settings → Privacy</a>. We'll respond within 30 days.</p>
+
+        <div class="info-box">
+          <strong>California residents:</strong> You have additional rights under the CCPA, including the right to know what personal information we've collected and to opt out of any "sale" of your data. (We don't sell your data — but you still have the right to opt out.)
+        </div>
+      </section>
+
+      <section id="security">
+        <h2><span class="num">6</span> Security</h2>
+        <p>We protect your information with industry-standard security measures:</p>
+        <ul>
+          <li>256-bit TLS encryption for all data in transit</li>
+          <li>AES-256 encryption at rest for sensitive data</li>
+          <li>PCI-DSS compliant payment processing</li>
+          <li>Regular security audits and penetration testing</li>
+          <li>Strict employee access controls and background checks</li>
+          <li>SOC 2 Type II certified infrastructure</li>
+        </ul>
+        <p>No system is 100% secure. If we ever experience a data breach affecting your personal information, we'll notify you and the relevant authorities within 72 hours, as required by law.</p>
+      </section>
+
+      <section id="retention">
+        <h2><span class="num">7</span> Data retention</h2>
+        <p>We keep your data only as long as we need it:</p>
+        <ul>
+          <li><strong>Active accounts</strong> — while your account is open</li>
+          <li><strong>After deletion</strong> — most data deleted within 30 days</li>
+          <li><strong>Trip history</strong> — retained for 7 years for tax and legal compliance</li>
+          <li><strong>Payment records</strong> — retained per financial regulations</li>
+          <li><strong>Fraud prevention</strong> — some data retained longer if needed for investigations</li>
+        </ul>
+      </section>
+
+      <section id="children">
+        <h2><span class="num">8</span> Children's privacy</h2>
+        <p>InstantCab is not intended for anyone under 18. We do not knowingly collect personal information from children. If you believe a child has provided us with their information, please contact us at <a href="mailto:privacy@instantcab.com">privacy@instantcab.com</a> and we'll delete it.</p>
+      </section>
+
+      <section id="changes">
+        <h2><span class="num">9</span> Changes to this policy</h2>
+        <p>We may update this Privacy Policy from time to time. When we make material changes, we'll notify you by email or through the app at least 14 days before the changes take effect.</p>
+        <p>Your continued use of InstantCab after the changes take effect means you accept the updated policy.</p>
+      </section>
+
+      <section id="contact">
+        <h2><span class="num">10</span> Contact us</h2>
+        <p>If you have questions about this Privacy Policy or how we handle your data, our Data Protection Officer is available to help.</p>
+
+        <div class="legal-contact">
+          <h3>Questions about your privacy?</h3>
+          <p>Our Data Protection Officer responds within 5 business days. For urgent issues, use live chat.</p>
+          <div class="contact-links">
+            <a href="mailto:privacy@instantcab.com">
+              <i class="fas fa-shield-halved"></i>
+              privacy@instantcab.com
+            </a>
+            <a href="../help.html">
+              <i class="fas fa-life-ring"></i>
+              Help center
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    © 2025 InstantCab Technologies Inc. — Data questions? <a href="mailto:privacy@instantcab.com">privacy@instantcab.com</a>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var tocLinks = document.querySelectorAll('.toc a');
+      var sections = document.querySelectorAll('.legal-article section');
+
+      tocLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          tocLinks.forEach(function (l) { l.classList.remove('active'); });
+          link.classList.add('active');
+        });
+      });
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.id;
+              tocLinks.forEach(function (l) {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+              });
+            }
+          });
+        }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+        sections.forEach(function (s) { observer.observe(s); });
+      }
+    })();
+  </script>
+</body>
+</html>

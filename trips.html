@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Trips — InstantCab</title>
+  <meta name="description" content="View your full trip history, receipts, and download invoices.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #f9fafb;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input, select { font-family: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .app-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #4b5563; font-size: 1rem; transition: all 0.15s; position: relative; }
+    .icon-btn:hover { background: #f3f4f6; color: #2563eb; }
+    .icon-btn .dot { position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; border: 2px solid #fff; }
+    .user-menu { display: flex; align-items: center; gap: 10px; padding: 5px 12px 5px 5px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 100px; }
+    .user-menu img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .user-menu .user-name { font-size: 0.875rem; font-weight: 600; color: #111827; }
+    .user-menu .chevron { font-size: 0.7rem; color: #6b7280; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+    .page-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+    .page-header h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; color: #111827; margin-bottom: 6px; }
+    .page-header p { color: #6b7280; font-size: 0.95rem; }
+
+    /* Summary */
+    .summary-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .summary-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; }
+    .summary-card .label { font-size: 0.82rem; color: #6b7280; font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .summary-card .label i { color: #2563eb; font-size: 0.85rem; }
+    .summary-card .value { font-size: 1.5rem; font-weight: 800; color: #111827; letter-spacing: -0.02em; line-height: 1.2; }
+    .summary-card .sub { font-size: 0.78rem; color: #6b7280; margin-top: 4px; }
+
+    /* Filter bar */
+    .filter-bar { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 14px; display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+    .search-input { flex: 1; min-width: 220px; display: flex; align-items: center; gap: 10px; padding: 6px 12px; border: 1px solid #d1d5db; border-radius: 10px; background: #fff; }
+    .search-input:focus-within { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
+    .search-input i { color: #9ca3af; font-size: 0.9rem; }
+    .search-input input { border: none; outline: none; background: transparent; font-size: 0.9rem; font-weight: 500; color: #111827; width: 100%; padding: 6px 0; }
+    .filter-select { padding: 9px 14px; font-size: 0.88rem; font-weight: 500; color: #111827; background: #fff; border: 1px solid #d1d5db; border-radius: 10px; cursor: pointer; }
+    .filter-select:focus { outline: none; border-color: #2563eb; }
+    .export-btn { padding: 9px 16px; font-size: 0.85rem; font-weight: 600; color: #111827; background: #fff; border: 1px solid #d1d5db; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s; }
+    .export-btn:hover { background: #f9fafb; border-color: #9ca3af; }
+
+    /* Trip list */
+    .trip-panel { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; }
+    .trip-row { display: grid; grid-template-columns: 60px 1fr 160px 120px 100px; gap: 16px; padding: 20px 24px; align-items: center; border-bottom: 1px solid #f3f4f6; transition: background 0.15s; }
+    .trip-row:last-child { border-bottom: none; }
+    .trip-row:hover { background: #f9fafb; }
+    .trip-row.header { background: #f9fafb; padding: 14px 24px; font-size: 0.75rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+    .trip-row.header:hover { background: #f9fafb; }
+    .trip-icon { width: 44px; height: 44px; border-radius: 12px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .trip-route { min-width: 0; }
+    .trip-route .from { font-size: 0.92rem; font-weight: 600; color: #111827; margin-bottom: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .trip-route .to { font-size: 0.85rem; color: #6b7280; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .trip-col { font-size: 0.88rem; color: #4b5563; font-weight: 500; }
+    .trip-col .big { display: block; font-weight: 700; color: #111827; font-size: 0.95rem; margin-bottom: 2px; }
+    .trip-col .small { font-size: 0.78rem; color: #6b7280; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.03em; }
+    .badge.completed { background: #f0fdf4; color: #16a34a; }
+    .badge.cancelled { background: #fef2f2; color: #ef4444; }
+    .trip-actions { text-align: right; }
+    .trip-actions button { padding: 7px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 8px; color: #2563eb; background: #eff6ff; transition: all 0.15s; }
+    .trip-actions button:hover { background: #2563eb; color: #fff; }
+
+    .empty-state { padding: 80px 24px; text-align: center; }
+    .empty-state i { font-size: 2.5rem; color: #d1d5db; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 1.1rem; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .empty-state p { font-size: 0.9rem; color: #6b7280; }
+
+    .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 24px; }
+    .pagination button { width: 36px; height: 36px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: #4b5563; background: #fff; border: 1px solid #e5e7eb; transition: all 0.15s; }
+    .pagination button:hover { border-color: #2563eb; color: #2563eb; }
+    .pagination button.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+    @media (max-width: 900px) {
+      .trip-row { grid-template-columns: 44px 1fr auto; gap: 12px; padding: 16px; }
+      .trip-row.header { display: none; }
+      .trip-col.date-col { display: none; }
+      .trip-col.status-col { display: none; }
+      .summary-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .user-menu .user-name, .user-menu .chevron { display: none; }
+      .user-menu { padding: 5px; }
+      .page { padding: 24px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="home page.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="trips.html" class="active">My trips</a>
+        <a href="payment-methods.html">Wallet</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="dot"></span>
+        </button>
+        <button class="user-menu" aria-label="Account menu">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="User avatar">
+          <span class="user-name">Maya</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <div class="page-header">
+      <div>
+        <h1>My trips</h1>
+        <p>Every ride you've taken with InstantCab — receipts, routes, and ratings.</p>
+      </div>
+      <button class="export-btn" onclick="alert('Exporting trips to CSV…');">
+        <i class="fas fa-download" style="font-size: 0.8rem;"></i>
+        Export CSV
+      </button>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="label"><i class="fas fa-car"></i> Total trips</div>
+        <div class="value">147</div>
+        <div class="sub">Since March 2022</div>
+      </div>
+      <div class="summary-card">
+        <div class="label"><i class="fas fa-dollar-sign"></i> Total spent</div>
+        <div class="value">$1,284.60</div>
+        <div class="sub">Average $8.74 per ride</div>
+      </div>
+      <div class="summary-card">
+        <div class="label"><i class="fas fa-clock"></i> Total distance</div>
+        <div class="value">1,842 mi</div>
+        <div class="sub">About 3 round trips to LA</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <label class="search-input">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchTrips" placeholder="Search by destination or driver…">
+      </label>
+      <select class="filter-select" id="filterMonth">
+        <option value="all">All time</option>
+        <option value="2025-03">March 2025</option>
+        <option value="2025-02">February 2025</option>
+        <option value="2025-01">January 2025</option>
+        <option value="2024-12">December 2024</option>
+      </select>
+      <select class="filter-select" id="filterType">
+        <option value="all">All ride types</option>
+        <option value="economy">Economy</option>
+        <option value="comfort">Comfort</option>
+        <option value="premium">Premium SUV</option>
+        <option value="airport">Airport</option>
+      </select>
+    </div>
+
+    <!-- Trip list -->
+    <div class="trip-panel">
+      <div class="trip-row header">
+        <div></div>
+        <div>Route</div>
+        <div>Date</div>
+        <div>Amount</div>
+        <div style="text-align:right;">Receipt</div>
+      </div>
+
+      <!-- Trip 1 -->
+      <div class="trip-row" data-route="ferry building" data-month="2025-03" data-type="comfort">
+        <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+        <div class="trip-route">
+          <div class="from">Mission St → Ferry Building</div>
+          <div class="to">Comfort · Carlos M. · 12 min · 3.2 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Today</span>
+          <span class="small">9:14 AM</span>
+        </div>
+        <div class="trip-col">$12.80</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Mission St → Ferry Building');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 2 -->
+      <div class="trip-row" data-route="golden gate park" data-month="2025-03" data-type="economy">
+        <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+        <div class="trip-route">
+          <div class="from">Home → Golden Gate Park</div>
+          <div class="to">Economy · Aisha K. · 18 min · 5.8 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Yesterday</span>
+          <span class="small">6:42 PM</span>
+        </div>
+        <div class="trip-col">$16.20</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Home → Golden Gate Park');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 3 -->
+      <div class="trip-row" data-route="sfo airport" data-month="2025-03" data-type="airport">
+        <div class="trip-icon"><i class="fas fa-plane"></i></div>
+        <div class="trip-route">
+          <div class="from">Home → SFO Airport</div>
+          <div class="to">Premium SUV · Daniel O. · 26 min · 14.2 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Mar 14</span>
+          <span class="small">5:10 AM</span>
+        </div>
+        <div class="trip-col">$28.40</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Home → SFO Airport');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 4 -->
+      <div class="trip-row" data-route="nob hill" data-month="2025-03" data-type="comfort">
+        <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+        <div class="trip-route">
+          <div class="from">Office → Nob Hill</div>
+          <div class="to">Comfort · Priya S. · 14 min · 3.9 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Mar 12</span>
+          <span class="small">7:28 PM</span>
+        </div>
+        <div class="trip-col">$14.60</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Office → Nob Hill');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 5 -->
+      <div class="trip-row" data-route="oakland" data-month="2025-03" data-type="premium">
+        <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+        <div class="trip-route">
+          <div class="from">Downtown SF → Oakland Airport</div>
+          <div class="to">Premium SUV · Robert L. · 34 min · 18.6 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Mar 8</span>
+          <span class="small">11:02 AM</span>
+        </div>
+        <div class="trip-col">$48.90</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Downtown SF → Oakland Airport');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 6 -->
+      <div class="trip-row" data-route="berkeley" data-month="2025-02" data-type="economy">
+        <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+        <div class="trip-route">
+          <div class="from">Mission St → Berkeley</div>
+          <div class="to">Economy · Wei C. · 32 min · 12.1 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Feb 28</span>
+          <span class="small">4:15 PM</span>
+        </div>
+        <div class="trip-col">$32.40</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Mission St → Berkeley');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 7 -->
+      <div class="trip-row" data-route="sausalito" data-month="2025-02" data-type="comfort">
+        <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+        <div class="trip-route">
+          <div class="from">Fisherman's Wharf → Sausalito</div>
+          <div class="to">Comfort · Rosa V. · 22 min · 9.4 mi</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Feb 22</span>
+          <span class="small">1:40 PM</span>
+        </div>
+        <div class="trip-col">$24.10</div>
+        <div class="trip-actions">
+          <button onclick="alert('Opening receipt for Fisherman\'s Wharf → Sausalito');">View</button>
+        </div>
+      </div>
+
+      <!-- Trip 8 -->
+      <div class="trip-row" data-route="cancelled" data-month="2025-02" data-type="economy">
+        <div class="trip-icon" style="background:#fef2f2;color:#ef4444;"><i class="fas fa-times"></i></div>
+        <div class="trip-route">
+          <div class="from">Home → Chase Center</div>
+          <div class="to">Economy · Cancelled · No charge</div>
+        </div>
+        <div class="trip-col date-col">
+          <span class="big">Feb 18</span>
+          <span class="small">7:12 PM</span>
+        </div>
+        <div class="trip-col">$0.00</div>
+        <div class="trip-actions">
+          <button onclick="alert('This trip was cancelled — no receipt available.');" style="background:#f3f4f6;color:#6b7280;">Cancelled</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button aria-label="Previous page" onclick="alert('Previous page');"><i class="fas fa-chevron-left" style="font-size: 0.75rem;"></i></button>
+      <button class="active">1</button>
+      <button onclick="alert('Page 2');">2</button>
+      <button onclick="alert('Page 3');">3</button>
+      <button>…</button>
+      <button onclick="alert('Last page');">19</button>
+      <button aria-label="Next page" onclick="alert('Next page');"><i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></button>
+    </div>
+
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var search = document.getElementById('searchTrips');
+      var monthFilter = document.getElementById('filterMonth');
+      var typeFilter = document.getElementById('filterType');
+      var rows = document.querySelectorAll('.trip-row[data-route]');
+
+      function applyFilters() {
+        var q = search.value.trim().toLowerCase();
+        var m = monthFilter.value;
+        var t = typeFilter.value;
+
+        rows.forEach(function (row) {
+          var route = row.dataset.route.toLowerCase();
+          var month = row.dataset.month;
+          var type = row.dataset.type;
+
+          var matchSearch = !q || route.indexOf(q) !== -1;
+          var matchMonth = m === 'all' || month === m;
+          var matchType = t === 'all' || type === t;
+
+          row.style.display = (matchSearch && matchMonth && matchType) ? '' : 'none';
+        });
+      }
+
+      search.addEventListener('input', applyFilters);
+      monthFilter.addEventListener('change', applyFilters);
+      typeFilter.addEventListener('change', applyFilters);
+    })();
+  </script>
+</body>
+</html>

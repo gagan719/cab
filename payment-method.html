@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet & Payment Methods — InstantCab</title>
+  <meta name="description" content="Manage your InstantCab wallet, cards, and payment methods.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #f9fafb;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input, select { font-family: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .app-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #4b5563; font-size: 1rem; transition: all 0.15s; position: relative; }
+    .icon-btn:hover { background: #f3f4f6; color: #2563eb; }
+    .icon-btn .dot { position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; border: 2px solid #fff; }
+    .user-menu { display: flex; align-items: center; gap: 10px; padding: 5px 12px 5px 5px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 100px; }
+    .user-menu img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .user-menu .user-name { font-size: 0.875rem; font-weight: 600; color: #111827; }
+    .user-menu .chevron { font-size: 0.7rem; color: #6b7280; }
+
+    .page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+    .page-header { margin-bottom: 28px; }
+    .page-header h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; color: #111827; margin-bottom: 6px; }
+    .page-header p { color: #6b7280; font-size: 0.95rem; }
+
+    /* Layout */
+    .grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; }
+
+    /* Cards */
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+    .card:last-child { margin-bottom: 0; }
+    .card-header { padding: 20px 24px; border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .card-header h2 { font-size: 1.05rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 8px; }
+    .card-header h2 i { color: #2563eb; font-size: 0.95rem; }
+    .card-body { padding: 24px; }
+
+    /* Wallet hero */
+    .wallet-hero {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #fff; padding: 32px; border-radius: 16px;
+      position: relative; overflow: hidden; margin-bottom: 24px;
+    }
+    .wallet-hero::before {
+      content: ''; position: absolute; top: -40%; right: -20%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .wallet-hero-inner { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .wallet-hero .label { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; letter-spacing: 0.02em; text-transform: uppercase; }
+    .wallet-hero .amount { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 4px; }
+    .wallet-hero .sub { font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-bottom: 20px; }
+    .wallet-hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .wallet-hero-btn {
+      padding: 11px 20px; border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      background: rgba(255,255,255,0.15); color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(6px);
+      transition: all 0.15s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .wallet-hero-btn:hover { background: rgba(255,255,255,0.28); }
+    .wallet-hero-btn.white { background: #fff; color: #2563eb; border-color: #fff; }
+    .wallet-hero-btn.white:hover { background: #f3f4f6; }
+
+    /* Card item */
+    .payment-card {
+      display: flex; align-items: center; gap: 18px;
+      padding: 18px 20px; background: #fff;
+      border: 1px solid #e5e7eb; border-radius: 14px;
+      margin-bottom: 12px; transition: all 0.15s;
+    }
+    .payment-card:last-child { margin-bottom: 0; }
+    .payment-card:hover { border-color: #d1d5db; box-shadow: 0 4px 12px -4px rgba(0,0,0,0.06); }
+    .payment-card.default { border-color: #2563eb; background: #f8fbff; }
+    .card-brand {
+      width: 52px; height: 36px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0; background: #f3f4f6;
+    }
+    .card-brand.visa { color: #1a1f71; background: #f0f4ff; }
+    .card-brand.mastercard { color: #eb001b; background: #fff5f5; }
+    .card-brand.amex { color: #006fcf; background: #f0f8ff; }
+    .card-details { flex: 1; min-width: 0; }
+    .card-details .number { font-size: 0.95rem; font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .card-details .meta { font-size: 0.82rem; color: #6b7280; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .card-details .default-tag {
+      font-size: 0.7rem; font-weight: 700; color: #2563eb;
+      background: #eff6ff; padding: 3px 8px; border-radius: 6px;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .card-menu { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+    .card-menu button {
+      padding: 7px 12px; font-size: 0.8rem; font-weight: 600;
+      color: #4b5563; background: #f9fafb; border-radius: 8px;
+      transition: all 0.15s;
+    }
+    .card-menu button:hover { background: #f3f4f6; color: #2563eb; }
+    .card-menu button.danger:hover { background: #fef2f2; color: #ef4444; }
+
+    .add-card-btn {
+      width: 100%; padding: 16px;
+      border: 2px dashed #d1d5db; border-radius: 14px;
+      background: #fff; color: #6b7280;
+      font-size: 0.92rem; font-weight: 600;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px; transition: all 0.15s;
+    }
+    .add-card-btn:hover { border-color: #2563eb; color: #2563eb; background: #f8fbff; }
+
+    /* Transactions */
+    .tx-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid #f3f4f6;
+    }
+    .tx-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .tx-row:first-child { padding-top: 0; }
+    .tx-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .tx-icon.in { background: #f0fdf4; color: #16a34a; }
+    .tx-icon.out { background: #eff6ff; color: #2563eb; }
+    .tx-info { flex: 1; min-width: 0; }
+    .tx-info .title { font-size: 0.9rem; font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .tx-info .date { font-size: 0.78rem; color: #6b7280; }
+    .tx-amount { font-size: 0.95rem; font-weight: 700; flex-shrink: 0; }
+    .tx-amount.in { color: #16a34a; }
+    .tx-amount.out { color: #111827; }
+
+    /* Sidebar */
+    .sidebar-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+    .sidebar-card h3 { font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .sidebar-card h3 i { color: #2563eb; font-size: 0.9rem; }
+    .sidebar-card p { font-size: 0.87rem; color: #6b7280; line-height: 1.6; margin-bottom: 16px; }
+
+    .promo-input-row { display: flex; gap: 8px; }
+    .promo-input-row input {
+      flex: 1; padding: 11px 14px; font-size: 0.9rem;
+      border: 1px solid #d1d5db; border-radius: 10px; background: #fff;
+      text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .promo-input-row input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
+    .promo-input-row button {
+      padding: 11px 18px; background: #2563eb; color: #fff;
+      font-size: 0.88rem; font-weight: 600; border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .promo-input-row button:hover { background: #1d4ed8; }
+
+    .billing-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f3f4f6; font-size: 0.88rem; }
+    .billing-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .billing-row .label { color: #6b7280; font-weight: 500; }
+    .billing-row .value { color: #111827; font-weight: 700; }
+
+    .btn-secondary {
+      width: 100%; padding: 12px;
+      background: #fff; color: #111827;
+      border: 1px solid #d1d5db; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; transition: all 0.15s;
+    }
+    .btn-secondary:hover { background: #f9fafb; border-color: #9ca3af; }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .user-menu .user-name, .user-menu .chevron { display: none; }
+      .user-menu { padding: 5px; }
+      .page { padding: 24px 16px 48px; }
+      .wallet-hero { padding: 24px; }
+      .wallet-hero .amount { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="trips.html">My trips</a>
+        <a href="payment-methods.html" class="active">Wallet</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="dot"></span>
+        </button>
+        <button class="user-menu" aria-label="Account menu">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="User avatar">
+          <span class="user-name">Maya</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <div class="page-header">
+      <h1>Wallet & payment methods</h1>
+      <p>Manage your InstantCab wallet balance, saved cards, and billing details.</p>
+    </div>
+
+    <!-- Wallet hero -->
+    <div class="wallet-hero">
+      <div class="wallet-hero-inner">
+        <div>
+          <div class="label"><i class="fas fa-wallet"></i> InstantCab wallet balance</div>
+          <div class="amount">$42.80</div>
+          <div class="sub">Available for your next rides</div>
+          <div class="wallet-hero-actions">
+            <button class="wallet-hero-btn white" onclick="alert('Opening add funds modal…');">
+              <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+              Add funds
+            </button>
+            <button class="wallet-hero-btn" onclick="alert('Opening auto-reload settings…');">
+              <i class="fas fa-rotate" style="font-size: 0.8rem;"></i>
+              Auto-reload
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <!-- MAIN -->
+      <div>
+
+        <!-- Saved cards -->
+        <section class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-credit-card"></i> Saved cards</h2>
+          </div>
+          <div class="card-body">
+
+            <div class="payment-card default">
+              <div class="card-brand visa"><i class="fab fa-cc-visa"></i></div>
+              <div class="card-details">
+                <div class="number">Visa •••• 4242</div>
+                <div class="meta">
+                  <span>Expires 08 / 27</span>
+                  <span>Maya Rodriguez</span>
+                  <span class="default-tag">Default</span>
+                </div>
+              </div>
+              <div class="card-menu">
+                <button onclick="alert('Edit card settings');">Edit</button>
+                <button class="danger" onclick="if(confirm('Remove this card?')) alert('Card removed.');">Remove</button>
+              </div>
+            </div>
+
+            <div class="payment-card">
+              <div class="card-brand mastercard"><i class="fab fa-cc-mastercard"></i></div>
+              <div class="card-details">
+                <div class="number">Mastercard •••• 8801</div>
+                <div class="meta">
+                  <span>Expires 03 / 26</span>
+                  <span>Maya Rodriguez</span>
+                </div>
+              </div>
+              <div class="card-menu">
+                <button onclick="alert('Set as default');">Set default</button>
+                <button onclick="alert('Edit card settings');">Edit</button>
+                <button class="danger" onclick="if(confirm('Remove this card?')) alert('Card removed.');">Remove</button>
+              </div>
+            </div>
+
+            <div class="payment-card">
+              <div class="card-brand amex"><i class="fab fa-cc-amex"></i></div>
+              <div class="card-details">
+                <div class="number">American Express •••• 1005</div>
+                <div class="meta">
+                  <span>Expires 11 / 28</span>
+                  <span>Maya Rodriguez</span>
+                </div>
+              </div>
+              <div class="card-menu">
+                <button onclick="alert('Set as default');">Set default</button>
+                <button onclick="alert('Edit card settings');">Edit</button>
+                <button class="danger" onclick="if(confirm('Remove this card?')) alert('Card removed.');">Remove</button>
+              </div>
+            </div>
+
+            <button class="add-card-btn" onclick="alert('Opening add card form…');" style="margin-top: 16px;">
+              <i class="fas fa-plus"></i>
+              Add a new card
+            </button>
+
+          </div>
+        </section>
+
+        <!-- Recent transactions -->
+        <section class="card">
+          <div class="card-header">
+            <h2><i class="fas fa-receipt"></i> Recent transactions</h2>
+            <a href="#" style="font-size: 0.85rem; font-weight: 600; color: #2563eb;">View all</a>
+          </div>
+          <div class="card-body">
+
+            <div class="tx-row">
+              <div class="tx-icon out"><i class="fas fa-car-side"></i></div>
+              <div class="tx-info">
+                <div class="title">Ride — Mission St → Ferry Building</div>
+                <div class="date">Today, 9:14 AM · Visa •••• 4242</div>
+              </div>
+              <div class="tx-amount out">−$12.80</div>
+            </div>
+
+            <div class="tx-row">
+              <div class="tx-icon in"><i class="fas fa-plus"></i></div>
+              <div class="tx-info">
+                <div class="title">Wallet top-up</div>
+                <div class="date">Yesterday, 8:02 PM · Visa •••• 4242</div>
+              </div>
+              <div class="tx-amount in">+$50.00</div>
+            </div>
+
+            <div class="tx-row">
+              <div class="tx-icon out"><i class="fas fa-car-side"></i></div>
+              <div class="tx-info">
+                <div class="title">Ride — Home → Golden Gate Park</div>
+                <div class="date">Yesterday, 6:42 PM · Wallet</div>
+              </div>
+              <div class="tx-amount out">−$16.20</div>
+            </div>
+
+            <div class="tx-row">
+              <div class="tx-icon in"><i class="fas fa-gift"></i></div>
+              <div class="tx-info">
+                <div class="title">Referral bonus — Aisha K.</div>
+                <div class="date">Mar 15, 2:10 PM</div>
+              </div>
+              <div class="tx-amount in">+$10.00</div>
+            </div>
+
+            <div class="tx-row">
+              <div class="tx-icon out"><i class="fas fa-plane"></i></div>
+              <div class="tx-info">
+                <div class="title">Ride — Home → SFO Airport</div>
+                <div class="date">Mar 14, 5:10 AM · Mastercard •••• 8801</div>
+              </div>
+              <div class="tx-amount out">−$28.40</div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+
+        <!-- Promo code -->
+        <div class="sidebar-card">
+          <h3><i class="fas fa-tag"></i> Have a promo code?</h3>
+          <p>Redeem a code to add ride credit to your wallet instantly.</p>
+          <div class="promo-input-row">
+            <input type="text" id="promoInput" placeholder="ENTER CODE" maxlength="12">
+            <button onclick="redeemPromo()">Redeem</button>
+          </div>
+        </div>
+
+        <!-- Billing summary -->
+        <div class="sidebar-card">
+          <h3><i class="fas fa-file-invoice"></i> Billing summary</h3>
+          <div style="margin-top: 8px;">
+            <div class="billing-row">
+              <span class="label">This month</span>
+              <span class="value">$184.50</span>
+            </div>
+            <div class="billing-row">
+              <span class="label">Last month</span>
+              <span class="value">$201.20</span>
+            </div>
+            <div class="billing-row">
+              <span class="label">Year to date</span>
+              <span class="value">$1,284.60</span>
+            </div>
+          </div>
+          <button class="btn-secondary" style="margin-top: 16px;" onclick="alert('Downloading statement…');">
+            <i class="fas fa-download" style="font-size: 0.8rem;"></i>
+            Download statement
+          </button>
+        </div>
+
+        <!-- Billing address -->
+        <div class="sidebar-card">
+          <h3><i class="fas fa-location-dot"></i> Billing address</h3>
+          <p style="margin-bottom: 12px;">
+            1247 Mission Street<br>
+            San Francisco, CA 94103<br>
+            United States
+          </p>
+          <button class="btn-secondary" onclick="window.location.href='profile.html';">
+            <i class="fas fa-pen" style="font-size: 0.8rem;"></i>
+            Edit address
+          </button>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <script>
+    function redeemPromo() {
+      var input = document.getElementById('promoInput');
+      var code = input.value.trim().toUpperCase();
+      if (!code) { alert('Please enter a promo code.'); return; }
+      alert('Promo code "' + code + '" applied! $10 credit added to your wallet.');
+      input.value = '';
+    }
+  </script>
+</body>
+</html>

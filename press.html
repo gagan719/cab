@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press & Newsroom — InstantCab</title>
+  <meta name="description" content="InstantCab newsroom — press releases, media coverage, brand assets, and press contacts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { max-width: 100%; display: block; }
+
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    /* Hero */
+    .hero {
+      padding: 72px 24px 56px;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -20%;
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 900px; margin: 0 auto;
+      position: relative; z-index: 2;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #eff6ff; color: #2563eb;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 100px;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 3rem; font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: #6b7280;
+      line-height: 1.65;
+      max-width: 620px;
+      margin: 0 auto 32px;
+    }
+    .hero-ctas {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px;
+      background: #2563eb; color: #fff;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px;
+      background: #fff; color: #111827;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem; font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover { background: #f9fafb; border-color: #9ca3af; }
+
+    /* Layout */
+    .section { padding: 64px 24px; }
+    .section-alt { background: #f9fafb; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 {
+      font-size: 2rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+    .section-header p { font-size: 1rem; color: #6b7280; max-width: 620px; line-height: 1.6; }
+
+    /* Featured story */
+    .featured {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      margin-bottom: 48px;
+    }
+    .featured-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 340px;
+    }
+    .featured-image img { width: 100%; height: 100%; object-fit: cover; }
+    .featured-content {
+      padding: 40px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .featured-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 5px 12px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+    .featured-content h3 {
+      font-size: 1.65rem; font-weight: 800;
+      color: #111827; letter-spacing: -0.025em;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .featured-content p {
+      font-size: 1rem; color: #6b7280;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .featured-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-size: 0.85rem; color: #6b7280;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .featured-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .featured-meta i { color: #2563eb; font-size: 0.8rem; }
+    .featured-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #2563eb; font-weight: 700; font-size: 0.95rem;
+      transition: gap 0.15s;
+    }
+    .featured-link:hover { gap: 12px; }
+
+    /* Press releases grid */
+    .press-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .press-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .press-card:hover {
+      border-color: #2563eb;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px -20px rgba(37,99,235,0.15);
+    }
+    .press-card-image {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+    .press-card-image img { width: 100%; height: 100%; object-fit: cover; }
+    .press-card-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .press-card-date {
+      font-size: 0.78rem; color: #6b7280;
+      font-weight: 500;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .press-card-date i { color: #2563eb; font-size: 0.72rem; }
+    .press-card h4 {
+      font-size: 1.05rem; font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .press-card p {
+      font-size: 0.88rem; color: #6b7280;
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+    .press-card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: #2563eb; font-weight: 600; font-size: 0.85rem;
+    }
+    .press-card-link:hover { text-decoration: underline; }
+
+    /* Media coverage */
+    .coverage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .coverage-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex; flex-direction: column;
+      transition: all 0.15s;
+      min-height: 200px;
+    }
+    .coverage-card:hover { border-color: #2563eb; box-shadow: 0 12px 24px -12px rgba(37,99,235,0.15); }
+    .coverage-logo {
+      height: 32px;
+      display: flex; align-items: center;
+      font-size: 1.1rem; font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
+    .coverage-quote {
+      font-size: 0.9rem; color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      flex: 1;
+      font-style: italic;
+    }
+    .coverage-quote::before { content: '"'; color: #2563eb; font-size: 1.4rem; line-height: 0; vertical-align: -6px; margin-right: 3px; font-weight: 800; }
+    .coverage-quote::after { content: '"'; color: #2563eb; font-size: 1.4rem; line-height: 0; vertical-align: -6px; margin-left: 3px; font-weight: 800; }
+    .coverage-source {
+      font-size: 0.78rem; color: #6b7280;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Brand assets */
+    .assets-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .asset-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      display: flex; gap: 14px; align-items: center;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .asset-card:hover { border-color: #2563eb; background: #f8fbff; }
+    .asset-preview {
+      width: 48px; height: 48px;
+      background: #eff6ff;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #2563eb;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .asset-info { min-width: 0; }
+    .asset-info h4 { font-size: 0.92rem; font-weight: 700; color: #111827; margin-bottom: 2px; }
+    .asset-info p { font-size: 0.78rem; color: #6b7280; }
+
+    /* Contact */
+    .press-contact {
+      background: linear-gradient(120deg, #111827 0%, #1e3a8a 100%);
+      color: #fff;
+      border-radius: 20px;
+      padding: 48px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+    }
+    .press-contact h2 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 10px; }
+    .press-contact p { color: #bfdbfe; font-size: 1rem; line-height: 1.65; max-width: 520px; margin-bottom: 20px; }
+    .press-contact .contact-rows { display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; }
+    .press-contact .contact-rows a { color: #fff; display: inline-flex; align-items: center; gap: 10px; transition: color 0.15s; }
+    .press-contact .contact-rows a:hover { color: #bfdbfe; }
+    .press-contact .contact-rows i { color: #93c5fd; width: 16px; }
+    .press-contact-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      background: #fff; color: #111827;
+      font-size: 0.95rem; font-weight: 700;
+      border-radius: 12px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .press-contact-cta:hover { background: #f3f4f6; transform: translateY(-1px); }
+
+    /* Footer */
+    .site-footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 48px 24px 28px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-brand p { color: #6b7280; font-size: 0.9rem; line-height: 1.6; max-width: 300px; margin-top: 14px; }
+    .footer-col h4 { font-size: 0.9rem; font-weight: 700; color: #111827; margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 0.9rem; color: #6b7280; margin-bottom: 10px; transition: color 0.15s; }
+    .footer-col a:hover { color: #2563eb; }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; flex-wrap: wrap;
+      font-size: 0.85rem; color: #6b7280;
+    }
+    .footer-legal { display: flex; gap: 22px; }
+    .footer-legal a { color: #6b7280; }
+    .footer-legal a:hover { color: #2563eb; }
+
+    @media (max-width: 1024px) {
+      .coverage-grid { grid-template-columns: repeat(2, 1fr); }
+      .assets-grid { grid-template-columns: repeat(2, 1fr); }
+      .press-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .featured { grid-template-columns: 1fr; }
+      .featured-image { min-height: 240px; }
+      .hero h1 { font-size: 2.2rem; }
+      .press-contact { grid-template-columns: 1fr; padding: 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .section { padding: 48px 20px; }
+      .press-grid, .coverage-grid, .assets-grid { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 1.6rem; }
+      .hero { padding: 48px 20px 40px; }
+      .hero h1 { font-size: 1.9rem; }
+      .featured-content { padding: 28px; }
+      .featured-content h3 { font-size: 1.35rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="home page.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="careers.html">Careers</a>
+        <a href="press.html" class="active">Press</a>
+        <a href="blog.html">Blog</a>
+        <a href="cities.html">Cities</a>
+      </nav>
+      <a href="mailto:press@instantcab.com" class="header-cta">Press contact</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <i class="fas fa-newspaper"></i>
+        Newsroom
+      </div>
+      <h1>InstantCab in the news</h1>
+      <p class="hero-sub">
+        The latest announcements, media coverage, and brand resources. For press inquiries, reach out to our communications team.
+      </p>
+      <div class="hero-ctas">
+        <a href="mailto:press@instantcab.com" class="btn-primary">
+          <i class="fas fa-envelope" style="font-size: 0.85rem;"></i>
+          Email press team
+        </a>
+        <a href="#assets" class="btn-secondary">
+          <i class="fas fa-download" style="font-size: 0.85rem;"></i>
+          Download brand assets
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED STORY -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Featured announcement</h2>
+        <p>Our most recent company milestone and what it means for riders and drivers.</p>
+      </div>
+
+      <article class="featured">
+        <div class="featured-image">
+          <!-- Real photo: electric vehicle charging, from Unsplash -->
+          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1200&auto=format&fit=crop" alt="Electric taxi charging at a station">
+        </div>
+        <div class="featured-content">
+          <span class="featured-tag">
+            <i class="fas fa-bolt"></i>
+            Major milestone
+          </span>
+          <h3>InstantCab commits to 100% electric fleet by 2030</h3>
+          <p>
+            We're accelerating the transition to zero-emission rides. By 2030, every vehicle on the InstantCab platform will be fully electric — with $500M invested in charging infrastructure and driver incentives.
+          </p>
+          <div class="featured-meta">
+            <span><i class="fas fa-calendar"></i> March 12, 2025</span>
+            <span><i class="fas fa-location-dot"></i> San Francisco, CA</span>
+            <span><i class="fas fa-tag"></i> Sustainability</span>
+          </div>
+          <a href="#" class="featured-link" onclick="event.preventDefault(); alert('Opening full press release…');">
+            Read full press release
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRESS RELEASES -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Recent press releases</h2>
+        <p>Official announcements from InstantCab. All releases are available for republication.</p>
+      </div>
+
+      <div class="press-grid">
+
+        <a href="#" class="press-card" onclick="event.preventDefault(); alert('Opening press release…');">
+          <div class="press-card-image">
+            <!-- Real photo: city skyline, from Unsplash -->
+            <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=900&auto=format&fit=crop" alt="City skyline at dusk">
+          </div>
+          <div class="press-card-body">
+            <div class="press-card-date"><i class="fas fa-calendar"></i> March 8, 2025</div>
+            <h4>InstantCab launches in 15 new European cities</h4>
+            <p>Expansion into Portugal, Poland, and the Czech Republic brings our total to 120+ cities across 18 countries.</p>
+            <span class="press-card-link">Read more <i class="fas fa-arrow-right" style="font-size: 0.72rem;"></i></span>
+          </div>
+        </a>
+
+        <a href="#" class="press-card" onclick="event.preventDefault(); alert('Opening press release…');">
+          <div class="press-card-image">
+            <!-- Real photo: female executive at event, from Unsplash -->
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=900&auto=format&fit=crop" alt="Executive speaking at a conference">
+          </div>
+          <div class="press-card-body">
+            <div class="press-card-date"><i class="fas fa-calendar"></i> February 27, 2025</div>
+            <h4>InstantCab appoints Priya Sharma as Chief Operating Officer</h4>
+            <p>Former Lyft VP brings 14 years of marketplace operations experience to lead our global expansion.</p>
+            <span class="press-card-link">Read more <i class="fas fa-arrow-right" style="font-size: 0.72rem;"></i></span>
+          </div>
+        </a>
+
+        <a href="#" class="press-card" onclick="event.preventDefault(); alert('Opening press release…');">
+          <div class="press-card-image">
+            <!-- Real photo: driver smiling, from Unsplash -->
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=900&auto=format&fit=crop" alt="Taxi driver smiling at the wheel">
+          </div>
+          <div class="press-card-body">
+            <div class="press-card-date"><i class="fas fa-calendar"></i> February 14, 2025</div>
+            <h4>Driver earnings up 22% after new 80/20 payout model</h4>
+            <p>Since launching our driver-first pay structure, average earnings have jumped significantly across all markets.</p>
+            <span class="press-card-link">Read more <i class="fas fa-arrow-right" style="font-size: 0.72rem;"></i></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA COVERAGE -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>What the media says</h2>
+        <p>Selected coverage from journalists and industry analysts.</p>
+      </div>
+
+      <div class="coverage-grid">
+        <div class="coverage-card">
+          <div class="coverage-logo">TechCrunch</div>
+          <p class="coverage-quote">InstantCab's driver-first model is the biggest shake-up to ride-hailing economics in a decade.</p>
+          <div class="coverage-source">— TechCrunch, Feb 2025</div>
+        </div>
+        <div class="coverage-card">
+          <div class="coverage-logo">The Verge</div>
+          <p class="coverage-quote">A rare case where the product actually feels faster than Uber. The 3-minute pickup is real.</p>
+          <div class="coverage-source">— The Verge, Jan 2025</div>
+        </div>
+        <div class="coverage-card">
+          <div class="coverage-logo">Forbes</div>
+          <p class="coverage-quote">InstantCab is quietly becoming the most driver-friendly platform in the industry.</p>
+          <div class="coverage-source">— Forbes, Jan 2025</div>
+        </div>
+        <div class="coverage-card">
+          <div class="coverage-logo">WIRED</div>
+          <p class="coverage-quote">Their electric-first roadmap is the most aggressive sustainability pledge in ride-hailing.</p>
+          <div class="coverage-source">— WIRED, Dec 2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND ASSETS -->
+  <section class="section section-alt" id="assets">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Brand assets</h2>
+        <p>Logos, product screenshots, and executive headshots. All assets are approved for editorial use.</p>
+      </div>
+
+      <div class="assets-grid">
+        <div class="asset-card" onclick="alert('Downloading logo pack (ZIP)…');">
+          <div class="asset-preview"><i class="fas fa-image"></i></div>
+          <div class="asset-info">
+            <h4>Logo pack</h4>
+            <p>SVG, PNG · 2.4 MB</p>
+          </div>
+        </div>
+        <div class="asset-card" onclick="alert('Downloading app screenshots (ZIP)…');">
+          <div class="asset-preview"><i class="fas fa-mobile-screen"></i></div>
+          <div class="asset-info">
+            <h4>App screenshots</h4>
+            <p>PNG · 8.1 MB</p>
+          </div>
+        </div>
+        <div class="asset-card" onclick="alert('Downloading executive headshots (ZIP)…');">
+          <div class="asset-preview"><i class="fas fa-user-tie"></i></div>
+          <div class="asset-info">
+            <h4>Executive headshots</h4>
+            <p>JPG · 12 MB</p>
+          </div>
+        </div>
+        <div class="asset-card" onclick="alert('Downloading brand guidelines (PDF)…');">
+          <div class="asset-preview"><i class="fas fa-file-pdf"></i></div>
+          <div class="asset-info">
+            <h4>Brand guidelines</h4>
+            <p>PDF · 4.2 MB</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="press-contact">
+        <div>
+          <h2>Press inquiries</h2>
+          <p>For interviews, fact-checks, media assets, or analyst briefings, our communications team responds within 4 hours on business days.</p>
+          <div class="contact-rows">
+            <a href="mailto:press@instantcab.com">
+              <i class="fas fa-envelope"></i>
+              press@instantcab.com
+            </a>
+            <a href="tel:+18002226669">
+              <i class="fas fa-phone"></i>
+              +1 (800) 222-6669
+            </a>
+          </div>
+        </div>
+        <a href="mailto:press@instantcab.com" class="press-contact-cta">
+          <i class="fas fa-paper-plane" style="font-size: 0.85rem;"></i>
+          Contact press team
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+            <span>InstantCab</span>
+          </a>
+          <p>Reliable, affordable taxi rides at your fingertips. Available in 120+ cities worldwide.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="careers.html">Careers</a>
+          <a href="press.html">Press</a>
+          <a href="blog.html">Blog</a>
+          <a href="cities.html">Cities</a>
+        </div>
+        <div class="footer-col">
+          <h4>Riders</h4>
+          <a href="signup.html">Sign up</a>
+          <a href="login.html">Sign in</a>
+          <a href="help.html">Help center</a>
+        </div>
+        <div class="footer-col">
+          <h4>Drivers</h4>
+          <a href="driver-signup.html">Apply to drive</a>
+          <a href="help.html">Driver support</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 InstantCab Technologies Inc. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="legal/terms.html">Terms</a>
+          <a href="legal/privacy.html">Privacy</a>
+          <a href="legal/cookies.html">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

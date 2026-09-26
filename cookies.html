@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Policy — InstantCab</title>
+  <meta name="description" content="InstantCab Cookie Policy — how we use cookies and similar technologies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #fff;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-cta { padding: 10px 20px; background: #2563eb; color: #fff; font-size: 0.9rem; font-weight: 600; border-radius: 10px; transition: background 0.15s; }
+    .header-cta:hover { background: #1d4ed8; }
+
+    .legal-hero {
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .legal-hero-inner { max-width: 800px; margin: 0 auto; }
+    .legal-hero .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .legal-hero h1 {
+      font-size: 2.6rem; font-weight: 800;
+      letter-spacing: -0.03em; color: #111827;
+      line-height: 1.15; margin-bottom: 14px;
+    }
+    .legal-hero p {
+      font-size: 1.05rem; color: #6b7280;
+      max-width: 560px; margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+    .legal-meta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      font-weight: 500;
+    }
+    .legal-meta i { color: #2563eb; font-size: 0.8rem; }
+
+    .legal-content {
+      max-width: 1100px; margin: 0 auto;
+      padding: 56px 24px 80px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .toc { position: sticky; top: 92px; }
+    .toc h3 {
+      font-size: 0.75rem; font-weight: 700;
+      color: #6b7280; text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      padding-left: 12px;
+    }
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #4b5563;
+      border-radius: 8px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .toc a:hover { color: #2563eb; background: #eff6ff; }
+    .toc a.active { color: #2563eb; border-left-color: #2563eb; background: #eff6ff; font-weight: 600; }
+
+    .legal-article { max-width: 720px; }
+    .legal-article section { margin-bottom: 48px; scroll-margin-top: 100px; }
+    .legal-article h2 {
+      font-size: 1.5rem; font-weight: 800;
+      color: #111827; letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .legal-article h2 .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: #eff6ff; color: #2563eb;
+      border-radius: 8px;
+      font-size: 0.85rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .legal-article h3 {
+      font-size: 1.1rem; font-weight: 700;
+      color: #111827; letter-spacing: -0.01em;
+      margin-top: 28px; margin-bottom: 12px;
+    }
+    .legal-article p {
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.75; margin-bottom: 16px;
+    }
+    .legal-article ul {
+      margin: 12px 0 20px;
+      padding-left: 0;
+      list-style: none;
+    }
+    .legal-article ul li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 0.95rem; color: #4b5563;
+      line-height: 1.75; margin-bottom: 10px;
+    }
+    .legal-article ul li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0; top: 2px;
+      color: #2563eb;
+      font-size: 0.8rem;
+    }
+    .legal-article a {
+      color: #2563eb; font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: rgba(37,99,235,0.3);
+      text-underline-offset: 3px;
+    }
+    .legal-article a:hover { text-decoration-color: #2563eb; }
+
+    /* Cookie table */
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.86rem;
+    }
+    .cookie-table th {
+      background: #f9fafb;
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: #111827;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .cookie-table td {
+      padding: 12px 16px;
+      color: #4b5563;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .cookie-table tr:last-child td { border-bottom: none; }
+    .cookie-table code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      background: #f3f4f6;
+      border-radius: 4px;
+      color: #111827;
+    }
+
+    .info-box {
+      background: #f9fafb;
+      border-left: 3px solid #2563eb;
+      padding: 16px 20px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.9rem;
+      color: #374151;
+      line-height: 1.7;
+      margin: 16px 0;
+    }
+    .info-box strong { color: #111827; }
+
+    /* Preference toggles */
+    .pref-toggle-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 0; gap: 20px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .pref-toggle-row:last-child { border-bottom: none; }
+    .pref-toggle-info { flex: 1; }
+    .pref-toggle-info h4 { font-size: 0.95rem; font-weight: 600; color: #111827; margin-bottom: 4px; }
+    .pref-toggle-info p { font-size: 0.83rem; color: #6b7280; line-height: 1.5; margin: 0; }
+    .toggle { position: relative; width: 44px; height: 26px; background: #d1d5db; border-radius: 100px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .toggle.on { background: #2563eb; }
+    .toggle.on::after { transform: translateX(18px); }
+    .toggle.locked { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-save {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      background: #2563eb; color: #fff;
+      font-size: 0.92rem; font-weight: 700;
+      border-radius: 10px;
+      transition: background 0.15s;
+      margin-top: 20px;
+    }
+    .btn-save:hover { background: #1d4ed8; }
+
+    .legal-contact {
+      background: #111827;
+      color: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+    }
+    .legal-contact h3 { color: #fff; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .legal-contact p { color: #9ca3af; font-size: 0.9rem; line-height: 1.6; margin-bottom: 18px; }
+    .legal-contact .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .legal-contact a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.88rem; font-weight: 600;
+      transition: all 0.15s;
+    }
+    .legal-contact a:hover { background: rgba(255,255,255,0.2); }
+
+    .site-footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+    .site-footer a { color: #2563eb; font-weight: 600; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #111827; color: #fff;
+      padding: 14px 22px; border-radius: 12px;
+      font-size: 0.9rem; font-weight: 500;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.3);
+      transition: transform 0.35s cubic-bezier(0.2,0.7,0.3,1);
+      z-index: 100;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast i { color: #22c55e; }
+
+    @media (max-width: 900px) {
+      .legal-content { grid-template-columns: 1fr; gap: 32px; }
+      .toc { position: static; display: flex; overflow-x: auto; gap: 8px; padding-bottom: 8px; }
+      .toc h3 { display: none; }
+      .toc a { flex-shrink: 0; padding: 8px 14px; border-left: none; border-radius: 100px; background: #f9fafb; }
+      .toc a.active { background: #eff6ff; }
+      .legal-hero h1 { font-size: 2rem; }
+      .cookie-table { font-size: 0.8rem; }
+      .cookie-table th, .cookie-table td { padding: 10px 12px; }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="home page.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="cookies.html">Cookies</a>
+      </nav>
+      <a href="signup.html" class="header-cta">Get started</a>
+    </div>
+  </header>
+
+  <section class="legal-hero">
+    <div class="legal-hero-inner">
+      <span class="eyebrow">Legal</span>
+      <h1>Cookie Policy</h1>
+      <p>How InstantCab uses cookies and similar technologies — and how you can control them.</p>
+      <div class="legal-meta">
+        <i class="fas fa-calendar"></i>
+        Last updated: March 15, 2025
+      </div>
+    </div>
+  </section>
+
+  <div class="legal-content">
+
+    <aside class="toc">
+      <h3>Contents</h3>
+      <a href="#what" class="active">1. What are cookies</a>
+      <a href="#types">2. Types we use</a>
+      <a href="#third">3. Third-party cookies</a>
+      <a href="#manage">4. Manage preferences</a>
+      <a href="#browser">5. Browser controls</a>
+      <a href="#contact">6. Contact</a>
+    </aside>
+
+    <article class="legal-article">
+
+      <section id="what">
+        <h2><span class="num">1</span> What are cookies?</h2>
+        <p>Cookies are small text files that websites and apps place on your device to store information about your visit. They help us remember you, keep you signed in, and understand how the app is used.</p>
+        <p>We also use similar technologies such as local storage, pixels, and software development kits (SDKs) in our mobile apps. For simplicity, we refer to all of these as "cookies" in this policy.</p>
+        <div class="info-box">
+          <strong>Cookies don't run programs.</strong> They can't carry viruses or access files on your device. They're just small pieces of data that make the app work better.
+        </div>
+      </section>
+
+      <section id="types">
+        <h2><span class="num">2</span> Types of cookies we use</h2>
+
+        <h3>2.1 Strictly necessary (always on)</h3>
+        <p>These cookies are required for the app to function. They handle things like signing you in, keeping your session secure, and processing payments. You cannot disable them.</p>
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie</th>
+              <th>Purpose</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ic_session</code></td>
+              <td>Maintains your login session</td>
+              <td>30 days</td>
+            </tr>
+            <tr>
+              <td><code>ic_csrf</code></td>
+              <td>Prevents cross-site request forgery attacks</td>
+              <td>Session</td>
+            </tr>
+            <tr>
+              <td><code>ic_payment</code></td>
+              <td>Keeps your payment flow secure</td>
+              <td>Session</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2.2 Functional (recommended)</h3>
+        <p>These cookies remember your preferences and settings to give you a smoother experience — like your language choice, theme, and recent addresses.</p>
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie</th>
+              <th>Purpose</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ic_lang</code></td>
+              <td>Remembers your language choice</td>
+              <td>1 year</td>
+            </tr>
+            <tr>
+              <td><code>ic_theme</code></td>
+              <td>Stores your light/dark mode preference</td>
+              <td>1 year</td>
+            </tr>
+            <tr>
+              <td><code>ic_recent</code></td>
+              <td>Saves your recent pickup and drop-off locations</td>
+              <td>30 days</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2.3 Analytics (recommended)</h3>
+        <p>These cookies help us understand how people use InstantCab so we can improve it. Data is aggregated and anonymized.</p>
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie</th>
+              <th>Purpose</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>_mixpanel</code></td>
+              <td>Tracks app usage patterns</td>
+              <td>1 year</td>
+            </tr>
+            <tr>
+              <td><code>_amplitude</code></td>
+              <td>Measures feature adoption</td>
+              <td>1 year</td>
+            </tr>
+            <tr>
+              <td><code>_sentry</code></td>
+              <td>Captures crash reports</td>
+              <td>Session</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>2.4 Marketing (opt-in)</h3>
+        <p>These cookies track your visits across websites so we (or our partners) can show you relevant advertising. We only use these cookies if you explicitly opt in.</p>
+        <table class="cookie-table">
+          <thead>
+            <tr>
+              <th>Cookie</th>
+              <th>Purpose</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>_fbp</code></td>
+              <td>Facebook Pixel — measure ad conversions</td>
+              <td>90 days</td>
+            </tr>
+            <tr>
+              <td><code>_gcl</code></td>
+              <td>Google Ads — track campaign performance</td>
+              <td>90 days</td>
+            </tr>
+            <tr>
+              <td><code>_ttclid</code></td>
+              <td>TikTok Ads — attribution tracking</td>
+              <td>90 days</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="third">
+        <h2><span class="num">3</span> Third-party cookies</h2>
+        <p>Some cookies are set by third parties we work with. These include:</p>
+        <ul>
+          <li><strong>Stripe</strong> — payment processing and fraud prevention</li>
+          <li><strong>Mixpanel & Amplitude</strong> — product analytics</li>
+          <li><strong>Google Maps</strong> — map display and location search</li>
+          <li><strong>Sentry</strong> — error and crash tracking</li>
+          <li><strong>Meta, Google, TikTok</strong> — advertising (only with consent)</li>
+        </ul>
+        <p>Each of these providers has its own privacy policy. We encourage you to review them for full details.</p>
+      </section>
+
+      <section id="manage">
+        <h2><span class="num">4</span> Manage your preferences</h2>
+        <p>You control which cookies InstantCab uses (except the strictly necessary ones). Changes take effect immediately.</p>
+
+        <div style="background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 24px; margin: 20px 0;">
+
+          <div class="pref-toggle-row">
+            <div class="pref-toggle-info">
+              <h4>Strictly necessary</h4>
+              <p>Required for the app to work — sign-in, payments, security.</p>
+            </div>
+            <div class="toggle on locked" role="switch" aria-checked="true" aria-disabled="true" title="Always on"></div>
+          </div>
+
+          <div class="pref-toggle-row">
+            <div class="pref-toggle-info">
+              <h4>Functional</h4>
+              <p>Remember your language, theme, and recent locations.</p>
+            </div>
+            <div class="toggle on" data-toggle="functional" role="switch" aria-checked="true"></div>
+          </div>
+
+          <div class="pref-toggle-row">
+            <div class="pref-toggle-info">
+              <h4>Analytics</h4>
+              <p>Help us understand how the app is used (anonymized).</p>
+            </div>
+            <div class="toggle on" data-toggle="analytics" role="switch" aria-checked="true"></div>
+          </div>
+
+          <div class="pref-toggle-row">
+            <div class="pref-toggle-info">
+              <h4>Marketing</h4>
+              <p>Personalized ads on other platforms.</p>
+            </div>
+            <div class="toggle" data-toggle="marketing" role="switch" aria-checked="false"></div>
+          </div>
+
+        </div>
+
+        <button class="btn-save" id="savePrefs">
+          <i class="fas fa-check" style="font-size: 0.85rem;"></i>
+          Save preferences
+        </button>
+      </section>
+
+      <section id="browser">
+        <h2><span class="num">5</span> Browser controls</h2>
+        <p>You can also control cookies through your browser settings. Most browsers let you:</p>
+        <ul>
+          <li>See what cookies are stored on your device</li>
+          <li>Delete individual cookies or all of them</li>
+          <li>Block third-party cookies</li>
+          <li>Block all cookies (may break some sites)</li>
+          <li>Set "Do Not Track" preferences</li>
+        </ul>
+        <p>Here are direct links to instructions for common browsers:</p>
+        <ul>
+          <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+          <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener">Apple Safari</a></li>
+          <li><a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+          <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li>
+        </ul>
+        <div class="info-box">
+          <strong>Important:</strong> If you disable strictly necessary cookies, some parts of InstantCab won't work — like staying signed in or completing a payment.
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2><span class="num">6</span> Contact us</h2>
+        <p>If you have questions about our use of cookies or this Cookie Policy, we're here to help.</p>
+
+        <div class="legal-contact">
+          <h3>Questions about cookies?</h3>
+          <p>Our privacy team typically responds within 3 business days. For urgent issues, use live chat.</p>
+          <div class="contact-links">
+            <a href="mailto:privacy@instantcab.com">
+              <i class="fas fa-cookie-bite"></i>
+              privacy@instantcab.com
+            </a>
+            <a href="../help.html">
+              <i class="fas fa-life-ring"></i>
+              Help center
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <div class="toast" id="toast">
+    <i class="fas fa-circle-check"></i>
+    <span>Your cookie preferences have been saved.</span>
+  </div>
+
+  <footer class="site-footer">
+    © 2025 InstantCab Technologies Inc. — Cookie questions? <a href="mailto:privacy@instantcab.com">privacy@instantcab.com</a>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var tocLinks = document.querySelectorAll('.toc a');
+      var sections = document.querySelectorAll('.legal-article section');
+
+      tocLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          tocLinks.forEach(function (l) { l.classList.remove('active'); });
+          link.classList.add('active');
+        });
+      });
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.id;
+              tocLinks.forEach(function (l) {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+              });
+            }
+          });
+        }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+
+        sections.forEach(function (s) { observer.observe(s); });
+      }
+
+      // Toggle switches
+      document.querySelectorAll('.toggle:not(.locked)').forEach(function (t) {
+        t.addEventListener('click', function () {
+          var on = t.classList.toggle('on');
+          t.setAttribute('aria-checked', on);
+        });
+      });
+
+      // Save
+      var saveBtn = document.getElementById('savePrefs');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function () {
+          var toast = document.getElementById('toast');
+          toast.classList.add('show');
+          setTimeout(function () { toast.classList.remove('show'); }, 2400);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — InstantCab</title>
+  <meta name="description" content="Your InstantCab dashboard — book rides, view history, and manage your account.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827;
+      background: #f9fafb;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input { font-family: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .app-header {
+      position: sticky; top: 0; z-index: 50;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .header-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px;
+    }
+    .logo {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 1.2rem; font-weight: 700; color: #111827;
+      letter-spacing: -0.01em; flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 34px; height: 34px; background: #2563eb; color: #ffffff;
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+    }
+    .header-nav {
+      display: flex; gap: 4px;
+    }
+    .header-nav a {
+      padding: 8px 14px; font-size: 0.9rem; font-weight: 500;
+      color: #4b5563; border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-actions {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .icon-btn {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #4b5563; font-size: 1rem;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .icon-btn:hover { background: #f3f4f6; color: #2563eb; }
+    .icon-btn .dot {
+      position: absolute; top: 8px; right: 9px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #ef4444; border: 2px solid #ffffff;
+    }
+    .user-menu {
+      display: flex; align-items: center; gap: 10px;
+      padding: 5px 12px 5px 5px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 100px;
+      transition: all 0.15s;
+    }
+    .user-menu:hover { border-color: #d1d5db; background: #ffffff; }
+    .user-menu img {
+      width: 32px; height: 32px; border-radius: 50%;
+      object-fit: cover;
+    }
+    .user-menu .user-name {
+      font-size: 0.875rem; font-weight: 600; color: #111827;
+    }
+    .user-menu .chevron { font-size: 0.7rem; color: #6b7280; }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .page {
+      max-width: 1280px; margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    .page-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 24px; margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .page-header h1 {
+      font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em;
+      color: #111827; margin-bottom: 6px;
+    }
+    .page-header p { color: #6b7280; font-size: 0.95rem; }
+
+    /* ============================================================
+       QUICK BOOK WIDGET
+    ============================================================ */
+    .quick-book {
+      background: #111827;
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .quick-book::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(37,99,235,0.5) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .quick-book-inner {
+      position: relative; z-index: 2;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .quick-book h2 {
+      font-size: 1.65rem; font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 10px;
+    }
+    .quick-book p {
+      color: #9ca3af;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .quick-book-form {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      max-width: 520px;
+    }
+    .quick-book-input {
+      flex: 1;
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+    .quick-book-input i {
+      color: #2563eb; font-size: 0.9rem; flex-shrink: 0;
+    }
+    .quick-book-input input {
+      border: none; outline: none; background: transparent;
+      font-size: 0.9rem; font-weight: 500; color: #111827;
+      width: 100%; padding: 8px 0;
+    }
+    .quick-book-input input::placeholder { color: #9ca3af; font-weight: 400; }
+    .quick-book-divider {
+      width: 1px; background: #e5e7eb; margin: 6px 0;
+    }
+    .quick-book-btn {
+      background: #2563eb; color: #ffffff;
+      padding: 0 20px;
+      font-size: 0.9rem; font-weight: 600;
+      border-radius: 8px;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .quick-book-btn:hover { background: #1d4ed8; }
+
+    .quick-book-visual {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 5 / 3.5;
+    }
+    .quick-book-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* ============================================================
+       STATS
+    ============================================================ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .stat-card:hover { box-shadow: 0 4px 12px -4px rgba(0,0,0,0.08); border-color: #d1d5db; }
+    .stat-card .label {
+      font-size: 0.82rem; color: #6b7280; font-weight: 500;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .stat-card .label i { color: #2563eb; font-size: 0.85rem; }
+    .stat-card .value {
+      font-size: 1.5rem; font-weight: 800;
+      color: #111827; letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .stat-card .delta {
+      font-size: 0.78rem; font-weight: 600;
+      margin-top: 6px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .stat-card .delta.up { color: #16a34a; }
+    .stat-card .delta.down { color: #ef4444; }
+    .stat-card .delta.neutral { color: #6b7280; }
+
+    /* ============================================================
+       GRID: MAIN + SIDEBAR
+    ============================================================ */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 24px;
+    }
+
+    /* Panels */
+    .panel {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+    }
+    .panel-header h3 {
+      font-size: 1.05rem; font-weight: 700;
+      color: #111827; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-header h3 i { color: #2563eb; font-size: 0.95rem; }
+    .panel-header a {
+      font-size: 0.85rem; font-weight: 600;
+      color: #2563eb;
+      transition: color 0.15s;
+    }
+    .panel-header a:hover { color: #1d4ed8; text-decoration: underline; }
+
+    /* Upcoming ride */
+    .ride-card {
+      padding: 24px;
+      display: flex; gap: 20px; align-items: center;
+      flex-wrap: wrap;
+    }
+    .ride-map {
+      width: 100px; height: 100px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      background: #eff6ff;
+    }
+    .ride-map img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .ride-info { flex: 1; min-width: 220px; }
+    .ride-info .ride-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.75rem; font-weight: 700;
+      color: #16a34a;
+      background: #f0fdf4;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .ride-info .ride-status .pulse {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e;
+    }
+    .ride-info h4 {
+      font-size: 1.05rem; font-weight: 700;
+      color: #111827; margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .ride-info .ride-route {
+      font-size: 0.875rem; color: #6b7280;
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .ride-info .ride-route i { color: #9ca3af; font-size: 0.7rem; }
+    .ride-info .ride-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-size: 0.82rem; color: #4b5563; font-weight: 500;
+    }
+    .ride-info .ride-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .ride-info .ride-meta i { color: #2563eb; font-size: 0.8rem; }
+    .ride-actions {
+      display: flex; gap: 8px; flex-shrink: 0;
+    }
+    .btn-sm {
+      padding: 9px 16px;
+      font-size: 0.85rem; font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.15s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-sm.primary {
+      background: #2563eb; color: #ffffff;
+    }
+    .btn-sm.primary:hover { background: #1d4ed8; }
+    .btn-sm.outline {
+      background: #ffffff; color: #111827;
+      border: 1px solid #d1d5db;
+    }
+    .btn-sm.outline:hover { background: #f9fafb; border-color: #9ca3af; }
+
+    /* Trip history */
+    .trip-list { display: flex; flex-direction: column; }
+    .trip-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 24px;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background 0.15s;
+    }
+    .trip-item:last-child { border-bottom: none; }
+    .trip-item:hover { background: #f9fafb; }
+    .trip-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .trip-details { flex: 1; min-width: 0; }
+    .trip-details .route {
+      font-size: 0.92rem; font-weight: 600;
+      color: #111827; margin-bottom: 3px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .trip-details .meta {
+      font-size: 0.8rem; color: #6b7280;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .trip-details .meta i { font-size: 0.75rem; }
+    .trip-amount {
+      text-align: right; flex-shrink: 0;
+    }
+    .trip-amount .price {
+      font-size: 0.95rem; font-weight: 700;
+      color: #111827;
+    }
+    .trip-amount .status {
+      font-size: 0.72rem; color: #16a34a; font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Sidebar */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+    /* Wallet card */
+    .wallet-card {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .wallet-card::before {
+      content: '';
+      position: absolute;
+      top: -40%; right: -20%;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .wallet-card .wallet-label {
+      font-size: 0.82rem; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .wallet-card .wallet-amount {
+      font-size: 2rem; font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .wallet-card .wallet-sub {
+      font-size: 0.82rem; color: rgba(255,255,255,0.75);
+      margin-bottom: 20px;
+    }
+    .wallet-actions {
+      display: flex; gap: 8px;
+      position: relative; z-index: 2;
+    }
+    .wallet-btn {
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600;
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      transition: all 0.15s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .wallet-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* Quick actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 20px 24px;
+    }
+    .action-tile {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      transition: all 0.15s;
+      text-align: left;
+    }
+    .action-tile:hover {
+      background: #ffffff;
+      border-color: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px -6px rgba(37,99,235,0.2);
+    }
+    .action-tile .icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+    .action-tile .title {
+      font-size: 0.9rem; font-weight: 700;
+      color: #111827;
+    }
+    .action-tile .sub {
+      font-size: 0.76rem; color: #6b7280;
+      line-height: 1.4;
+    }
+
+    /* Promo */
+    .promo-card {
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #fde68a;
+      border-radius: 16px;
+    }
+    .promo-card .promo-label {
+      font-size: 0.72rem; font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 10px;
+    }
+    .promo-card h4 {
+      font-size: 1.05rem; font-weight: 800;
+      color: #78350f; margin-bottom: 8px;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+    }
+    .promo-card p {
+      font-size: 0.85rem; color: #92400e;
+      line-height: 1.5; margin-bottom: 14px;
+    }
+    .promo-code {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      background: #ffffff;
+      border: 1px dashed #92400e;
+      border-radius: 8px;
+      font-size: 0.85rem; font-weight: 700;
+      color: #78350f;
+      letter-spacing: 0.05em;
+      transition: all 0.15s;
+    }
+    .promo-code:hover { background: #fffbeb; }
+    .promo-code i { color: #92400e; font-size: 0.8rem; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1080px) {
+      .quick-book-inner { grid-template-columns: 1fr; gap: 24px; }
+      .quick-book-visual { max-width: 480px; }
+    }
+    @media (max-width: 960px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .user-menu .user-name,
+      .user-menu .chevron { display: none; }
+      .user-menu { padding: 5px; }
+      .page { padding: 24px 16px 48px; }
+      .page-header h1 { font-size: 1.5rem; }
+      .quick-book { padding: 24px; }
+      .quick-book h2 { font-size: 1.35rem; }
+      .quick-book-form { flex-direction: column; }
+      .quick-book-divider { display: none; }
+      .quick-book-btn { padding: 12px 20px; justify-content: center; }
+      .stats-row { grid-template-columns: 1fr; }
+      .ride-card { flex-direction: column; align-items: flex-start; }
+      .ride-actions { width: 100%; }
+      .ride-actions .btn-sm { flex: 1; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .header-inner { padding: 0 16px; }
+      .quick-actions { grid-template-columns: 1fr; }
+      .trip-item { padding: 14px 18px; gap: 12px; }
+      .trip-icon { width: 36px; height: 36px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+
+      <nav class="header-nav">
+        <a href="home page.html">Home</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="#book">Book a ride</a>
+        <a href="#trips">My trips</a>
+        <a href="#wallet">Wallet</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="dot"></span>
+        </button>
+        <button class="user-menu" aria-label="Account menu">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="User avatar">
+          <span class="user-name">Maya</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       PAGE
+  ============================================================ -->
+  <main class="page">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <div>
+        <h1>Good afternoon, Maya 👋</h1>
+        <p>Here's what's happening with your rides today.</p>
+      </div>
+      <a href="home page.html" class="btn-sm primary" style="padding: 11px 20px; font-size: 0.9rem;">
+        <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+        New ride
+      </a>
+    </div>
+
+    <!-- Quick book widget -->
+    <section class="quick-book" id="book">
+      <div class="quick-book-inner">
+        <div>
+          <h2>Where are you headed?</h2>
+          <p>Book a taxi in under 30 seconds with upfront pricing and no surprises.</p>
+          <form class="quick-book-form" onsubmit="event.preventDefault(); alert('Searching for taxis near ' + (document.getElementById('qbPickup').value || 'your location') + '…');">
+            <label class="quick-book-input">
+              <i class="fas fa-circle-dot"></i>
+              <input id="qbPickup" type="text" placeholder="Pickup location" autocomplete="off">
+            </label>
+            <div class="quick-book-divider"></div>
+            <label class="quick-book-input">
+              <i class="fas fa-location-dot"></i>
+              <input id="qbDropoff" type="text" placeholder="Where to?" autocomplete="off">
+            </label>
+            <button type="submit" class="onclick.window.location.href='home page.html'; quick-book-btn">
+              <i class="fas fa-search" style="font-size: 0.8rem;"></i>
+              Find taxi
+            </button>
+          </form>
+        </div>
+        <div class="quick-book-visual">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=900&auto=format&fit=crop" alt="Yellow taxi on a city street">
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-row">
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-car"></i> Rides this month</div>
+        <div class="value">24</div>
+        <div class="delta up"><i class="fas fa-arrow-up" style="font-size: 0.7rem;"></i> 12% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-dollar-sign"></i> Total spent</div>
+        <div class="value">$184.50</div>
+        <div class="delta down"><i class="fas fa-arrow-down" style="font-size: 0.7rem;"></i> 8% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-clock"></i> Time saved</div>
+        <div class="value">6.2 hrs</div>
+        <div class="delta neutral"><i class="fas fa-minus" style="font-size: 0.7rem;"></i> Same as last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="label"><i class="fas fa-star"></i> Your rating</div>
+        <div class="value">4.98</div>
+        <div class="delta up"><i class="fas fa-arrow-up" style="font-size: 0.7rem;"></i> 0.02 this month</div>
+      </div>
+    </section>
+
+    <!-- Content grid: main + sidebar -->
+    <div class="content-grid">
+
+      <!-- MAIN COLUMN -->
+      <div class="main-column">
+
+        <!-- Upcoming ride -->
+        <section class="panel" style="margin-bottom: 24px;">
+          <div class="panel-header">
+            <h3><i class="fas fa-clock"></i> Your next ride</h3>
+            <a href="#">View details</a>
+          </div>
+          <div class="ride-card">
+            <div class="ride-map">
+              <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=300&auto=format&fit=crop" alt="Map preview of the upcoming ride">
+            </div>
+            <div class="ride-info">
+              <span class="ride-status"><span class="pulse"></span> Driver on the way</span>
+              <h4>Carlos M. · Toyota Prius · ABC 1234</h4>
+              <div class="ride-route">
+                <i class="fas fa-circle" style="color: #2563eb;"></i>
+                Home
+                <i class="fas fa-arrow-right"></i>
+                <i class="fas fa-location-dot" style="color: #ef4444;"></i>
+                SFO International Airport
+              </div>
+              <div class="ride-meta">
+                <span><i class="fas fa-clock"></i> Arrives in 3 min</span>
+                <span><i class="fas fa-dollar-sign"></i> $28.40 fixed</span>
+                <span><i class="fas fa-star"></i> 4.97 (2,318 rides)</span>
+              </div>
+            </div>
+            <div class="ride-actions">
+              <button class="btn-sm outline" onclick="alert('Chat with driver…');">
+                <i class="fas fa-comment"></i> Chat
+              </button>
+              <button class="btn-sm outline" onclick="alert('Calling driver…');">
+                <i class="fas fa-phone"></i> Call
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent trips -->
+        <section class="panel" id="trips">
+          <div class="panel-header">
+            <h3><i class="fas fa-history"></i> Recent trips</h3>
+            <a href="#">View all</a>
+          </div>
+          <div class="trip-list">
+
+            <div class="trip-item">
+              <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+              <div class="trip-details">
+                <div class="route">Mission St → Ferry Building</div>
+                <div class="meta">
+                  <span><i class="fas fa-calendar"></i> Today, 9:14 AM</span>
+                  <span><i class="fas fa-clock"></i> 12 min</span>
+                </div>
+              </div>
+              <div class="trip-amount">
+                <div class="price">$12.80</div>
+                <div class="status">Completed</div>
+              </div>
+            </div>
+
+            <div class="trip-item">
+              <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+              <div class="trip-details">
+                <div class="route">Home → Golden Gate Park</div>
+                <div class="meta">
+                  <span><i class="fas fa-calendar"></i> Yesterday, 6:42 PM</span>
+                  <span><i class="fas fa-clock"></i> 18 min</span>
+                </div>
+              </div>
+              <div class="trip-amount">
+                <div class="price">$16.20</div>
+                <div class="status">Completed</div>
+              </div>
+            </div>
+
+            <div class="trip-item">
+              <div class="trip-icon"><i class="fas fa-plane"></i></div>
+              <div class="trip-details">
+                <div class="route">Home → SFO Airport</div>
+                <div class="meta">
+                  <span><i class="fas fa-calendar"></i> Mar 14, 5:10 AM</span>
+                  <span><i class="fas fa-clock"></i> 26 min</span>
+                </div>
+              </div>
+              <div class="trip-amount">
+                <div class="price">$28.40</div>
+                <div class="status">Completed</div>
+              </div>
+            </div>
+
+            <div class="trip-item">
+              <div class="trip-icon"><i class="fas fa-car-side"></i></div>
+              <div class="trip-details">
+                <div class="route">Office → Nob Hill</div>
+                <div class="meta">
+                  <span><i class="fas fa-calendar"></i> Mar 12, 7:28 PM</span>
+                  <span><i class="fas fa-clock"></i> 14 min</span>
+                </div>
+              </div>
+              <div class="trip-amount">
+                <div class="price">$14.60</div>
+                <div class="status">Completed</div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <!-- Wallet -->
+        <div class="wallet-card" id="wallet">
+          <div class="wallet-label">
+            <i class="fas fa-wallet"></i> InstantCab Wallet
+          </div>
+          <div class="wallet-amount">$42.80</div>
+          <div class="wallet-sub">Available for your next rides</div>
+          <div class="wallet-actions">
+            <button class="wallet-btn">
+              <i class="fas fa-plus" style="font-size: 0.75rem;"></i>
+              Add funds
+            </button>
+            <button class="wallet-btn">
+              <i class="fas fa-receipt" style="font-size: 0.75rem;"></i>
+              Activity
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3><i class="fas fa-bolt"></i> Quick actions</h3>
+          </div>
+          <div class="quick-actions">
+            <button class="action-tile" onclick="alert('Opening schedule ride…');">
+              <span class="icon"><i class="fas fa-calendar-plus"></i></span>
+              <span class="title">Schedule</span>
+              <span class="sub">Book for later</span>
+            </button>
+            <button class="action-tile" onclick="alert('Opening saved places…');">
+              <span class="icon"><i class="fas fa-bookmark"></i></span>
+              <span class="title">Saved places</span>
+              <span class="sub">Home, Work, Gym</span>
+            </button>
+            <button class="action-tile" onclick="alert('Opening ride options…');">
+              <span class="icon"><i class="fas fa-users"></i></span>
+              <span class="title">Split fare</span>
+              <span class="sub">Share with friends</span>
+            </button>
+            <button class="action-tile" onclick="alert('Opening referral link…');">
+              <span class="icon"><i class="fas fa-gift"></i></span>
+              <span class="title">Refer & earn</span>
+              <span class="sub">Get $10 credit</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Promo -->
+        <div class="promo-card">
+          <div class="promo-label"><i class="fas fa-tag"></i> Limited offer</div>
+          <h4>Get 20% off your next 3 rides</h4>
+          <p>Valid through the end of the month on all Comfort and Premium rides.</p>
+          <button class="promo-code" onclick="alert('Code SAVE20 copied to clipboard!');">
+            <i class="fas fa-copy"></i>
+            SAVE20
+          </button>
+        </div>
+
+      </aside>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — InstantCab</title>
+  <meta name="description" content="Manage your InstantCab profile, contact details, and preferences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px; line-height: 1.5; color: #111827; background: #f9fafb;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    input, select { font-family: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* Header */
+    .app-header { position: sticky; top: 0; z-index: 50; background: #ffffff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; color: #111827; }
+    .logo-icon { width: 34px; height: 34px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a { padding: 8px 14px; font-size: 0.9rem; font-weight: 500; color: #4b5563; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .header-nav a:hover { background: #f3f4f6; color: #2563eb; }
+    .header-nav a.active { color: #2563eb; background: #eff6ff; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #4b5563; font-size: 1rem; transition: all 0.15s; position: relative; }
+    .icon-btn:hover { background: #f3f4f6; color: #2563eb; }
+    .icon-btn .dot { position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: #ef4444; border: 2px solid #fff; }
+    .user-menu { display: flex; align-items: center; gap: 10px; padding: 5px 12px 5px 5px; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 100px; }
+    .user-menu img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .user-menu .user-name { font-size: 0.875rem; font-weight: 600; color: #111827; }
+    .user-menu .chevron { font-size: 0.7rem; color: #6b7280; }
+
+    /* Page */
+    .page { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; }
+    .page-header { margin-bottom: 32px; }
+    .page-header h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; color: #111827; margin-bottom: 6px; }
+    .page-header p { color: #6b7280; font-size: 0.95rem; }
+
+    /* Card */
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+    .card-header { padding: 20px 24px; border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .card-header h2 { font-size: 1.05rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 8px; }
+    .card-header h2 i { color: #2563eb; font-size: 0.95rem; }
+    .card-body { padding: 24px; }
+
+    /* Profile photo */
+    .profile-photo-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .profile-photo { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid #eff6ff; }
+    .photo-info { flex: 1; min-width: 220px; }
+    .photo-info h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin-bottom: 4px; }
+    .photo-info p { font-size: 0.85rem; color: #6b7280; margin-bottom: 14px; }
+    .photo-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-sm { padding: 9px 16px; font-size: 0.85rem; font-weight: 600; border-radius: 8px; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-sm.primary { background: #2563eb; color: #fff; }
+    .btn-sm.primary:hover { background: #1d4ed8; }
+    .btn-sm.outline { background: #fff; color: #111827; border: 1px solid #d1d5db; }
+    .btn-sm.outline:hover { background: #f9fafb; border-color: #9ca3af; }
+    .btn-sm.danger { background: #fff; color: #ef4444; border: 1px solid #fecaca; }
+    .btn-sm.danger:hover { background: #fef2f2; }
+
+    /* Form */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 8px; }
+    .form-label .optional { color: #9ca3af; font-weight: 400; }
+    .form-input, .form-select {
+      padding: 11px 14px; font-size: 0.92rem; font-weight: 500; color: #111827;
+      background: #fff; border: 1px solid #d1d5db; border-radius: 10px;
+      transition: border-color 0.15s, box-shadow 0.15s; width: 100%;
+    }
+    .form-input:focus, .form-select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,0.12); }
+    .form-input:disabled { background: #f9fafb; color: #6b7280; cursor: not-allowed; }
+
+    /* Preferences */
+    .pref-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #f3f4f6; gap: 20px; }
+    .pref-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .pref-row:first-child { padding-top: 0; }
+    .pref-info { flex: 1; }
+    .pref-info h4 { font-size: 0.95rem; font-weight: 600; color: #111827; margin-bottom: 3px; }
+    .pref-info p { font-size: 0.83rem; color: #6b7280; }
+    .toggle { position: relative; width: 44px; height: 26px; background: #d1d5db; border-radius: 100px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .toggle.on { background: #2563eb; }
+    .toggle.on::after { transform: translateX(18px); }
+
+    .form-footer { padding: 20px 24px; background: #f9fafb; border-top: 1px solid #f3f4f6; display: flex; justify-content: flex-end; gap: 10px; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #111827; color: #fff;
+      padding: 14px 20px; border-radius: 12px; font-size: 0.9rem; font-weight: 500;
+      display: none; align-items: center; gap: 10px; z-index: 100;
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.3);
+    }
+    .toast.show { display: flex; animation: slideUp 0.3s ease; }
+    .toast i { color: #22c55e; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 720px) {
+      .header-nav { display: none; }
+      .user-menu .user-name, .user-menu .chevron { display: none; }
+      .user-menu { padding: 5px; }
+      .page { padding: 24px 16px 48px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .card-body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-icon"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <nav class="header-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="trips.html">My trips</a>
+        <a href="payment-methods.html">Wallet</a>
+        <a href="profile.html" class="active">Profile</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="dot"></span>
+        </button>
+        <button class="user-menu" aria-label="Account menu">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop" alt="User avatar">
+          <span class="user-name">Maya</span>
+          <i class="fas fa-chevron-down chevron"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <div class="page-header">
+      <h1>Profile settings</h1>
+      <p>Manage your personal information, preferences, and account security.</p>
+    </div>
+
+    <!-- Profile photo -->
+    <section class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-user-circle"></i> Profile photo</h2>
+      </div>
+      <div class="card-body">
+        <div class="profile-photo-row">
+          <img class="profile-photo" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop" alt="Maya Rodriguez profile photo">
+          <div class="photo-info">
+            <h3>Maya Rodriguez</h3>
+            <p>Your photo helps drivers identify you quickly at pickup.</p>
+            <div class="photo-actions">
+              <button class="btn-sm primary" onclick="alert('Opening file picker…');">
+                <i class="fas fa-upload" style="font-size: 0.8rem;"></i>
+                Upload new photo
+              </button>
+              <button class="btn-sm danger" onclick="if(confirm('Remove your profile photo?')) alert('Photo removed.');">
+                <i class="fas fa-trash" style="font-size: 0.8rem;"></i>
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personal info -->
+    <section class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-id-card"></i> Personal information</h2>
+      </div>
+      <form id="profileForm">
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="firstName">First name</label>
+              <input class="form-input" type="text" id="firstName" value="Maya" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">Last name</label>
+              <input class="form-input" type="text" id="lastName" value="Rodriguez" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email address</label>
+              <input class="form-input" type="email" id="email" value="maya.rodriguez@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone number</label>
+              <input class="form-input" type="tel" id="phone" value="+1 (415) 555-0142" required>
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="address">Home address <span class="optional">(used for quick pickup)</span></label>
+              <input class="form-input" type="text" id="address" value="1247 Mission Street, San Francisco, CA 94103">
+            </div>
+          </div>
+        </div>
+        <div class="form-footer">
+          <button type="button" class="btn-sm outline" onclick="window.location.reload();">Cancel</button>
+          <button type="submit" class="btn-sm primary">
+            <i class="fas fa-check" style="font-size: 0.8rem;"></i>
+            Save changes
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Preferences -->
+    <section class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-sliders"></i> Ride preferences</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Quiet ride</h4>
+            <p>Let drivers know you prefer a quiet trip by default.</p>
+          </div>
+          <div class="toggle" data-toggle="quiet" role="switch" aria-checked="false"></div>
+        </div>
+
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Temperature preference</h4>
+            <p>Set your preferred cabin temperature before pickup.</p>
+          </div>
+          <select class="form-select" style="max-width: 160px;">
+            <option>Cool (68°F)</option>
+            <option selected>Comfortable (72°F)</option>
+            <option>Warm (76°F)</option>
+          </select>
+        </div>
+
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Accessibility needs</h4>
+            <p>Request wheelchair-accessible vehicles by default.</p>
+          </div>
+          <div class="toggle" data-toggle="accessibility" role="switch" aria-checked="false"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Notifications -->
+    <section class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-bell"></i> Notifications</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Ride updates</h4>
+            <p>Get SMS and push notifications about your driver's arrival.</p>
+          </div>
+          <div class="toggle on" data-toggle="ride" role="switch" aria-checked="true"></div>
+        </div>
+
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Promotions & offers</h4>
+            <p>Receive exclusive discounts and seasonal promo codes.</p>
+          </div>
+          <div class="toggle on" data-toggle="promo" role="switch" aria-checked="true"></div>
+        </div>
+
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Receipt emails</h4>
+            <p>Get a detailed receipt by email after every completed ride.</p>
+          </div>
+          <div class="toggle on" data-toggle="receipt" role="switch" aria-checked="true"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-shield-halved"></i> Security</h2>
+      </div>
+      <div class="card-body">
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Password</h4>
+            <p>Last changed 3 months ago</p>
+          </div>
+          <button class="btn-sm outline" onclick="window.location.href='reset-password.html?token=demo';">
+            Change password
+          </button>
+        </div>
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Two-factor authentication</h4>
+            <p>Add an extra layer of security to your account.</p>
+          </div>
+          <button class="btn-sm primary" onclick="alert('Setting up 2FA…');">
+            Enable 2FA
+          </button>
+        </div>
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Active sessions</h4>
+            <p>2 devices signed in · San Francisco, CA</p>
+          </div>
+          <button class="btn-sm danger" onclick="if(confirm('Sign out of all other devices?')) alert('All other sessions ended.');">
+            Sign out all
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Danger zone -->
+    <section class="card">
+      <div class="card-header">
+        <h2 style="color:#ef4444;"><i class="fas fa-triangle-exclamation" style="color:#ef4444;"></i> Danger zone</h2>
+      </div>
+      <div class="card-body">
+        <div class="pref-row">
+          <div class="pref-info">
+            <h4>Delete account</h4>
+            <p>Permanently delete your account and all ride history. This cannot be undone.</p>
+          </div>
+          <button class="btn-sm danger" onclick="if(confirm('Are you absolutely sure? This will permanently delete your account.')) alert('Account deletion requested. Check your email to confirm.');">
+            Delete account
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast">
+    <i class="fas fa-circle-check"></i>
+    <span>Profile updated successfully</span>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Toggle switches
+      document.querySelectorAll('.toggle').forEach(function (t) {
+        t.addEventListener('click', function () {
+          var on = t.classList.toggle('on');
+          t.setAttribute('aria-checked', on);
+        });
+      });
+
+      // Save form
+      var form = document.getElementById('profileForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(function () { toast.classList.remove('show'); }, 2400);
+      });
+    })();
+  </script>
+</body>
+</html>
