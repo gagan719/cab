@@ -3,88 +3,741 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trip Details</title>
-</head>
-<body>
-  <main>
-    <h1>Trip Details</h1>
-    <p><strong>Trip ID:</strong> #CAB1024</p>
-    <p><strong>From:</strong> Downtown</p>
-    <p><strong>To:</strong> Airport</p>
-    <p><strong>Date:</strong> June 15, 2025</p>
-    <p><strong>Time:</strong> 10:30 AM</p>
-    <p><strong>Status:</strong> Completed</p>
-    <p><strong>Fare:</strong> $25.00</p>
-  </main>
+  <title>Trip Details & Receipt — InstantCab India</title>
+  <meta name="description" content="View your InstantCab ride receipt, route details, driver information, and itemized fare in ₹.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    :root {
-      font-family: Arial, Helvetica, sans-serif;
-      color: #17202a;
-      background: #1e78ef;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
       min-height: 100vh;
-      margin: 0;
-      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .nav-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #111827;
+    }
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #fff8df, #eef5ff);
-      background-color: rgb(106, 106, 239);
+      font-size: 0.9rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .btn-nav-outline {
+      background: #fff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+    .btn-nav-outline:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+      color: #111827;
+    }
+    .btn-nav-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-nav-primary:hover {
+      background: #1d4ed8;
     }
 
-    main {
-      width: min(100%, 560px);
-      padding: 36px;
-      border: 1px solid #e4e8ee;
-      border-radius: 18px;
-      background: #bba577;
-      box-shadow: 0 14px 35px rgba(28, 45, 74, 0.12);
+    /* Container */
+    .page-container {
+      max-width: 980px;
+      width: 100%;
+      margin: 32px auto;
+      padding: 0 20px 48px;
+      flex: 1;
     }
 
-    h1 {
-      margin: 0 0 24px;
-      color: #17202a;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+    /* Breadcrumbs */
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 20px;
+    }
+    .breadcrumbs a:hover {
+      color: #2563eb;
+      text-decoration: underline;
     }
 
-    p {
+    /* Main Card */
+    .receipt-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    /* Card Header */
+    .receipt-header {
+      padding: 28px 32px;
+      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+      border-bottom: 1px solid #e5e7eb;
       display: flex;
       justify-content: space-between;
-      gap: 20px;
-      margin: 0;
-      padding: 15px 0;
-      border-bottom: 1px solid #edf0f4;
-      color: #667085;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .trip-title-area h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .trip-meta-subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-completed { background: #dcfce7; color: #15803d; }
+    .status-on_the_way { background: #eff6ff; color: #1d4ed8; }
+    .status-upcoming { background: #fef3c7; color: #b45309; }
+    .status-refunded { background: #f3f4f6; color: #4b5563; }
+    .status-cancelled { background: #fee2e2; color: #b91c1c; }
+
+    /* Content Layout */
+    .receipt-content {
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
     }
 
-    p:last-child {
-      border-bottom: 0;
-      color: #16734a;
+    /* Route Visual & Timeline */
+    .section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .route-timeline {
+      position: relative;
+      padding-left: 32px;
+      margin-bottom: 28px;
+    }
+    .route-timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 14px;
+      bottom: 22px;
+      width: 2px;
+      background: #e5e7eb;
+    }
+    .route-point {
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .route-point:last-child {
+      margin-bottom: 0;
+    }
+    .route-dot {
+      position: absolute;
+      left: -32px;
+      top: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: #fff;
+    }
+    .route-dot.pickup { background: #2563eb; }
+    .route-dot.dropoff { background: #ef4444; }
+    .point-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .point-address {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.4;
+    }
+    .point-time {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    /* Trip Stats Row */
+    .trip-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+      background: #f9fafb;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    .tstat-box { text-align: center; }
+    .tstat-val { font-size: 1.15rem; font-weight: 700; color: #111827; }
+    .tstat-lbl { font-size: 0.75rem; color: #6b7280; margin-top: 2px; font-weight: 500; }
+
+    /* Driver Card */
+    .driver-box {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .driver-info-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .driver-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.1rem;
       font-weight: 700;
+      flex-shrink: 0;
+    }
+    .driver-name { font-size: 1rem; font-weight: 700; color: #111827; }
+    .driver-vehicle { font-size: 0.85rem; color: #4b5563; margin-top: 2px; }
+    .plate-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #111827;
+      margin-left: 6px;
     }
 
-    strong {
-      color: #27364d;
+    /* Rating stars */
+    .rating-section {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+    .rating-stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 10px 0;
+      font-size: 1.4rem;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+    .rating-stars i.active {
+      color: #f59e0b;
     }
 
-    @media (max-width: 480px) {
-      main {
-        padding: 26px 22px;
-      }
+    /* Fare Breakdown Side */
+    .fare-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .fare-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      color: #4b5563;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .fare-row:last-of-type {
+      border-bottom: none;
+    }
+    .fare-row.total-row {
+      border-top: 2px solid #e5e7eb;
+      border-bottom: none;
+      margin-top: 12px;
+      padding-top: 16px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #111827;
+    }
+    .fare-total-price {
+      color: #2563eb;
+      font-size: 1.35rem;
+    }
+    .payment-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+    }
 
-      p {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 5px;
-      }
+    /* Receipt Actions */
+    .receipt-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .btn-receipt {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .btn-receipt.primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-receipt.primary:hover {
+      background: #1d4ed8;
+    }
+    .btn-receipt.secondary {
+      background: #fff;
+      color: #374151;
+      border-color: #d1d5db;
+    }
+    .btn-receipt.secondary:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111827;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 100;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: #fff; }
+      .top-nav, .receipt-actions, .breadcrumbs, .rating-section, .toast { display: none !important; }
+      .page-container { margin: 0; padding: 0; width: 100%; max-width: 100%; }
+      .receipt-card { border: none; box-shadow: none; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .receipt-content { grid-template-columns: 1fr; }
+      .receipt-header { flex-direction: column; }
     }
   </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <a href="index.html#/home" class="nav-logo">
+        <span class="logo-badge"><i class="fas fa-taxi"></i></span>
+        <span>InstantCab</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#/trips" class="btn-nav btn-nav-outline">
+          <i class="fas fa-arrow-left"></i> Back to My Trips
+        </a>
+        <a href="index.html#/home" class="btn-nav btn-nav-primary">
+          <i class="fas fa-plus"></i> Book a Taxi
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Container -->
+  <main class="page-container">
+    <div class="breadcrumbs">
+      <a href="index.html#/home">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i>
+      <a href="index.html#/trips">My Trips</a>
+      <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i>
+      <span id="breadcrumbId">Trip #CAB1024</span>
+    </div>
+
+    <div class="receipt-card" id="receiptCard">
+      <!-- Header -->
+      <div class="receipt-header">
+        <div class="trip-title-area">
+          <h1>
+            <span id="tripIdText">Trip #CAB1024</span>
+          </h1>
+          <div class="trip-meta-subtitle" id="tripMetaDate">June 15, 2025 · 10:30 AM</div>
+        </div>
+        <div>
+          <span class="status-pill status-completed" id="tripStatusBadge">
+            <i class="fas fa-circle-check"></i> Completed
+          </span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="receipt-content">
+        <!-- Left Column: Route & Driver -->
+        <div>
+          <div class="section-title"><i class="fas fa-route"></i> Route Details</div>
+          
+          <div class="route-timeline">
+            <div class="route-point">
+              <span class="route-dot pickup"><i class="fas fa-circle-dot"></i></span>
+              <div class="point-label">Pickup Location</div>
+              <div class="point-address" id="pickupAddress">Downtown Indiranagar</div>
+              <div class="point-time" id="pickupTime">10:30 AM</div>
+            </div>
+            <div class="route-point">
+              <span class="route-dot dropoff"><i class="fas fa-location-dot"></i></span>
+              <div class="point-label">Drop-off Destination</div>
+              <div class="point-address" id="dropoffAddress">Kempegowda International Airport (BLR)</div>
+              <div class="point-time" id="dropoffTime">11:12 AM</div>
+            </div>
+          </div>
+
+          <div class="trip-stats-grid">
+            <div class="tstat-box">
+              <div class="tstat-val" id="tripDistance">36.0 km</div>
+              <div class="tstat-lbl">Distance</div>
+            </div>
+            <div class="tstat-box">
+              <div class="tstat-val" id="tripDuration">42 min</div>
+              <div class="tstat-lbl">Duration</div>
+            </div>
+            <div class="tstat-box">
+              <div class="tstat-val" id="tripVehicleClass">Comfort</div>
+              <div class="tstat-lbl">Ride Type</div>
+            </div>
+          </div>
+
+          <div class="section-title"><i class="fas fa-id-badge"></i> Assigned Driver</div>
+          <div class="driver-box">
+            <div class="driver-info-left">
+              <div class="driver-avatar" id="driverAvatar">RG</div>
+              <div>
+                <div class="driver-name" id="driverName">Ramesh Gowda</div>
+                <div class="driver-vehicle">
+                  <span id="vehicleModel">Honda Amaze</span>
+                  <span class="plate-badge" id="plateNumber">KA 05 AB 1024</span>
+                </div>
+              </div>
+            </div>
+            <a href="tel:+918079412662" class="btn-nav btn-nav-outline" style="padding: 8px 12px;">
+              <i class="fas fa-phone"></i> Call
+            </a>
+          </div>
+
+          <!-- Rating -->
+          <div class="rating-section">
+            <div style="font-weight: 700; font-size: 0.95rem;">Rate this trip</div>
+            <p style="font-size: 0.8rem; color: #6b7280; margin-top: 2px;">Your feedback helps keep InstantCab drivers top-rated.</p>
+            <div class="rating-stars" id="starRating">
+              <i class="fas fa-star active" data-rating="1"></i>
+              <i class="fas fa-star active" data-rating="2"></i>
+              <i class="fas fa-star active" data-rating="3"></i>
+              <i class="fas fa-star active" data-rating="4"></i>
+              <i class="fas fa-star active" data-rating="5"></i>
+            </div>
+            <div id="ratingFeedback" style="font-size: 0.8rem; color: #16a34a; font-weight: 600;">Rated 5 out of 5 stars</div>
+          </div>
+        </div>
+
+        <!-- Right Column: Fare Breakdown & Actions -->
+        <div>
+          <div class="section-title"><i class="fas fa-receipt"></i> Fare Breakdown</div>
+          
+          <div class="fare-box">
+            <div class="fare-row">
+              <span>Base Fare</span>
+              <span id="fareBase">₹60.00</span>
+            </div>
+            <div class="fare-row">
+              <span>Distance Charge</span>
+              <span id="fareDistance">₹290.00</span>
+            </div>
+            <div class="fare-row">
+              <span>Time Charge</span>
+              <span id="fareTime">₹40.00</span>
+            </div>
+            <div class="fare-row">
+              <span>Booking Fee</span>
+              <span id="fareBooking">₹25.00</span>
+            </div>
+            <div class="fare-row">
+              <span>GST (5%)</span>
+              <span id="fareGst">₹35.00</span>
+            </div>
+            <div class="fare-row total-row">
+              <span>Total Paid</span>
+              <span class="fare-total-price" id="fareTotal">₹450.00</span>
+            </div>
+
+            <div class="payment-badge">
+              <i class="fas fa-credit-card" style="color:#2563eb;"></i>
+              <span id="paymentMethod">Paid via InstantCab Wallet</span>
+            </div>
+
+            <div class="receipt-actions">
+              <button class="btn-receipt primary" onclick="window.print();">
+                <i class="fas fa-print"></i> Print / Save PDF Receipt
+              </button>
+              <a href="index.html#/home" class="btn-receipt secondary">
+                <i class="fas fa-repeat"></i> Book Return Ride
+              </a>
+              <a href="index.html#/contact" class="btn-receipt secondary">
+                <i class="fas fa-circle-question"></i> Need Help with this Ride?
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast">
+    <i class="fas fa-circle-check"></i>
+    <span id="toastMsg">Action completed</span>
+  </div>
+
+  <script>
+    // Fallback data in case server is not running or file viewed directly
+    var fallbackTrip = {
+      id: 'CAB1024',
+      status: 'completed',
+      statusLabel: 'Completed',
+      pickup: 'Downtown Indiranagar, Bengaluru',
+      dropoff: 'Kempegowda International Airport (BLR)',
+      date: 'June 15, 2025',
+      time: '10:30 AM',
+      distanceKm: 36.0,
+      durationMins: 42,
+      vehicleClass: 'Comfort',
+      vehicleModel: 'Honda Amaze (White)',
+      plateNumber: 'KA 05 AB 1024',
+      driverName: 'Ramesh Gowda',
+      driverInitials: 'RG',
+      driverRating: 4.95,
+      fare: {
+        base: 60,
+        distanceFare: 290,
+        timeCharge: 40,
+        bookingFee: 25,
+        gst: 35,
+        total: 450
+      },
+      paymentMethod: 'InstantCab Wallet'
+    };
+
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      var m = document.getElementById('toastMsg');
+      if (t && m) {
+        m.textContent = msg;
+        t.classList.add('show');
+        setTimeout(function() { t.classList.remove('show'); }, 2200);
+      }
+    }
+
+    function renderTrip(trip) {
+      if (!trip) return;
+      var tripIdClean = (trip.id || 'CAB1024').replace('#', '');
+
+      document.getElementById('breadcrumbId').textContent = 'Trip #' + tripIdClean;
+      document.getElementById('tripIdText').textContent = 'Trip #' + tripIdClean;
+      document.getElementById('tripMetaDate').textContent = (trip.date || 'June 15, 2025') + (trip.time ? ' · ' + trip.time : '');
+
+      var badge = document.getElementById('tripStatusBadge');
+      if (badge) {
+        var status = (trip.status || 'completed').toLowerCase();
+        badge.className = 'status-pill status-' + status;
+        var icon = status === 'completed' ? 'fa-circle-check' : (status === 'on_the_way' ? 'fa-car' : 'fa-info-circle');
+        badge.innerHTML = '<i class="fas ' + icon + '"></i> ' + (trip.statusLabel || status);
+      }
+
+      document.getElementById('pickupAddress').textContent = trip.pickup || 'Downtown';
+      document.getElementById('pickupTime').textContent = trip.time || '10:30 AM';
+      document.getElementById('dropoffAddress').textContent = trip.dropoff || 'Kempegowda International Airport';
+      document.getElementById('dropoffTime').textContent = trip.dropoffTime || 'Completed';
+
+      document.getElementById('tripDistance').textContent = (trip.distanceKm || 36.0) + ' km';
+      document.getElementById('tripDuration').textContent = (trip.durationMins || 42) + ' min';
+      document.getElementById('tripVehicleClass').textContent = trip.vehicleClass || 'Comfort';
+
+      document.getElementById('driverName').textContent = trip.driverName || 'Ramesh Gowda';
+      document.getElementById('driverAvatar').textContent = trip.driverInitials || (trip.driverName ? trip.driverName.charAt(0) : 'D');
+      document.getElementById('vehicleModel').textContent = trip.vehicleModel || 'Honda Amaze';
+      document.getElementById('plateNumber').textContent = trip.plateNumber || 'KA 05 AB 1024';
+
+      if (trip.fare) {
+        document.getElementById('fareBase').textContent = '₹' + Number(trip.fare.base || 0).toFixed(2);
+        document.getElementById('fareDistance').textContent = '₹' + Number(trip.fare.distanceFare || 0).toFixed(2);
+        document.getElementById('fareTime').textContent = '₹' + Number(trip.fare.timeCharge || 0).toFixed(2);
+        document.getElementById('fareBooking').textContent = '₹' + Number(trip.fare.bookingFee || 0).toFixed(2);
+        document.getElementById('fareGst').textContent = '₹' + Number(trip.fare.gst || 0).toFixed(2);
+        document.getElementById('fareTotal').textContent = '₹' + Number(trip.fare.total || 450).toFixed(2);
+      }
+
+      document.getElementById('paymentMethod').textContent = 'Paid via ' + (trip.paymentMethod || 'InstantCab Wallet');
+    }
+
+    // Load trip data from API or query param
+    function loadTripData() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get('id') || 'CAB1024';
+
+      fetch('/api/rides/' + encodeURIComponent(id))
+        .then(function(res) {
+          if (!res.ok) throw new Error('API returned ' + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          if (data && data.ride) {
+            renderTrip(data.ride);
+          } else {
+            renderTrip(fallbackTrip);
+          }
+        })
+        .catch(function(err) {
+          console.warn('Could not fetch from API, using fallback data:', err);
+          renderTrip(fallbackTrip);
+        });
+    }
+
+    // Interactive star rating
+    document.querySelectorAll('#starRating i').forEach(function(star) {
+      star.addEventListener('click', function() {
+        var rating = parseInt(star.getAttribute('data-rating'), 10);
+        document.querySelectorAll('#starRating i').forEach(function(s, idx) {
+          s.classList.toggle('active', idx < rating);
+        });
+        document.getElementById('ratingFeedback').textContent = 'Rated ' + rating + ' out of 5 stars! Thank you.';
+        showToast('Trip rating submitted: ' + rating + ' stars');
+        
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id') || 'CAB1024';
+        fetch('/api/rides/' + encodeURIComponent(id) + '/rate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ rating: rating })
+        }).catch(function() {});
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', loadTripData);
+  </script>
 </body>
 </html>

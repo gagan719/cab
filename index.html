@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="app.css">
   <style>
     /* ============================================================
        GLOBAL RESET & BASE
@@ -34,7 +36,7 @@
     .page.active { display: block; }
 
     /* ============================================================
-       HEADER (shared)
+       HEADER
     ============================================================ */
     .site-header {
       position: sticky; top: 0; z-index: 50;
@@ -56,7 +58,7 @@
       border-radius: 8px; display: flex; align-items: center; justify-content: center;
       font-size: 0.95rem;
     }
-    .header-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    .header-nav { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
     .header-nav a {
       padding: 8px 14px; font-size: 0.9rem; font-weight: 500;
       color: #4b5563; border-radius: 8px;
@@ -141,14 +143,27 @@
     .btn-secondary:hover { background: #f9fafb; border-color: #9ca3af; }
 
     /* ============================================================
-       HOME PAGE — HERO (no image)
+       HOME PAGE — HERO
     ============================================================ */
     .hero {
       padding: 52px 24px 72px; max-width: 1280px; margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.06;
+      z-index: 0;
+      pointer-events: none;
     }
     .hero-grid {
       display: block;
       max-width: 780px;
+      position: relative;
+      z-index: 1;
     }
     .hero-content { width: 100%; }
     .hero-badge {
@@ -205,13 +220,26 @@
       display: flex; align-items: center; gap: 12px;
       color: #4b5563; font-size: 0.9rem;
     }
-    .avatar-group { display: flex; }
-    .avatar-group img {
-      width: 36px; height: 36px; border-radius: 50%;
-      object-fit: cover; border: 2px solid #fff;
-      margin-left: -10px;
+
+    /* ============================================================
+       HERO DRIVER PHOTO — panorama banner ratio (1920 × 566)
+    ============================================================ */
+    .hero-driver-photo {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 28px;
+      border-radius: 16px;
+      object-fit: cover;
+      object-position: center 45%;
+      aspect-ratio: 1920 / 566;
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.18);
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
     }
-    .avatar-group img:first-child { margin-left: 0; }
+    .hero-driver-photo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 50px -20px rgba(37, 99, 235, 0.25);
+    }
 
     /* ============================================================
        STATS
@@ -269,27 +297,45 @@
     .step-card h3 { font-size: 1.15rem; font-weight: 700; color: #111827; margin-bottom: 10px; letter-spacing: -0.01em; }
     .step-card p { font-size: 0.95rem; color: #6b7280; line-height: 1.6; }
 
-    /* Fleet (image-free) */
+    /* ============================================================
+       FLEET
+    ============================================================ */
     .fleet-section { background: #f9fafb; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; }
     .fleet-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .fleet-card {
       background: #fff; border: 1px solid #e5e7eb;
       border-radius: 12px; overflow: hidden;
       display: flex; flex-direction: column;
-      transition: box-shadow 0.2s, border-color 0.2s;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
     }
-    .fleet-card:hover { box-shadow: 0 12px 32px -12px rgba(0,0,0,0.12); border-color: #d1d5db; }
+    .fleet-card:hover {
+      box-shadow: 0 12px 32px -12px rgba(0,0,0,0.12);
+      border-color: #d1d5db;
+      transform: translateY(-2px);
+    }
     .fleet-visual {
-      position: relative; aspect-ratio: 16/9; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      display: flex; align-items: center; justify-content: center;
-      color: #2563eb; font-size: 3rem;
+      position: relative;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      overflow: hidden;
     }
-    .fleet-visual i { font-size: 3.25rem; opacity: 0.9; }
+    .fleet-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .fleet-card:hover .fleet-visual img {
+      transform: scale(1.06);
+    }
     .fleet-badge {
       position: absolute; top: 12px; left: 12px;
       background: #fff; color: #111827;
       font-size: 0.72rem; font-weight: 600;
       padding: 5px 10px; border-radius: 6px;
+      z-index: 2;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     .fleet-badge.popular { background: #2563eb; color: #fff; }
     .fleet-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
@@ -318,7 +364,9 @@
     }
     .btn-fleet:hover { background: #2563eb; }
 
-    /* App CTA (image-free) */
+    /* ============================================================
+       APP CTA
+    ============================================================ */
     .app-cta { background: #111827; color: #fff; padding: 64px 24px; }
     .app-cta-inner {
       max-width: 1200px; margin: 0 auto;
@@ -355,21 +403,16 @@
     .qr-code .qr-label { font-size: 0.72rem; font-weight: 600; color: #111827; text-align: center; line-height: 1.2; }
 
     .app-cta-visual {
-      border-radius: 16px; aspect-ratio: 4/3.2;
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 18px; color: #fff; padding: 32px; text-align: center;
+      border-radius: 16px;
+      aspect-ratio: 4/3.2;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.4);
     }
-    .app-cta-visual i { font-size: 4rem; opacity: 0.85; }
-    .app-cta-visual h3 { font-size: 1.25rem; font-weight: 700; }
-    .app-cta-visual p { color: #bfdbfe; font-size: 0.95rem; max-width: 260px; }
-    .app-cta-visual .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
-      padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+    .app-cta-visual img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
 
-    /* Testimonial (image-free) */
+    /* Testimonial */
     .testimonial {
       background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px;
       padding: 48px; display: grid; grid-template-columns: 1fr auto;
@@ -392,7 +435,7 @@
     .testimonial-stat .label { font-size: 0.82rem; color: #6b7280; font-weight: 500; margin-top: 6px; }
 
     /* ============================================================
-       FOOTER (shared)
+       FOOTER
     ============================================================ */
     .site-footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 48px 24px 28px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; }
@@ -800,9 +843,7 @@
       display: flex; justify-content: space-between; align-items: center; gap: 16px;
       margin: 18px 0 20px; flex-wrap: wrap;
     }
-    .trip-filter-bar {
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
+    .trip-filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
     .trip-filter {
       padding: 8px 14px; border: 1px solid #e5e7eb; background: #fff;
       border-radius: 999px; color: #4b5563; font-size: 0.82rem; font-weight: 600;
@@ -828,15 +869,9 @@
       font-size: 0.72rem; font-weight: 600; margin-top: 2px; display: inline-flex;
       align-items: center; padding: 4px 8px; border-radius: 999px;
     }
-    .trip-amount .status.completed {
-      background: #f0fdf4; color: #16a34a;
-    }
-    .trip-amount .status.upcoming {
-      background: #eff6ff; color: #2563eb;
-    }
-    .trip-amount .status.refund {
-      background: #fff7ed; color: #ea580c;
-    }
+    .trip-amount .status.completed { background: #f0fdf4; color: #16a34a; }
+    .trip-amount .status.upcoming { background: #eff6ff; color: #2563eb; }
+    .trip-amount .status.refund { background: #fff7ed; color: #ea580c; }
 
     /* Wallet */
     .wallet-page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
@@ -855,12 +890,8 @@
       border: 1px solid #dbeafe; border-radius: 20px; padding: 24px;
       box-shadow: 0 10px 25px -18px rgba(37,99,235,0.35);
     }
-    .profile-hero-row {
-      display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
-    }
-    .profile-user {
-      display: flex; align-items: center; gap: 18px;
-    }
+    .profile-hero-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .profile-user { display: flex; align-items: center; gap: 18px; }
     .profile-avatar-large {
       width: 88px; height: 88px; object-fit: cover; border-radius: 50%;
       border: 3px solid #fff; box-shadow: 0 12px 24px -18px rgba(0,0,0,0.25);
@@ -872,21 +903,11 @@
     }
     .profile-user h2 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; color: #111827; margin-bottom: 4px; }
     .profile-user p { font-size: 0.9rem; color: #4b5563; }
-    .profile-stat-grid {
-      margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px;
-    }
-    .profile-summary-card {
-      background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px 18px;
-    }
-    .profile-summary-card span {
-      display: block; font-size: 0.72rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
-    }
-    .profile-summary-card strong {
-      display: block; font-size: 1.6rem; font-weight: 800; color: #111827; letter-spacing: -0.03em; line-height: 1.1;
-    }
-    .profile-summary-card small {
-      display: block; margin-top: 6px; color: #16a34a; font-size: 0.76rem; font-weight: 600;
-    }
+    .profile-stat-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .profile-summary-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 16px 18px; }
+    .profile-summary-card span { display: block; font-size: 0.72rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .profile-summary-card strong { display: block; font-size: 1.6rem; font-weight: 800; color: #111827; letter-spacing: -0.03em; line-height: 1.1; }
+    .profile-summary-card small { display: block; margin-top: 6px; color: #16a34a; font-size: 0.76rem; font-weight: 600; }
     .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
     .card-header { padding: 20px 24px; border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
     .card-header h2 { font-size: 1.05rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 8px; }
@@ -899,16 +920,12 @@
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .form-grid .full { grid-column: 1 / -1; }
     .info-list { display: grid; gap: 14px; }
-    .info-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #f3f4f6;
-    }
+    .info-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #f3f4f6; }
     .info-row:last-child { border-bottom: none; }
     .info-label { font-size: 0.78rem; font-weight: 700; color: #6b7280; letter-spacing: 0.06em; text-transform: uppercase; }
     .info-value { font-size: 0.96rem; color: #111827; font-weight: 600; text-align: right; }
     .toggle-list { display: grid; gap: 14px; }
-    .toggle-row {
-      display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #f3f4f6;
-    }
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #f3f4f6; }
     .toggle-row:last-child { border-bottom: none; }
     .toggle-copy h3 { font-size: 0.98rem; font-weight: 700; color: #111827; margin-bottom: 4px; }
     .toggle-copy p { font-size: 0.82rem; color: #6b7280; }
@@ -973,12 +990,7 @@
       padding: 1.75rem 1.75rem 1.5rem 1.75rem;
       border: 1px solid rgba(255, 255, 255, 0.7);
     }
-    .notification-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.25rem;
-    }
+    .notification-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
     .brand-section { display: flex; align-items: center; gap: 10px; }
     .brand-icon {
       background: #0b2b3f; color: white;
@@ -987,14 +999,8 @@
       font-size: 1.25rem;
       box-shadow: 0 6px 12px -4px rgba(11, 43, 63, 0.25);
     }
-    .brand-text {
-      font-weight: 600; font-size: 1.2rem;
-      letter-spacing: -0.01em; color: #0b2b3f;
-    }
-    .brand-text span {
-      font-weight: 400; color: #5b7a8c;
-      font-size: 0.9rem; margin-left: 4px;
-    }
+    .brand-text { font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; color: #0b2b3f; }
+    .brand-text span { font-weight: 400; color: #5b7a8c; font-size: 0.9rem; margin-left: 4px; }
     .timestamp {
       font-size: 0.8rem; font-weight: 500;
       color: #78909c; background: #f0f4f8;
@@ -1010,9 +1016,7 @@
       letter-spacing: 0.02em; margin-bottom: 1.25rem;
       border: 1px solid rgba(31, 94, 142, 0.08);
     }
-    .notification-card .status-badge i {
-      font-size: 0.7rem; color: #1f5e8e;
-    }
+    .notification-card .status-badge i { font-size: 0.7rem; color: #1f5e8e; }
     .notification-message {
       font-size: 1.1rem; font-weight: 500;
       line-height: 1.5; color: #0f2838;
@@ -1028,11 +1032,7 @@
     }
     .detail-item { display: flex; align-items: center; gap: 8px; }
     .detail-item i { color: #3a6f8f; font-size: 0.95rem; width: 18px; }
-    .detail-label {
-      font-size: 0.78rem; font-weight: 500;
-      color: #5a7b8f; text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
+    .detail-label { font-size: 0.78rem; font-weight: 500; color: #5a7b8f; text-transform: uppercase; letter-spacing: 0.02em; }
     .detail-value {
       font-size: 0.95rem; font-weight: 600;
       color: #123c53; background: white;
@@ -1041,10 +1041,7 @@
       margin-left: 2px;
     }
     .divider-dot { color: #b6cddd; font-size: 1.2rem; padding: 0 0.6rem; }
-    .notification-actions {
-      display: flex; gap: 0.75rem;
-      justify-content: flex-end; align-items: center;
-    }
+    .notification-actions { display: flex; gap: 0.75rem; justify-content: flex-end; align-items: center; }
     .notification-card .btn {
       font-family: 'Inter', sans-serif; font-weight: 500;
       font-size: 0.9rem; padding: 0.7rem 1.4rem;
@@ -1052,6 +1049,7 @@
       transition: all 0.2s ease;
       display: inline-flex; align-items: center; justify-content: center;
       gap: 8px; letter-spacing: -0.01em; line-height: 1;
+      text-decoration: none;
     }
     .notification-card .btn-secondary {
       background: transparent; color: #3f657c;
@@ -1194,6 +1192,12 @@
       .divider-dot { display: none; }
       .notification-actions { flex-direction: column-reverse; width: 100%; }
       .notification-card .btn { width: 100%; }
+      .hero-driver-photo {
+        max-width: 100%;
+        border-radius: 12px;
+        margin-top: 22px;
+        aspect-ratio: 16 / 9;
+      }
     }
   </style>
 </head>
@@ -1218,22 +1222,42 @@
         <a href="#/careers" data-route="careers">Careers</a>
         <a href="#/press" data-route="press">Press</a>
         <a href="#/contact" data-route="contact">Contact</a>
-        <a href="#/notification" data-route="notification"><img src="notification.svg" style="height: 25px;"></a>
+        <a href="#/dashboard" data-route="dashboard" style="font-weight:700;"><i class="fas fa-gauge-high" style="font-size:0.8rem; margin-right:4px;"></i> Dashboard</a>
+        <a href="#/notification" data-route="notification" class="notif-link" title="Notifications" aria-label="Notifications">
+          <i class="fas fa-bell" aria-hidden="true"></i>
+          <span class="notif-badge" id="navNotifBadge" style="display:none;"></span>
+        </a>
       </nav>
       <div class="header-actions">
-        <a href="tel:+911800123456" class="header-phone">
+        <a href="tel:+918079412662" class="header-phone">
           <i class="fas fa-phone" aria-hidden="true"></i>
-          <span>91+8079412662</span>
+          <span>+91 80794 12662</span>
         </a>
-        <a href="#/login" class="header-cta">
+        <a href="#/login" class="header-cta" id="headerAuthBtn" style="display:none;">
           <i class="fas fa-sign-in-alt" style="font-size: 0.8rem;" aria-hidden="true"></i>
           Sign in
         </a>
-        <a href="#/profile" class="user-menu" aria-label="Your profile">
-          <span class="user-menu-avatar" style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#2563eb,#1d4ed8); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700;">AS</span>
-          <span class="user-name"></span>
-          <i class="fas fa-chevron-down chevron" aria-hidden="true"></i>
-        </a>
+        <div class="user-menu-wrapper" id="userMenuWrapper">
+          <button type="button" class="user-menu" id="userMenuBtn" aria-label="User profile and menu" aria-expanded="false" onclick="window.toggleUserDropdown(event);">
+            <span class="user-menu-avatar" id="headerAvatar" style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#2563eb,#1d4ed8); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700;">AS</span>
+            <span class="user-name" id="headerUserName">Ananya</span>
+            <i class="fas fa-chevron-down chevron" aria-hidden="true"></i>
+          </button>
+          <div class="user-dropdown-menu" id="userDropdownMenu">
+            <div class="dropdown-header">
+              <div class="dropdown-user-name" id="dropdownUserName">Ananya Sharma</div>
+              <div class="dropdown-user-email" id="dropdownUserEmail">ananya.sharma@example.in</div>
+            </div>
+            <a href="#/dashboard" class="dropdown-item" onclick="document.getElementById('userDropdownMenu').classList.remove('show');"><i class="fas fa-gauge-high"></i> Dashboard</a>
+            <a href="#/trips" class="dropdown-item" onclick="document.getElementById('userDropdownMenu').classList.remove('show');"><i class="fas fa-clock-rotate-left"></i> My Trips</a>
+            <a href="#/wallet" class="dropdown-item" onclick="document.getElementById('userDropdownMenu').classList.remove('show');"><i class="fas fa-wallet"></i> Wallet &amp; Cards</a>
+            <a href="#/tracking" class="dropdown-item" onclick="document.getElementById('userDropdownMenu').classList.remove('show');"><i class="fas fa-location-crosshairs"></i> Active Ride</a>
+            <a href="#/profile" class="dropdown-item" onclick="document.getElementById('userDropdownMenu').classList.remove('show');"><i class="fas fa-user-gear"></i> Profile Settings</a>
+            <a href="#/help" class="dropdown-item" onclick="document.getElementById('userDropdownMenu').classList.remove('show');"><i class="fas fa-circle-question"></i> Help Center</a>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="dropdown-item danger" onclick="window.handleLogout();"><i class="fas fa-sign-out-alt"></i> Sign out</button>
+          </div>
+        </div>
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
           <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
@@ -1304,14 +1328,16 @@
             <span class="detail-value">JFK Airport</span>
           </div>
         </div>
+
         <div class="notification-actions">
-  <a href="details.html" class="btn btn-secondary">
-    <i class="fas fa-info-circle"></i> Details
-  </a>
-  <a href="tel:91+8079412662" class="btn btn-primary">
-    <i class="fas fa-phone-alt"></i> Contact
-  </a>
-</div>
+          <a href="#/tracking" class="btn btn-secondary">
+            <i class="fas fa-info-circle"></i> Details
+          </a>
+          <a href="tel:+918079412662" class="btn btn-primary">
+            <i class="fas fa-phone-alt"></i> Contact
+          </a>
+        </div>
+
         <div class="extra-meta">
           <div class="eta-tag"><i class="fas fa-hourglass-half"></i> ETA 4 min</div>
           <div><i class="fas fa-car"></i> Black Toyota Camry · 7ABC123</div>
@@ -1322,10 +1348,14 @@
   </section>
 
   <!-- ============================================================
-       PAGE: HOME  (no images anywhere on this page)
+       PAGE: HOME
   ============================================================ -->
   <section class="page active" id="page-home">
     <div class="hero">
+      <img class="hero-bg"
+           src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1920&auto=format&fit=crop"
+           alt=""
+           aria-hidden="true">
       <div class="hero-grid">
         <div class="hero-content">
           <div class="hero-badge">
@@ -1347,20 +1377,26 @@
               <i class="fas fa-location-dot" aria-hidden="true"></i>
               <input id="dropoff" type="text" placeholder="Where to?" autocomplete="off">
             </label>
-            <div class="botton-action">
-              <a href="#/cities" class="btn btn-secondary">
-                <i class="fas fa-circle-dot" aria-hidden="true"></i> find Cab
-              </a>
-            </div>
+            <button type="submit" class="btn-find">
+              <i class="fas fa-search" aria-hidden="true"></i> Find taxi
+            </button>
           </form>
           <div class="hero-actions">
-            <a href="tel:+911800123456" class="btn-secondary">
-              <i class="fas fa-phone" aria-hidden="true"></i> Call 1800-123-4567
+            <a href="tel:+918079412662" class="btn-secondary">
+              <i class="fas fa-phone" aria-hidden="true"></i> Call +91 80794 12662
             </a>
           </div>
+
+          <!-- 1Cr+ rating text -->
           <div class="hero-rating">
             <span><strong style="color:#111827;">1Cr+</strong> rides completed across India</span>
           </div>
+
+          <!-- ✅ Panorama banner below the 1Cr+ text (1920 × 566 ratio) -->
+          <img class="hero-driver-photo"
+               src="driver 2.png"
+               alt="InstantCab driver giving a thumbs up with auto-rickshaw, SUV, and motorcycle in Chennai">
+
         </div>
       </div>
     </div>
@@ -1429,7 +1465,7 @@
       </div>
     </section>
 
-    <!-- Fleet (icon visuals, no photos) -->
+    <!-- Fleet -->
     <section class="section fleet-section">
       <div class="section-inner">
         <div class="section-header">
@@ -1437,15 +1473,18 @@
           <h2 class="section-title">Pick the ride that fits your day</h2>
           <p class="section-subtitle">Well-maintained, sanitised taxis — inspected daily and driven by vetted professionals.</p>
         </div>
-        <div class="img">
-          <img src="img.png" >
+        <div class="fleet-grid">
+
+          <div class="fleet-card">
+            <div class="fleet-visual" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=900&auto=format&fit=crop" alt="Economy hatchback taxi">
               <span class="fleet-badge">Fast pickup</span>
             </div>
             <div class="fleet-body">
               <div class="fleet-title-row">
                 <div>
                   <h3>Economy</h3>
-                  <div class="desc">Compact & affordable</div>
+                  <div class="desc">Compact &amp; affordable</div>
                 </div>
                 <div class="fleet-price">
                   <div class="amount">₹80</div>
@@ -1458,22 +1497,22 @@
                 <li><i class="fas fa-snowflake" aria-hidden="true"></i> A/C</li>
                 <li><i class="fas fa-shield-halved" aria-hidden="true"></i> Insured</li>
               </ul>
-              <a href="#/cities" class="btn-fleet">
+              <a href="#/cities" class="btn-fleet" onclick="window.openBookingModal('Economy'); return false;">
                 <i class="fas fa-bolt" aria-hidden="true"></i> Book Economy
               </a>
             </div>
           </div>
 
-          <div class="img">
-          <img src=""
-            
+          <div class="fleet-card">
+            <div class="fleet-visual" aria-hidden="true">
+              <img src="cab 1.png" alt="Comfort sedan taxi - Honda Amaze" style="object-fit:cover;">
               <span class="fleet-badge popular">Most popular</span>
             </div>
             <div class="fleet-body">
               <div class="fleet-title-row">
                 <div>
                   <h3>Comfort</h3>
-                  <div class="desc">Extra legroom & A/C</div>
+                  <div class="desc">Extra legroom &amp; A/C</div>
                 </div>
                 <div class="fleet-price">
                   <div class="amount">₹120</div>
@@ -1486,7 +1525,7 @@
                 <li><i class="fas fa-wifi" aria-hidden="true"></i> Wi-Fi</li>
                 <li><i class="fas fa-bottle-water" aria-hidden="true"></i> Water</li>
               </ul>
-              <a href="#/dashboard" class="btn-fleet">
+              <a href="#/cities" class="btn-fleet" onclick="window.openBookingModal('Comfort'); return false;">
                 <i class="fas fa-bolt" aria-hidden="true"></i> Book Comfort
               </a>
             </div>
@@ -1494,14 +1533,14 @@
 
           <div class="fleet-card">
             <div class="fleet-visual" aria-hidden="true">
-              <i class="fas fa-truck-pickup"></i>
+              <img src="cab 2.png" alt="Premium SUV taxi - Toyota Innova Crysta" style="object-fit:cover;">
               <span class="fleet-badge">Premium</span>
             </div>
             <div class="fleet-body">
               <div class="fleet-title-row">
                 <div>
                   <h3>Premium SUV</h3>
-                  <div class="desc">Space for groups & luggage</div>
+                  <div class="desc">Space for groups &amp; luggage</div>
                 </div>
                 <div class="fleet-price">
                   <div class="amount">₹200</div>
@@ -1514,16 +1553,17 @@
                 <li><i class="fas fa-bottle-water" aria-hidden="true"></i> Water</li>
                 <li><i class="fas fa-child" aria-hidden="true"></i> Child seat</li>
               </ul>
-              <a href="#/dashboard" class="btn-fleet">
+              <a href="#/cities" class="btn-fleet" onclick="window.openBookingModal('Premium SUV'); return false;">
                 <i class="fas fa-bolt" aria-hidden="true"></i> Book Premium
               </a>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- App CTA (icon visual, no photo) -->
+    <!-- App CTA -->
     <section class="app-cta">
       <div class="app-cta-inner">
         <div>
@@ -1551,15 +1591,13 @@
           </div>
         </div>
         <div class="app-cta-visual" aria-hidden="true">
-          <i class="fas fa-mobile-screen-button"></i>
-          <h3>InstantCab in your pocket</h3>
-          <p>Book, track, and pay — all from one app.</p>
-          <span class="pill"><i class="fas fa-star" style="font-size:0.75rem;"></i> 4.96 average rating</span>
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=900&auto=format&fit=crop"
+               alt="InstantCab app on a smartphone">
         </div>
       </div>
     </section>
 
-    <!-- Testimonial (avatar initials, no photo) -->
+    <!-- Testimonial -->
     <section class="section">
       <div class="section-inner">
         <div class="testimonial">
@@ -1615,7 +1653,7 @@
           </div>
         </div>
         <div class="mission-image">
-          <img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_21_38 PM.png" alt="Taxi on an Indian city street">
+          <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=900&auto=format&fit=crop" alt="Taxi on a city street">
         </div>
       </div>
 
@@ -1639,11 +1677,11 @@
       <div class="team-grid" style="margin-bottom:80px;">
         <div class="team-card">
           <div class="team-photo"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" alt="Priya Nair, CEO"></div>
-          <div class="team-info"><h3>Priya Nair</h3><div class="role">Co-founder & CEO</div><p class="bio">Former Head of Product at Ola. Led the teams behind Ola Share and Ola Auto.</p></div>
+          <div class="team-info"><h3>Priya Nair</h3><div class="role">Co-founder &amp; CEO</div><p class="bio">Former Head of Product at Ola. Led the teams behind Ola Share and Ola Auto.</p></div>
         </div>
         <div class="team-card">
           <div class="team-photo"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" alt="Arjun Mehta, CTO"></div>
-          <div class="team-info"><h3>Arjun Mehta</h3><div class="role">Co-founder & CTO</div><p class="bio">Spent 8 years building real-time matching systems at Uber India and Ola.</p></div>
+          <div class="team-info"><h3>Arjun Mehta</h3><div class="role">Co-founder &amp; CTO</div><p class="bio">Spent 8 years building real-time matching systems at Uber India and Ola.</p></div>
         </div>
         <div class="team-card">
           <div class="team-photo"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop" alt="Kavita Reddy, COO"></div>
@@ -1651,7 +1689,7 @@
         </div>
         <div class="team-card">
           <div class="team-photo"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" alt="Vikram Singh, CSO"></div>
-          <div class="team-info"><h3>Vikram Singh</h3><div class="role">Chief Safety Officer</div><p class="bio">Former IPS officer. Built trust & safety programs at two Fortune 500 companies in India.</p></div>
+          <div class="team-info"><h3>Vikram Singh</h3><div class="role">Chief Safety Officer</div><p class="bio">Former IPS officer. Built trust &amp; safety programs at two Fortune 500 companies in India.</p></div>
         </div>
       </div>
 
@@ -1690,12 +1728,21 @@
     </div>
 
     <div class="page-body">
+      <!-- Live India Fleet Map -->
+      <div class="section-header" style="text-align:left; max-width:none; margin-bottom:16px;">
+        <h2 class="section-title" style="text-align:left;"><i class="fas fa-map-location-dot" style="color:#2563eb; margin-right:8px;"></i> Live Indian Fleet Coverage</h2>
+        <p class="section-subtitle" style="text-align:left;">Interactive map of India showing active InstantCab driver clusters across 50+ cities. Click any city pin to navigate to the trips list.</p>
+      </div>
+      <div style="border-radius:16px; overflow:hidden; border:1px solid #e5e7eb; box-shadow:0 10px 25px -5px rgba(0,0,0,0.08); margin-bottom:40px; position:relative; background:#e2e8f0;">
+        <div id="indiaCitiesMap" style="width:100%; height:420px; z-index:1;"></div>
+      </div>
+
       <div class="section-header" style="text-align:left; max-width:none;">
         <h2 class="section-title" style="text-align:left;">Flagship cities</h2>
-        <p class="section-subtitle" style="text-align:left;">Our largest markets with the fastest pickup times and fullest driver coverage.</p>
+        <p class="section-subtitle" style="text-align:left;">Our largest markets with the fastest pickup times and fullest driver coverage. Click any city to view trips.</p>
       </div>
       <div class="featured-grid">
-        <div class="city-featured" role="button" tabindex="0" onclick="window.showToast('Opening Mumbai city page…');">
+        <div class="city-featured" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Navigating to trips in Mumbai…');">
           <div class="city-featured-image">
             <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=1400&auto=format&fit=crop" alt="Mumbai skyline">
           </div>
@@ -1710,9 +1757,9 @@
             </div>
           </div>
         </div>
-        <div class="city-featured" role="button" tabindex="0" onclick="window.showToast('Opening Delhi NCR city page…');">
+        <div class="city-featured" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Navigating to trips in Delhi NCR…');">
           <div class="city-featured-image">
-            <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=900&auto=format&fit=crop" alt="Delhi India Gate">
+            <img src="cities/delhi.png" alt="Delhi India Gate">
           </div>
           <div class="city-featured-overlay"></div>
           <div class="city-featured-content">
@@ -1724,7 +1771,7 @@
             </div>
           </div>
         </div>
-        <div class="city-featured" role="button" tabindex="0" onclick="window.showToast('Opening Bengaluru city page…');">
+        <div class="city-featured" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Navigating to trips in Bengaluru…');">
           <div class="city-featured-image">
             <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=900&auto=format&fit=crop" alt="Bengaluru skyline">
           </div>
@@ -1742,7 +1789,7 @@
 
       <div class="section-header" style="text-align:left; max-width:none; margin-bottom:20px;">
         <h2 class="section-title" style="text-align:left;">All cities</h2>
-        <p class="section-subtitle" style="text-align:left;" id="cityCount">50 cities across 15 states. Filter or search to find yours.</p>
+        <p class="section-subtitle" style="text-align:left;" id="cityCount">50 cities across 15 states. Filter or click any city to view trips.</p>
       </div>
       <div class="filter-bar" id="cityFilterBar" role="tablist" aria-label="Filter cities by region">
         <button class="filter-tab active" data-region="all" role="tab" aria-selected="true">All regions</button>
@@ -1753,91 +1800,91 @@
       </div>
 
       <div class="cities-grid" id="citiesGrid">
-        <div class="city-card" data-region="north-india" data-name="delhi new delhi ncr" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_29_00 PM.png" alt="Delhi" loading="lazy"></div>
+        <div class="city-card" data-region="north-india" data-name="delhi new delhi ncr" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Delhi NCR…');">
+          <div class="city-card-image"><img src="cities/delhi.png" alt="Delhi" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Delhi NCR</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 52,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="north-india" data-name="gurugram gurgaon haryana" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_36_22 PM.png" alt="Gurugram" loading="lazy"></div>
+        <div class="city-card" data-region="north-india" data-name="gurugram gurgaon haryana" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Gurugram…');">
+          <div class="city-card-image"><img src="cities/gurugram.png" alt="Gurugram" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Gurugram</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 18,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="north-india" data-name="noida uttar pradesh" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_47_59 PM.png" alt="Noida" loading="lazy"></div>
+        <div class="city-card" data-region="north-india" data-name="noida uttar pradesh" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Noida…');">
+          <div class="city-card-image"><img src="cities/noida.png" alt="Noida" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Noida</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 12,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="north-india" data-name="jaipur rajasthan" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_53_12 PM.png" alt="Jaipur" loading="lazy"></div>
+        <div class="city-card" data-region="north-india" data-name="jaipur rajasthan" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Jaipur…');">
+          <div class="city-card-image"><img src="cities/jaipur.png" alt="Jaipur" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Jaipur</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 8,500 drivers</span></div>
         </div>
-        <div class="city-card" data-region="north-india" data-name="lucknow uttar pradesh" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_57_01 PM.png" alt="Lucknow" loading="lazy"></div>
+        <div class="city-card" data-region="north-india" data-name="lucknow uttar pradesh" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Lucknow…');">
+          <div class="city-card-image"><img src="cities/lucknow.png" alt="Lucknow" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Lucknow</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 6,200 drivers</span></div>
         </div>
-        <div class="city-card" data-region="north-india" data-name="chandigarh punjab haryana" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_01_31 PM.png" alt="Chandigarh" loading="lazy"></div>
+        <div class="city-card" data-region="north-india" data-name="chandigarh punjab haryana" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Chandigarh…');">
+          <div class="city-card-image"><img src="cities/chandigarh.png" alt="Chandigarh" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Chandigarh</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 5,400 drivers</span></div>
         </div>
 
-        <div class="city-card" data-region="west-india" data-name="mumbai maharashtra bombay" role="button" tabindex="0">
+        <div class="city-card" data-region="west-india" data-name="mumbai maharashtra bombay" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Mumbai…');">
           <div class="city-card-image"><img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=600&auto=format&fit=crop" alt="Mumbai" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Mumbai</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 45,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="west-india" data-name="pune maharashtra" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_07_26 PM.png" alt="Pune" loading="lazy"></div>
+        <div class="city-card" data-region="west-india" data-name="pune maharashtra" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Pune…');">
+          <div class="city-card-image"><img src="cities/pune.png" alt="Pune" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Pune</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 22,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="west-india" data-name="ahmedabad gujarat" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_11_00 PM.png" alt="Ahmedabad" loading="lazy"></div>
+        <div class="city-card" data-region="west-india" data-name="ahmedabad gujarat" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Ahmedabad…');">
+          <div class="city-card-image"><img src="cities/ahmedabad.png" alt="Ahmedabad" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Ahmedabad</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 14,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="west-india" data-name="surat gujarat" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_15_26 PM.png" alt="Surat" loading="lazy"></div>
+        <div class="city-card" data-region="west-india" data-name="surat gujarat" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Surat…');">
+          <div class="city-card-image"><img src="cities/surat.png" alt="Surat" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Surat</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 9,800 drivers</span></div>
         </div>
-        <div class="city-card" data-region="west-india" data-name="goa panaji" role="button" tabindex="0">
+        <div class="city-card" data-region="west-india" data-name="goa panaji" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Goa…');">
           <div class="city-card-image"><img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=600&auto=format&fit=crop" alt="Goa" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Goa</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 7,200 drivers</span></div>
         </div>
 
-        <div class="city-card" data-region="south-india" data-name="bangalore bengaluru karnataka" role="button" tabindex="0">
+        <div class="city-card" data-region="south-india" data-name="bangalore bengaluru karnataka" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Bengaluru…');">
           <div class="city-card-image"><img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=600&auto=format&fit=crop" alt="Bengaluru" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Bengaluru</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 48,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="south-india" data-name="chennai tamil nadu madras" role="button" tabindex="0">
-          <div class="city-card-image"><img src="C:\users\user\OneDrive\Documents\c.png" alt="Chennai" loading="lazy"></div>
+        <div class="city-card" data-region="south-india" data-name="chennai tamil nadu madras" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Chennai…');">
+          <div class="city-card-image"><img src="cities/chennai.png" alt="Chennai" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Chennai</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 28,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="south-india" data-name="hyderabad telangana" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_29_28 PM.png" alt="Hyderabad" loading="lazy"></div>
+        <div class="city-card" data-region="south-india" data-name="hyderabad telangana" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Hyderabad…');">
+          <div class="city-card-image"><img src="cities/hyderabad.png" alt="Hyderabad" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Hyderabad</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 32,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="south-india" data-name="kochi kerala cochin" role="button" tabindex="0">
+        <div class="city-card" data-region="south-india" data-name="kochi kerala cochin" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Kochi…');">
           <div class="city-card-image"><img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=600&auto=format&fit=crop" alt="Kochi" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Kochi</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 8,400 drivers</span></div>
         </div>
-        <div class="city-card" data-region="south-india" data-name="coimbatore tamil nadu" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_33_21 PM.png" alt="Coimbatore" loading="lazy"></div>
+        <div class="city-card" data-region="south-india" data-name="coimbatore tamil nadu" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Coimbatore…');">
+          <div class="city-card-image"><img src="cities/coimbatore.png" alt="Coimbatore" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Coimbatore</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 6,100 drivers</span></div>
         </div>
-        <div class="city-card" data-region="south-india" data-name="mysore mysuru karnataka" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_36_35 PM.png" alt="Mysuru" loading="lazy"></div>
+        <div class="city-card" data-region="south-india" data-name="mysore mysuru karnataka" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Mysuru…');">
+          <div class="city-card-image"><img src="cities/mysuru.png" alt="Mysuru" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Mysuru</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 4,200 drivers</span></div>
         </div>
 
-        <div class="city-card" data-region="east-india" data-name="kolkata west bengal calcutta" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_42_36 PM.png" alt="Kolkata" loading="lazy"></div>
+        <div class="city-card" data-region="east-india" data-name="kolkata west bengal calcutta" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Kolkata…');">
+          <div class="city-card-image"><img src="cities/kolkata.png" alt="Kolkata" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Kolkata</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 24,000 drivers</span></div>
         </div>
-        <div class="city-card" data-region="east-india" data-name="bhubaneswar odisha" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_45_31 PM.png" alt="Bhubaneswar" loading="lazy"></div>
+        <div class="city-card" data-region="east-india" data-name="bhubaneswar odisha" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Bhubaneswar…');">
+          <div class="city-card-image"><img src="cities/bhubaneswar.png" alt="Bhubaneswar" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Bhubaneswar</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 5,800 drivers</span></div>
         </div>
-        <div class="city-card" data-region="east-india" data-name="patna bihar" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_48_16 PM.png" alt="Patna" loading="lazy"></div>
+        <div class="city-card" data-region="east-india" data-name="patna bihar" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Patna…');">
+          <div class="city-card-image"><img src="cities/patna.png" alt="Patna" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Patna</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 4,500 drivers</span></div>
         </div>
-        <div class="city-card" data-region="east-india" data-name="guwahati assam" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 05_50_51 PM.png" alt="Guwahati" loading="lazy"></div>
+        <div class="city-card" data-region="east-india" data-name="guwahati assam" role="button" tabindex="0" onclick="window.location.hash='#/trips'; window.showToast('Opening trips for Guwahati…');">
+          <div class="city-card-image"><img src="cities/guwahati.png" alt="Guwahati" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Guwahati</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 3,200 drivers</span></div>
         </div>
       </div>
@@ -1860,7 +1907,7 @@
       <article class="featured-article">
         <div class="featured-image">
           <span class="featured-tag-overlay">Featured</span>
-          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1200&auto=format&fit=crop" alt="Electric taxi charging">
+          <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1200&auto=format&fit=crop" alt="Yellow taxi on a city street">
         </div>
         <div class="featured-content">
           <div class="featured-meta">
@@ -1990,7 +2037,7 @@
           <span class="job-dept eng">Engineering</span><i class="fas fa-arrow-right job-arrow" aria-hidden="true"></i>
         </div>
         <div class="job-card" role="button" tabindex="0" onclick="window.showToast('Opening: Trust & Safety Lead role…');">
-          <div><div class="job-title">Trust & Safety Lead</div><div class="job-meta"><span><i class="fas fa-location-dot" aria-hidden="true"></i> Bengaluru</span><span><i class="fas fa-briefcase" aria-hidden="true"></i> 6+ years</span><span><i class="fas fa-shield-halved" aria-hidden="true"></i> Policy, investigations</span></div></div>
+          <div><div class="job-title">Trust &amp; Safety Lead</div><div class="job-meta"><span><i class="fas fa-location-dot" aria-hidden="true"></i> Bengaluru</span><span><i class="fas fa-briefcase" aria-hidden="true"></i> 6+ years</span><span><i class="fas fa-shield-halved" aria-hidden="true"></i> Policy, investigations</span></div></div>
           <span class="job-dept ops">Operations</span><i class="fas fa-arrow-right job-arrow" aria-hidden="true"></i>
         </div>
         <div class="job-card" role="button" tabindex="0" onclick="window.showToast('Opening: Driver Experience Manager role…');">
@@ -2021,7 +2068,7 @@
 
       <article class="featured-article">
         <div class="featured-image">
-          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1200&auto=format&fit=crop" alt="Electric taxi charging">
+          <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200&auto=format&fit=crop" alt="Electric taxi charging">
         </div>
         <div class="featured-content">
           <span class="featured-tag-static">Major milestone</span>
@@ -2100,7 +2147,7 @@
                 <option>Lost item</option>
                 <option>Driver inquiry</option>
                 <option>Business sales</option>
-                <option>Press & media</option>
+                <option>Press &amp; media</option>
               </select>
             </div>
             <div class="form-row">
@@ -2138,7 +2185,7 @@
               <div class="contact-item-icon green" aria-hidden="true"><i class="fas fa-phone"></i></div>
               <div class="contact-item-info">
                 <div class="label">24/7 support line</div>
-                <div class="value"><a href="tel:+911800123456">1800-123-4567</a></div>
+                <div class="value"><a href="tel:+918079412662">+91 80794 12662</a></div>
               </div>
             </div>
             <div class="contact-item">
@@ -2158,14 +2205,14 @@
             <div class="contact-item">
               <div class="contact-item-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></div>
               <div class="contact-item-info">
-                <div class="label">Business & partnerships</div>
+                <div class="label">Business &amp; partnerships</div>
                 <div class="value"><a href="mailto:business@instantcab.in">business@instantcab.in</a></div>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-item-icon" aria-hidden="true"><i class="fas fa-newspaper"></i></div>
               <div class="contact-item-info">
-                <div class="label">Press & media</div>
+                <div class="label">Press &amp; media</div>
                 <div class="value"><a href="mailto:press@instantcab.in">press@instantcab.in</a></div>
               </div>
             </div>
@@ -2291,7 +2338,7 @@
               <button class="action-tile" onclick="window.showToast('Opening schedule ride…');"><span class="icon" aria-hidden="true"><i class="fas fa-calendar-plus"></i></span><span class="title">Schedule</span><span class="sub">Book for later</span></button>
               <button class="action-tile" onclick="window.showToast('Opening saved places…');"><span class="icon" aria-hidden="true"><i class="fas fa-bookmark"></i></span><span class="title">Saved places</span><span class="sub">Home, Work, Gym</span></button>
               <button class="action-tile" onclick="window.showToast('Opening split fare…');"><span class="icon" aria-hidden="true"><i class="fas fa-users"></i></span><span class="title">Split fare</span><span class="sub">Share with friends</span></button>
-              <button class="action-tile" onclick="window.showToast('Opening referral link…');"><span class="icon" aria-hidden="true"><i class="fas fa-gift"></i></span><span class="title">Refer & earn</span><span class="sub">Get ₹100 credit</span></button>
+              <button class="action-tile" onclick="window.showToast('Opening referral link…');"><span class="icon" aria-hidden="true"><i class="fas fa-gift"></i></span><span class="title">Refer &amp; earn</span><span class="sub">Get ₹100 credit</span></button>
             </div>
           </div>
         </aside>
@@ -2346,7 +2393,7 @@
   <section class="page" id="page-wallet">
     <div class="wallet-page">
       <div class="dash-header">
-        <div><h1>Wallet & payment methods</h1><p>Manage your InstantCab wallet balance, saved cards, and billing details.</p></div>
+        <div><h1>Wallet &amp; payment methods</h1><p>Manage your InstantCab wallet balance, saved cards, and billing details.</p></div>
       </div>
 
       <div class="wallet-hero">
@@ -2534,12 +2581,12 @@
 
     <div class="page-body">
       <div class="category-grid">
-        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-car-side"></i></div><h3>Rides & booking</h3><p>Book, modify, or cancel a trip. Learn about ride types and pricing in ₹.</p><span class="count">24 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-credit-card"></i></div><h3>Payments & billing</h3><p>Manage cards, wallet balance, receipts, and refunds.</p><span class="count">18 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div><h3>Safety & security</h3><p>Safety features, emergency help, and account security tips.</p><span class="count">15 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-user"></i></div><h3>Account & profile</h3><p>Update personal info, manage preferences, and delete your account.</p><span class="count">12 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-gift"></i></div><h3>Promotions & referrals</h3><p>Redeem promo codes, earn referral credits, and track offers.</p><span class="count">8 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
-        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-mobile-screen"></i></div><h3>App & technical</h3><p>Troubleshoot the app, GPS issues, login problems, and more.</p><span class="count">14 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-car-side"></i></div><h3>Rides &amp; booking</h3><p>Book, modify, or cancel a trip. Learn about ride types and pricing in ₹.</p><span class="count">24 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-credit-card"></i></div><h3>Payments &amp; billing</h3><p>Manage cards, wallet balance, receipts, and refunds.</p><span class="count">18 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div><h3>Safety &amp; security</h3><p>Safety features, emergency help, and account security tips.</p><span class="count">15 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-user"></i></div><h3>Account &amp; profile</h3><p>Update personal info, manage preferences, and delete your account.</p><span class="count">12 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-gift"></i></div><h3>Promotions &amp; referrals</h3><p>Redeem promo codes, earn referral credits, and track offers.</p><span class="count">8 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+        <a href="#/help" class="category-card"><div class="category-icon" aria-hidden="true"><i class="fas fa-mobile-screen"></i></div><h3>App &amp; technical</h3><p>Troubleshoot the app, GPS issues, login problems, and more.</p><span class="count">14 articles <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
       </div>
 
       <div class="section-header" style="text-align:left; max-width:none; margin-bottom:20px;">
@@ -2610,14 +2657,16 @@
   ============================================================ -->
   <section class="page" id="page-tracking">
     <div class="tracking-main">
-      <div class="map-container">
-        <img class="map-image" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2000&auto=format&fit=crop" alt="Map view of Bengaluru">
-        <div class="map-marker pickup" aria-label="Pickup location"><i class="fas fa-circle-dot" aria-hidden="true"></i></div>
-        <div class="map-marker dropoff" aria-label="Drop-off location"><i class="fas fa-location-dot" aria-hidden="true"></i></div>
-        <div class="map-marker driver" aria-label="Your driver"><i class="fas fa-taxi" aria-hidden="true"></i></div>
-        <div class="eta-badge">
+      <div class="map-container" style="position:relative; width:100%; min-height:540px; background:#e2e8f0; overflow:hidden;">
+        <div id="liveTrackingMap" style="width:100%; height:100%; min-height:540px; z-index:1;"></div>
+        <div class="eta-badge" style="position:absolute; bottom:24px; left:24px; z-index:1000; box-shadow:0 8px 24px rgba(0,0,0,0.18);">
           <div class="eta-icon" aria-hidden="true"><i class="fas fa-clock"></i></div>
-          <div><div class="eta-label">Arrives in</div><div class="eta-value">3 min</div></div>
+          <div><div class="eta-label">Arrives in</div><div class="eta-value" id="trackingLiveEta">3 min</div></div>
+        </div>
+        <div style="position:absolute; top:20px; right:20px; z-index:1000; display:flex; gap:8px;">
+          <button type="button" class="btn-sm primary" onclick="window.recenterTrackingMap();" style="box-shadow:0 4px 14px rgba(0,0,0,0.18); font-weight:700;">
+            <i class="fas fa-location-crosshairs"></i> Center Cab
+          </button>
         </div>
       </div>
 
@@ -2628,9 +2677,9 @@
             <div><div style="font-size:1.1rem; font-weight:700; color:#111827;">Rajesh K.</div><div style="font-size:0.85rem; color:#6b7280;"><i class="fas fa-star" style="color:#f59e0b;" aria-hidden="true"></i> <strong>4.97</strong> · 2,318 rides</div></div>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:8px;">
-            <button class="btn-sm outline" onclick="window.showToast('Calling Rajesh…');" style="flex-direction:column; padding:12px 8px;"><i class="fas fa-phone" aria-hidden="true"></i> Call</button>
-            <button class="btn-sm outline" onclick="window.showToast('Chat with Rajesh…');" style="flex-direction:column; padding:12px 8px;"><i class="fas fa-comment" aria-hidden="true"></i> Chat</button>
-            <button class="btn-sm outline" onclick="window.showToast('Trip link copied!');" style="flex-direction:column; padding:12px 8px;"><i class="fas fa-share" aria-hidden="true"></i> Share</button>
+            <a href="tel:+918079412662" class="btn-sm outline" style="flex-direction:column; padding:12px 8px; text-decoration:none;"><i class="fas fa-phone" aria-hidden="true"></i> Call</a>
+            <button class="btn-sm outline" onclick="window.openChatModal();" style="flex-direction:column; padding:12px 8px;"><i class="fas fa-comment" aria-hidden="true"></i> Chat</button>
+            <button class="btn-sm outline" onclick="navigator.clipboard.writeText(window.location.href); window.showToast('Trip tracking link copied to clipboard!');" style="flex-direction:column; padding:12px 8px;"><i class="fas fa-share" aria-hidden="true"></i> Share</button>
           </div>
         </div>
 
@@ -2662,6 +2711,11 @@
           <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:0.9rem;"><span style="color:#6b7280;">Booking fee</span><span style="font-weight:600;">₹20</span></div>
           <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:0.9rem;"><span style="color:#6b7280;">GST (5%)</span><span style="font-weight:600;">₹23.60</span></div>
           <div style="display:flex; justify-content:space-between; padding:14px 0 0; margin-top:8px; border-top:1px dashed #e5e7eb; font-size:1.05rem; font-weight:700;"><span>Total (fixed)</span><span style="color:#2563eb; font-size:1.25rem;">₹180</span></div>
+          
+          <div style="display:flex; flex-direction:column; gap:8px; margin-top:16px;">
+            <a href="details.html?id=CAB1029" class="btn-sm primary" style="width:100%; justify-content:center; text-decoration:none;"><i class="fas fa-receipt"></i> View Full Printable Receipt</a>
+            <button type="button" class="btn-sm outline" style="width:100%; justify-content:center; color:#ef4444; border-color:#fca5a5;" onclick="window.cancelActiveRide();"><i class="fas fa-ban"></i> Cancel Ride</button>
+          </div>
         </div>
       </aside>
     </div>
@@ -2771,7 +2825,7 @@
           </a>
           <p>Reliable, affordable taxi rides at your fingertips. Available in 50+ Indian cities.</p>
           <div class="footer-contact">
-            <a href="tel:+911800123456"><i class="fas fa-phone" aria-hidden="true"></i>1800-123-4567</a>
+            <a href="tel:+918079412662"><i class="fas fa-phone" aria-hidden="true"></i>+91 80794 12662</a>
             <a href="mailto:hello@instantcab.in"><i class="fas fa-envelope" aria-hidden="true"></i> hello@instantcab.in</a>
           </div>
           <div class="footer-socials">
@@ -3039,8 +3093,9 @@
   };
 
 })();
-
 </script>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,487 @@
+{
+  "currentUser": {
+    "id": "USR101",
+    "firstName": "Ananya",
+    "lastName": "Sharma",
+    "email": "ananya.sharma@example.in",
+    "phone": "+91 98765 43210",
+    "address": "1247, 100 Feet Road, Indiranagar, Bengaluru 560038",
+    "avatarText": "AS",
+    "memberSince": "January 2024",
+    "rating": 4.98,
+    "preferences": {
+      "smsUpdates": true,
+      "safetyNotifications": true,
+      "promoOffers": false
+    }
+  },
+  "users": [
+    {
+      "id": "USR101",
+      "firstName": "Ananya",
+      "lastName": "Sharma",
+      "email": "ananya.sharma@example.in",
+      "password": "password123",
+      "phone": "+91 98765 43210",
+      "address": "1247, 100 Feet Road, Indiranagar, Bengaluru 560038",
+      "avatarText": "AS",
+      "memberSince": "January 2024",
+      "rating": 4.98
+    }
+  ],
+  "wallet": {
+    "balance": 2779,
+    "autoReload": false,
+    "cards": [
+      {
+        "id": "card-1",
+        "bank": "HDFC Bank",
+        "last4": "4242",
+        "brand": "Visa",
+        "expiry": "08/27",
+        "holder": "Ananya Sharma",
+        "isDefault": true
+      },
+      {
+        "id": "card-2",
+        "bank": "ICICI Bank",
+        "last4": "8801",
+        "brand": "Mastercard",
+        "expiry": "03/26",
+        "holder": "Ananya Sharma",
+        "isDefault": false
+      },
+      {
+        "id": "card-3",
+        "bank": "SBI Card",
+        "last4": "1005",
+        "brand": "Rupay",
+        "expiry": "11/28",
+        "holder": "Ananya Sharma",
+        "isDefault": false
+      }
+    ],
+    "transactions": [
+      {
+        "id": "TXN-993",
+        "type": "ride",
+        "title": "Ride — banglore → chennai",
+        "subtitle": "Today, 03:24 pm · Wallet",
+        "amount": -189,
+        "date": "2026-09-30T09:54:52.224Z",
+        "method": "Wallet"
+      },
+      {
+        "id": "TXN-1376",
+        "type": "topup",
+        "title": "Wallet top-up",
+        "subtitle": "Today, 03:19 pm · HDFC Bank •••• 4242",
+        "amount": 500,
+        "date": "2026-09-30T09:49:07.653Z",
+        "method": "HDFC Bank •••• 4242"
+      },
+      {
+        "id": "TXN-1799",
+        "type": "ride",
+        "title": "Ride — Indiranagar Metro → Whitefield ITPL",
+        "subtitle": "Today, 03:18 pm · Wallet",
+        "amount": -382,
+        "date": "2026-09-30T09:48:08.791Z",
+        "method": "Wallet"
+      },
+      {
+        "id": "TXN-901",
+        "type": "ride",
+        "title": "Ride — Koramangala → MG Road",
+        "subtitle": "Today, 9:14 AM · HDFC •••• 4242",
+        "amount": -180,
+        "date": "2025-06-15T09:14:00Z",
+        "method": "HDFC •••• 4242"
+      },
+      {
+        "id": "TXN-902",
+        "type": "topup",
+        "title": "Wallet top-up",
+        "subtitle": "Yesterday, 8:02 PM · HDFC •••• 4242",
+        "amount": 500,
+        "date": "2025-06-14T20:02:00Z",
+        "method": "HDFC •••• 4242"
+      },
+      {
+        "id": "TXN-903",
+        "type": "ride",
+        "title": "Ride — Home → Cubbon Park",
+        "subtitle": "Yesterday, 6:42 PM · Wallet",
+        "amount": -220,
+        "date": "2025-06-14T18:42:00Z",
+        "method": "Wallet"
+      },
+      {
+        "id": "TXN-904",
+        "type": "referral",
+        "title": "Referral bonus — Aisha K.",
+        "subtitle": "Mar 15, 2:10 PM",
+        "amount": 100,
+        "date": "2025-03-15T14:10:00Z",
+        "method": "Referral"
+      }
+    ]
+  },
+  "rides": [
+    {
+      "id": "CAB4479",
+      "status": "on_the_way",
+      "statusLabel": "Driver on the way",
+      "pickup": "banglore",
+      "dropoff": "chennai",
+      "date": "Today",
+      "time": "03:24 pm",
+      "distanceKm": 6,
+      "durationMins": 18,
+      "vehicleClass": "Economy",
+      "vehicleModel": "Maruti Suzuki WagonR",
+      "vehicleColor": "White",
+      "plateNumber": "KA 02 TR 2110",
+      "driverName": "Vikram Singh",
+      "driverInitials": "VS",
+      "driverPhoto": "cab 1.png",
+      "driverPhone": "+91 80794 12662",
+      "driverRating": 4.89,
+      "driverTotalRides": 2260,
+      "etaMinutes": 3,
+      "ridePin": "5087",
+      "fare": {
+        "base": 50,
+        "distanceFare": 78,
+        "timeCharge": 32,
+        "bookingFee": 20,
+        "gst": 9,
+        "total": 189
+      },
+      "paymentMethod": "InstantCab Wallet"
+    },
+    {
+      "id": "CAB2312",
+      "status": "on_the_way",
+      "statusLabel": "Driver on the way",
+      "pickup": "Indiranagar Metro",
+      "dropoff": "Whitefield ITPL",
+      "date": "Today",
+      "time": "03:18 pm",
+      "distanceKm": 12.8,
+      "durationMins": 33,
+      "vehicleClass": "Comfort",
+      "vehicleModel": "Maruti Suzuki Dzire",
+      "vehicleColor": "White",
+      "plateNumber": "DL 01 AB 1234",
+      "driverName": "Rajesh K.",
+      "driverInitials": "RK",
+      "driverPhoto": "cab 1.png",
+      "driverPhone": "+91 80794 12662",
+      "driverRating": 4.97,
+      "driverTotalRides": 2765,
+      "etaMinutes": 3,
+      "ridePin": "4658",
+      "fare": {
+        "base": 80,
+        "distanceFare": 205,
+        "timeCharge": 59,
+        "bookingFee": 20,
+        "gst": 18,
+        "total": 382
+      },
+      "paymentMethod": "InstantCab Wallet"
+    },
+    {
+      "id": "CAB1029",
+      "status": "on_the_way",
+      "statusLabel": "Driver on the way",
+      "pickup": "1247, 100 Feet Road, Indiranagar, Bengaluru",
+      "dropoff": "Kempegowda International Airport (BLR)",
+      "date": "Today",
+      "time": "Just now",
+      "distanceKm": 38.5,
+      "durationMins": 45,
+      "vehicleClass": "Comfort",
+      "vehicleModel": "Maruti Suzuki Dzire",
+      "vehicleColor": "White",
+      "plateNumber": "DL 01 AB 1234",
+      "driverName": "Rajesh K.",
+      "driverInitials": "RK",
+      "driverPhoto": "cab 1.png",
+      "driverPhone": "+91 80794 12662",
+      "driverRating": 4.97,
+      "driverTotalRides": 2318,
+      "etaMinutes": 3,
+      "ridePin": "4892",
+      "fare": {
+        "base": 50,
+        "distanceFare": 240,
+        "timeCharge": 45,
+        "bookingFee": 20,
+        "gst": 25,
+        "total": 380
+      },
+      "paymentMethod": "InstantCab Wallet"
+    },
+    {
+      "id": "CAB1025",
+      "status": "completed",
+      "statusLabel": "Completed",
+      "pickup": "Koramangala 4th Block",
+      "dropoff": "MG Road Metro Station",
+      "date": "Today, 9:14 AM",
+      "time": "9:14 AM",
+      "distanceKm": 5.2,
+      "durationMins": 12,
+      "vehicleClass": "Comfort",
+      "vehicleModel": "Honda Amaze",
+      "vehicleColor": "White",
+      "plateNumber": "KA 03 MX 9021",
+      "driverName": "Rajesh K.",
+      "driverInitials": "RK",
+      "driverPhone": "+91 80794 12662",
+      "driverRating": 4.97,
+      "driverTotalRides": 2318,
+      "fare": {
+        "base": 50,
+        "distanceFare": 62.4,
+        "timeCharge": 24,
+        "bookingFee": 20,
+        "gst": 23.6,
+        "total": 180
+      },
+      "paymentMethod": "HDFC •••• 4242"
+    },
+    {
+      "id": "CAB1026",
+      "status": "completed",
+      "statusLabel": "Completed",
+      "pickup": "Home (Indiranagar)",
+      "dropoff": "Cubbon Park Entrance",
+      "date": "Yesterday, 6:42 PM",
+      "time": "6:42 PM",
+      "distanceKm": 8.4,
+      "durationMins": 18,
+      "vehicleClass": "Economy",
+      "vehicleModel": "Maruti Suzuki WagonR",
+      "vehicleColor": "Silver",
+      "plateNumber": "KA 01 EK 4410",
+      "driverName": "Suresh M.",
+      "driverInitials": "SM",
+      "driverPhone": "+91 98451 12340",
+      "driverRating": 4.88,
+      "driverTotalRides": 1420,
+      "fare": {
+        "base": 40,
+        "distanceFare": 110,
+        "timeCharge": 36,
+        "bookingFee": 20,
+        "gst": 14,
+        "total": 220
+      },
+      "paymentMethod": "InstantCab Wallet"
+    },
+    {
+      "id": "CAB1024",
+      "status": "completed",
+      "statusLabel": "Completed",
+      "pickup": "Downtown Indiranagar",
+      "dropoff": "Kempegowda International Airport",
+      "date": "June 15, 2025",
+      "time": "10:30 AM",
+      "distanceKm": 36,
+      "durationMins": 42,
+      "vehicleClass": "Comfort",
+      "vehicleModel": "Honda Amaze",
+      "vehicleColor": "White",
+      "plateNumber": "KA 05 AB 1024",
+      "driverName": "Ramesh Gowda",
+      "driverInitials": "RG",
+      "driverPhone": "+91 98860 55432",
+      "driverRating": 4.95,
+      "driverTotalRides": 3104,
+      "fare": {
+        "base": 60,
+        "distanceFare": 290,
+        "timeCharge": 40,
+        "bookingFee": 25,
+        "gst": 35,
+        "total": 450
+      },
+      "paymentMethod": "SBI Card •••• 1005"
+    },
+    {
+      "id": "CAB1027",
+      "status": "upcoming",
+      "statusLabel": "Upcoming",
+      "pickup": "Manyata Tech Park, Office",
+      "dropoff": "100 Feet Road, Indiranagar",
+      "date": "Thu, 7:30 PM",
+      "time": "7:30 PM",
+      "distanceKm": 4.2,
+      "durationMins": 14,
+      "vehicleClass": "Comfort",
+      "vehicleModel": "Hyundai Aura",
+      "vehicleColor": "Grey",
+      "plateNumber": "KA 04 NC 7812",
+      "driverName": "Priya N.",
+      "driverInitials": "PN",
+      "driverPhone": "+91 97400 98765",
+      "driverRating": 4.96,
+      "driverTotalRides": 1850,
+      "fare": {
+        "base": 50,
+        "distanceFare": 55,
+        "timeCharge": 20,
+        "bookingFee": 20,
+        "gst": 15,
+        "total": 160
+      },
+      "paymentMethod": "InstantCab Wallet"
+    },
+    {
+      "id": "CAB1028",
+      "status": "refunded",
+      "statusLabel": "Refunded",
+      "pickup": "Downtown Hyderabad",
+      "dropoff": "Rajiv Gandhi International Airport",
+      "date": "Mar 8, 11:02 AM",
+      "time": "11:02 AM",
+      "distanceKm": 42,
+      "durationMins": 55,
+      "vehicleClass": "Premium SUV",
+      "vehicleModel": "Toyota Innova Crysta",
+      "vehicleColor": "White",
+      "plateNumber": "TS 09 UB 5678",
+      "driverName": "Ravi L.",
+      "driverInitials": "RL",
+      "driverPhone": "+91 91234 56780",
+      "driverRating": 4.92,
+      "driverTotalRides": 940,
+      "fare": {
+        "base": 150,
+        "distanceFare": 580,
+        "timeCharge": 60,
+        "bookingFee": 40,
+        "gst": 60,
+        "total": 890
+      },
+      "paymentMethod": "HDFC •••• 4242"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "NOTIF-1790762092224",
+      "title": "Driver Assigned",
+      "message": "Vikram Singh (KA 02 TR 2110) accepted your ride. ETA 3 min.",
+      "pickup": "banglore",
+      "dropoff": "chennai",
+      "eta": "3 min",
+      "read": false,
+      "time": "Just now",
+      "route": "#/tracking"
+    },
+    {
+      "id": "NOTIF-1790761747653",
+      "title": "Wallet Top-up Successful",
+      "message": "₹500 added to your wallet. New balance: ₹2,968.",
+      "pickup": null,
+      "dropoff": null,
+      "eta": null,
+      "read": false,
+      "time": "Just now",
+      "route": "#/wallet"
+    },
+    {
+      "id": "NOTIF-1790761688791",
+      "title": "Driver Assigned",
+      "message": "Rajesh K. (DL 01 AB 1234) accepted your ride. ETA 3 min.",
+      "pickup": "Indiranagar Metro",
+      "dropoff": "Whitefield ITPL",
+      "eta": "3 min",
+      "read": false,
+      "time": "Just now",
+      "route": "#/tracking"
+    },
+    {
+      "id": "NOTIF-1",
+      "title": "Driver Assigned",
+      "message": "Rajesh K. (DL 01 AB 1234) is on the way in a White Dzire.",
+      "pickup": "Indiranagar",
+      "dropoff": "Airport (BLR)",
+      "eta": "3 min",
+      "read": false,
+      "time": "Just now",
+      "route": "#/tracking"
+    },
+    {
+      "id": "NOTIF-2",
+      "title": "Trip Completed",
+      "message": "You arrived at MG Road. ₹180 charged to HDFC •••• 4242.",
+      "pickup": "Koramangala",
+      "dropoff": "MG Road",
+      "eta": null,
+      "read": true,
+      "time": "Today, 9:26 AM",
+      "route": "details.html?id=CAB1025"
+    },
+    {
+      "id": "NOTIF-3",
+      "title": "Wallet Reloaded",
+      "message": "₹500 added to your InstantCab wallet successfully.",
+      "pickup": null,
+      "dropoff": null,
+      "eta": null,
+      "read": true,
+      "time": "Yesterday, 8:02 PM",
+      "route": "#/wallet"
+    }
+  ],
+  "contactInquiries": [
+    {
+      "ticketId": "TCK-14915",
+      "topic": "Ride support",
+      "name": "Ananya Sharma",
+      "email": "ananya@example.in",
+      "subject": "Left sunglasses in cab",
+      "message": "I left my black sunglasses in the backseat.",
+      "createdAt": "2026-09-30T09:49:25.135Z",
+      "status": "Open"
+    }
+  ],
+  "availableDrivers": [
+    {
+      "name": "Rajesh K.",
+      "rating": 4.97,
+      "vehicle": "Maruti Suzuki Dzire",
+      "class": "Comfort",
+      "plate": "DL 01 AB 1234",
+      "photo": "cab 1.png"
+    },
+    {
+      "name": "Arun Kumar",
+      "rating": 4.94,
+      "vehicle": "Toyota Innova Crysta",
+      "class": "Premium SUV",
+      "plate": "KA 03 MH 8844",
+      "photo": "cab 2.png"
+    },
+    {
+      "name": "Vikram Singh",
+      "rating": 4.89,
+      "vehicle": "Maruti Suzuki WagonR",
+      "class": "Economy",
+      "plate": "KA 02 TR 2110",
+      "photo": "cab 1.png"
+    },
+    {
+      "name": "Deepak Rao",
+      "rating": 4.96,
+      "vehicle": "Honda Amaze",
+      "class": "Comfort",
+      "plate": "KA 04 PB 5519",
+      "photo": "cab 1.png"
+    }
+  ]
+}
