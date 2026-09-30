@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Details</title>
+</head>
+<body>
+  <main>
+    <h1>Trip Details</h1>
+    <p><strong>Trip ID:</strong> #CAB1024</p>
+    <p><strong>From:</strong> Downtown</p>
+    <p><strong>To:</strong> Airport</p>
+    <p><strong>Date:</strong> June 15, 2025</p>
+    <p><strong>Time:</strong> 10:30 AM</p>
+    <p><strong>Status:</strong> Completed</p>
+    <p><strong>Fare:</strong> $25.00</p>
+  </main>
+  <style>
+    :root {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #17202a;
+      background: #1e78ef;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fff8df, #eef5ff);
+      background-color: rgb(106, 106, 239);
+    }
+
+    main {
+      width: min(100%, 560px);
+      padding: 36px;
+      border: 1px solid #e4e8ee;
+      border-radius: 18px;
+      background: #bba577;
+      box-shadow: 0 14px 35px rgba(28, 45, 74, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 24px;
+      color: #17202a;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+    }
+
+    p {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 0;
+      padding: 15px 0;
+      border-bottom: 1px solid #edf0f4;
+      color: #667085;
+    }
+
+    p:last-child {
+      border-bottom: 0;
+      color: #16734a;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    strong {
+      color: #27364d;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 26px 22px;
+      }
+
+      p {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  </style>
+</body>
+</html>

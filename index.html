@@ -73,6 +73,13 @@
     }
     .header-cta:hover { background: #1d4ed8; }
     .header-actions { display: flex; align-items: center; gap: 10px; }
+    .header-phone {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; font-size: 0.85rem; font-weight: 600;
+      color: #111827; border-radius: 8px; transition: background 0.15s;
+    }
+    .header-phone:hover { background: #f3f4f6; }
+    .header-phone i { color: #2563eb; font-size: 0.8rem; }
     .icon-btn {
       width: 40px; height: 40px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
@@ -951,6 +958,130 @@
     .eta-badge .eta-label { font-size: 0.72rem; color: #6b7280; font-weight: 600; text-transform: uppercase; }
     .eta-badge .eta-value { font-size: 1.35rem; font-weight: 800; color: #111827; line-height: 1.1; }
 
+    /* ============================================================
+       NOTIFICATION PAGE
+    ============================================================ */
+    .notification-card {
+      max-width: 440px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow:
+        0 20px 35px -8px rgba(0, 20, 30, 0.12),
+        0 8px 18px -6px rgba(0, 0, 0, 0.05),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      padding: 1.75rem 1.75rem 1.5rem 1.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+    .notification-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .brand-section { display: flex; align-items: center; gap: 10px; }
+    .brand-icon {
+      background: #0b2b3f; color: white;
+      width: 38px; height: 38px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 6px 12px -4px rgba(11, 43, 63, 0.25);
+    }
+    .brand-text {
+      font-weight: 600; font-size: 1.2rem;
+      letter-spacing: -0.01em; color: #0b2b3f;
+    }
+    .brand-text span {
+      font-weight: 400; color: #5b7a8c;
+      font-size: 0.9rem; margin-left: 4px;
+    }
+    .timestamp {
+      font-size: 0.8rem; font-weight: 500;
+      color: #78909c; background: #f0f4f8;
+      padding: 0.3rem 0.7rem; border-radius: 50px;
+      letter-spacing: 0.01em; white-space: nowrap;
+    }
+    .notification-card .status-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #e8f1f9; color: #1f5e8e;
+      font-size: 0.78rem; font-weight: 600;
+      padding: 0.35rem 1rem 0.35rem 0.9rem;
+      border-radius: 40px; text-transform: uppercase;
+      letter-spacing: 0.02em; margin-bottom: 1.25rem;
+      border: 1px solid rgba(31, 94, 142, 0.08);
+    }
+    .notification-card .status-badge i {
+      font-size: 0.7rem; color: #1f5e8e;
+    }
+    .notification-message {
+      font-size: 1.1rem; font-weight: 500;
+      line-height: 1.5; color: #0f2838;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em; padding-right: 0.5rem;
+    }
+    .notification-message i { color: #2273a7; margin-right: 6px; }
+    .ride-detail {
+      display: flex; flex-wrap: wrap; align-items: center;
+      background: #f7fafd; border-radius: 18px;
+      padding: 0.9rem 1.2rem; margin-bottom: 1.5rem;
+      border: 1px solid #e2eaf2;
+    }
+    .detail-item { display: flex; align-items: center; gap: 8px; }
+    .detail-item i { color: #3a6f8f; font-size: 0.95rem; width: 18px; }
+    .detail-label {
+      font-size: 0.78rem; font-weight: 500;
+      color: #5a7b8f; text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .detail-value {
+      font-size: 0.95rem; font-weight: 600;
+      color: #123c53; background: white;
+      padding: 0.25rem 0.9rem; border-radius: 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      margin-left: 2px;
+    }
+    .divider-dot { color: #b6cddd; font-size: 1.2rem; padding: 0 0.6rem; }
+    .notification-actions {
+      display: flex; gap: 0.75rem;
+      justify-content: flex-end; align-items: center;
+    }
+    .notification-card .btn {
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      font-size: 0.9rem; padding: 0.7rem 1.4rem;
+      border-radius: 40px; border: none; cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; letter-spacing: -0.01em; line-height: 1;
+    }
+    .notification-card .btn-secondary {
+      background: transparent; color: #3f657c;
+      border: 1.5px solid #d0dee9;
+    }
+    .notification-card .btn-secondary:hover {
+      background: #f2f7fc; border-color: #b8cbd9; color: #1d4d6b;
+    }
+    .notification-card .btn-primary {
+      background: #0b2b3f; color: white;
+      box-shadow: 0 8px 16px -6px rgba(11, 43, 63, 0.25);
+      border: 1.5px solid #0b2b3f;
+    }
+    .notification-card .btn-primary:hover {
+      background: #123d57; border-color: #123d57;
+      box-shadow: 0 10px 18px -6px rgba(11, 43, 63, 0.35);
+      transform: translateY(-1px);
+    }
+    .extra-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.25rem; font-size: 0.75rem; color: #7e99aa;
+      border-top: 1px solid #e9f0f5; padding-top: 1rem;
+    }
+    .extra-meta i { font-size: 0.75rem; margin-right: 4px; color: #7e99aa; }
+    .eta-tag {
+      display: flex; align-items: center; gap: 4px;
+      background: #eef5fa; padding: 0.2rem 0.8rem;
+      border-radius: 40px; font-weight: 500;
+    }
+
     /* Utility */
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #111827; color: #fff; padding: 14px 22px; border-radius: 12px; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 10px; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.3); transition: transform 0.35s; z-index: 100; }
     .toast.show { transform: translateX(-50%) translateY(0); }
@@ -1058,6 +1189,11 @@
       .trip-icon { width: 36px; height: 36px; font-size: 0.85rem; }
       .cities-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
+      .notification-card { padding: 1.5rem 1.25rem; }
+      .ride-detail { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .divider-dot { display: none; }
+      .notification-actions { flex-direction: column-reverse; width: 100%; }
+      .notification-card .btn { width: 100%; }
     }
   </style>
 </head>
@@ -1082,12 +1218,12 @@
         <a href="#/careers" data-route="careers">Careers</a>
         <a href="#/press" data-route="press">Press</a>
         <a href="#/contact" data-route="contact">Contact</a>
-        <a href="#/notification" data-route="notification">Notifications</a>
+        <a href="#/notification" data-route="notification"><img src="notification.svg" style="height: 25px;"></a>
       </nav>
       <div class="header-actions">
-        <a href="tel:+911800123456" class="header-phone" style="display:inline-flex; align-items:center; gap:8px; padding:8px 12px; font-size:0.85rem; font-weight:600; color:#111827; border-radius:8px; transition:background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='transparent'">
-          <i class="fas fa-phone" style="color:#2563eb; font-size:0.8rem;" aria-hidden="true"></i>
-          <span>1800-123-4567</span>
+        <a href="tel:+911800123456" class="header-phone">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <span>91+8079412662</span>
         </a>
         <a href="#/login" class="header-cta">
           <i class="fas fa-sign-in-alt" style="font-size: 0.8rem;" aria-hidden="true"></i>
@@ -1095,7 +1231,7 @@
         </a>
         <a href="#/profile" class="user-menu" aria-label="Your profile">
           <span class="user-menu-avatar" style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#2563eb,#1d4ed8); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700;">AS</span>
-          <span class="user-name">Ananya</span>
+          <span class="user-name"></span>
           <i class="fas fa-chevron-down chevron" aria-hidden="true"></i>
         </a>
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -1128,50 +1264,60 @@
   <section class="page" id="page-notification">
     <div class="page-hero">
       <div class="page-hero-inner">
-        <div class="hero-badge"><i class="fas fa-bell" aria-hidden="true"></i> Your notifications</div>
-        <h1>Ride updates and alerts</h1>
-        <p>Stay on top of bookings, driver updates, payments, and service messages from InstantCab.</p>
+        <div class="hero-badge"><i class="fas fa-bell" aria-hidden="true"></i> Notifications</div>
+        <h1>Your ride updates</h1>
+        <p>Stay informed about your driver, pickup, and trip status.</p>
       </div>
     </div>
 
     <div class="page-body">
-      <ul class="notification-list" role="list">
-        <li class="notification-item unread">
-          <div class="notification-icon" aria-hidden="true"><i class="fas fa-car-side"></i></div>
-          <div class="notification-body">
-            <h3>Your driver is 3 minutes away</h3>
-            <p>Rohit Sharma is approaching your pickup point in Whitefield, Bengaluru. Track them live in the app.</p>
-            <div class="notification-meta"><span><span class="notification-dot" aria-hidden="true"></span> New</span><span>Today, 9:12 AM</span></div>
-          </div>
-        </li>
+      <div class="notification-card" role="alert" aria-live="polite">
 
-        <li class="notification-item">
-          <div class="notification-icon" aria-hidden="true"><i class="fas fa-wallet"></i></div>
-          <div class="notification-body">
-            <h3>Payment received for your last trip</h3>
-            <p>₹412.80 has been credited to your Wallet. Your receipt is ready to download from Trip Details.</p>
-            <div class="notification-meta"><span>Yesterday, 8:45 PM</span></div>
+        <div class="notification-header">
+          <div class="brand-section">
+            <div class="brand-icon"><i class="fas fa-car-side"></i></div>
+            <div class="brand-text">Instant Cab<span>· Ride</span></div>
           </div>
-        </li>
+          <div class="timestamp" title="Just now">
+            <i class="far fa-clock" style="margin-right: 5px; font-size: 0.7rem;"></i> just now
+          </div>
+        </div>
 
-        <li class="notification-item unread">
-          <div class="notification-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
-          <div class="notification-body">
-            <h3>Safety check completed</h3>
-            <p>We checked your recent ride and everything looks good. Your trip support history has been updated.</p>
-            <div class="notification-meta"><span><span class="notification-dot" aria-hidden="true"></span> New</span><span>Monday, 11:20 AM</span></div>
-          </div>
-        </li>
+        <div class="status-badge">
+          <i class="fas fa-circle"></i> DRIVER ASSIGNED
+        </div>
 
-        <li class="notification-item">
-          <div class="notification-icon" aria-hidden="true"><i class="fas fa-gift"></i></div>
-          <div class="notification-body">
-            <h3>Weekend offer unlocked</h3>
-            <p>Enjoy 10% off on your next two rides with InstantCab Plus. Valid until Sunday midnight.</p>
-            <div class="notification-meta"><span>Last week</span></div>
+        <div class="notification-message">
+          <i class="fas fa-check-circle"></i> Your driver is on the way.
+        </div>
+
+        <div class="ride-detail">
+          <div class="detail-item">
+            <i class="fas fa-map-pin"></i>
+            <span class="detail-label">Pickup</span>
+            <span class="detail-value">Times Sq</span>
           </div>
-        </li>
-      </ul>
+          <div class="divider-dot"><i class="fas fa-arrow-right"></i></div>
+          <div class="detail-item">
+            <i class="fas fa-flag-checkered"></i>
+            <span class="detail-label">Drop</span>
+            <span class="detail-value">JFK Airport</span>
+          </div>
+        </div>
+        <div class="notification-actions">
+  <a href="details.html" class="btn btn-secondary">
+    <i class="fas fa-info-circle"></i> Details
+  </a>
+  <a href="tel:91+8079412662" class="btn btn-primary">
+    <i class="fas fa-phone-alt"></i> Contact
+  </a>
+</div>
+        <div class="extra-meta">
+          <div class="eta-tag"><i class="fas fa-hourglass-half"></i> ETA 4 min</div>
+          <div><i class="fas fa-car"></i> Black Toyota Camry · 7ABC123</div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -1201,9 +1347,11 @@
               <i class="fas fa-location-dot" aria-hidden="true"></i>
               <input id="dropoff" type="text" placeholder="Where to?" autocomplete="off">
             </label>
-            <button type="submit" class="btn-find">
-              <i class="fas fa-search" aria-hidden="true"></i> Find taxi
-            </button>
+            <div class="botton-action">
+              <a href="#/cities" class="btn btn-secondary">
+                <i class="fas fa-circle-dot" aria-hidden="true"></i> find Cab
+              </a>
+            </div>
           </form>
           <div class="hero-actions">
             <a href="tel:+911800123456" class="btn-secondary">
@@ -1289,10 +1437,8 @@
           <h2 class="section-title">Pick the ride that fits your day</h2>
           <p class="section-subtitle">Well-maintained, sanitised taxis — inspected daily and driven by vetted professionals.</p>
         </div>
-        <div class="fleet-grid">
-          <div class="fleet-card">
-            <div class="fleet-visual" aria-hidden="true">
-              <i class="fas fa-car-side"></i>
+        <div class="img">
+          <img src="img.png" >
               <span class="fleet-badge">Fast pickup</span>
             </div>
             <div class="fleet-body">
@@ -1312,15 +1458,15 @@
                 <li><i class="fas fa-snowflake" aria-hidden="true"></i> A/C</li>
                 <li><i class="fas fa-shield-halved" aria-hidden="true"></i> Insured</li>
               </ul>
-              <a href="#/dashboard" class="btn-fleet">
+              <a href="#/cities" class="btn-fleet">
                 <i class="fas fa-bolt" aria-hidden="true"></i> Book Economy
               </a>
             </div>
           </div>
 
-          <div class="fleet-card">
-            <div class="fleet-visual" aria-hidden="true">
-              <i class="fas fa-car"></i>
+          <div class="img">
+          <img src=""
+            
               <span class="fleet-badge popular">Most popular</span>
             </div>
             <div class="fleet-body">
@@ -1608,7 +1754,7 @@
 
       <div class="cities-grid" id="citiesGrid">
         <div class="city-card" data-region="north-india" data-name="delhi new delhi ncr" role="button" tabindex="0">
-          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_29_00 PM.png"alt="Delhi" loading="lazy"></div>
+          <div class="city-card-image"><img src="D:\Downloads\ChatGPT Image Sep 28, 2026, 04_29_00 PM.png" alt="Delhi" loading="lazy"></div>
           <div class="city-card-body"><span class="flag" aria-hidden="true">🇮🇳</span><h4>Delhi NCR</h4><span class="tag"><i class="fas fa-car" aria-hidden="true"></i> 52,000 drivers</span></div>
         </div>
         <div class="city-card" data-region="north-india" data-name="gurugram gurgaon haryana" role="button" tabindex="0">
@@ -2705,8 +2851,6 @@
     'login': 'page-login'
   };
 
-  var isNavigating = false;
-
   function normalizeRoute(route) {
     var normalized = (route || '').toString().trim();
     if (!normalized) return 'home';
@@ -2727,7 +2871,7 @@
     document.querySelectorAll('#mainNav a').forEach(function (a) {
       a.classList.toggle('active', a.dataset.route === safeRoute);
     });
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    window.scrollTo(0, 0);
     var mm = document.getElementById('mobileMenu');
     if (mm) {
       mm.classList.remove('open');
@@ -2741,7 +2885,6 @@
   }
 
   function handleHash() {
-    if (isNavigating) { isNavigating = false; return; }
     var rawHash = window.location.hash || '';
     var hash = normalizeRoute(rawHash);
     navigate(hash);
@@ -2752,9 +2895,9 @@
     if (!route) return;
     var safeRoute = normalizeRoute(route);
     if (!pages[safeRoute] && safeRoute !== '404') return;
-    if (window.location.hash !== '#/' + safeRoute) {
-      isNavigating = true;
-      window.location.hash = '#/' + safeRoute;
+    var newHash = '#/' + safeRoute;
+    if (window.location.hash !== newHash) {
+      window.location.hash = newHash;
     } else {
       navigate(safeRoute);
     }
@@ -2896,6 +3039,7 @@
   };
 
 })();
+
 </script>
 
 </body>
